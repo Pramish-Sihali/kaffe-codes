@@ -3,46 +3,64 @@ import Image from 'next/image';
 import { Heart } from 'lucide-react';
 import { useState } from 'react';
 
-const coffeeProducts = [
+const teaProducts = [
   {
     id: 1,
     brand: 'LAVAZZA',
-    name: 'Lavazza Super Crema Espresso',
+    name: 'Sencha Super Green Tea Espresso',
     rating: 4,
-    reviews: 23,
+    reviews: 150,
     price: 999,
-    image: '/images/products/lavazza.png'
+    image: '/images/products/green-tea-1.png'
   },
   {
     id: 2,
     brand: 'HIGH VOLTAGE',
-    name: 'High Voltage Bones Cups - 12 Count',
+    name: 'High Voltage Green Tea - 12 Count',
     rating: 4,
     reviews: 150,
     price: 733,
-    image: '/images/products/high-voltage.png'
+    image: '/images/products/green-tea-2.png'
   },
   {
     id: 3,
-    brand: 'DEATH WISH COFFEE',
-    name: 'Organic and Fair Trade Dark Roast Whole Bean',
-    rating: 5,
-    reviews: 150,
-    price: 733,
-    image: '/images/products/death-wish.png'
-  },
-  {
-    id: 4,
-    brand: 'KICKING HORSE COFFEE',
-    name: 'Kicking Horse Coffee Kick Ass Whole Bean',
+    brand: 'ORGANIC LEAF',
+    name: 'Organic and Fair Trade Green Tea',
     rating: 4,
     reviews: 150,
     price: 733,
-    image: '/images/products/kicking-horse.png'
+    image: '/images/products/green-tea-3.png'
+  },
+  {
+    id: 4,
+    brand: 'ELITE LEAF',
+    name: 'Kicking Green Tea Premium Box',
+    rating: 4,
+    reviews: 150,
+    price: 733,
+    image: '/images/products/green-tea-4.png'
+  },
+  {
+    id: 5,
+    brand: 'LAVAZZA',
+    name: 'Premium Green Tea Special',
+    rating: 4,
+    reviews: 150,
+    price: 733,
+    image: '/images/products/green-tea-5.png'
+  },
+  {
+    id: 6,
+    brand: 'HIGH VOLTAGE',
+    name: 'High Voltage Green Tea - 12 Count',
+    rating: 4,
+    reviews: 150,
+    price: 733,
+    image: '/images/products/green-tea-6.png'
   }
 ];
 
-export default function CoffeeSelections() {
+export default function TeaSelections() {
   const [favorites, setFavorites] = useState<number[]>([]);
 
   const toggleFavorite = (id: number) => {
@@ -56,13 +74,13 @@ export default function CoffeeSelections() {
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold">Coffee Selections</h2>
-          <p className="text-gray-600 mt-1">From Harvest to Happiness</p>
+          <h2 className="text-2xl font-bold">Tea Selections</h2>
+          <p className="text-gray-600 mt-1">Tasty Sip After a Long Day</p>
         </div>
 
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {coffeeProducts.map((product) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {teaProducts.map((product) => (
             <div key={product.id} className="p-4">
               {/* Product Image */}
               <div className="relative mb-3">
@@ -113,7 +131,6 @@ export default function CoffeeSelections() {
         {/* Pagination Dots */}
         <div className="flex justify-center gap-2 mt-8">
           <div className="w-2 h-2 rounded-full bg-brown-500"></div>
-          <div className="w-2 h-2 rounded-full bg-gray-300"></div>
           <div className="w-2 h-2 rounded-full bg-gray-300"></div>
         </div>
       </div>
