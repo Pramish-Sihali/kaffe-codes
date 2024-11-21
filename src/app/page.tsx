@@ -11,6 +11,10 @@ import CoffeeSelections from '@/components/home/CoffeeSelections';
 import TeaSelections from '@/components/home/TeaSelections';
 import BuyingGuidelines from '@/components/home/BuyingGuidelines';
 import UnfilteredReviews from '@/components/home/UnfilteredReviews';
+import BrandsSection from '@/components/home/BrandsSection';
+import Footer from '@/components/layout/Footer';
+import CoffeeShopBanner from '@/components/home/CoffeeShopBanner';
+import WhatsNew from '@/components/home/WhatsNew';
 
 export default function Home() {
   return (
@@ -28,6 +32,10 @@ export default function Home() {
       <ExclusiveOffers />
       <BuyingGuidelines />
       <UnfilteredReviews />
+      <CoffeeShopBanner />
+      <WhatsNew/>
+      <BrandsSection />
+      <Footer />
     </main>
   );
 }
