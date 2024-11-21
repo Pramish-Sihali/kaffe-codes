@@ -15,6 +15,7 @@ import BrandsSection from '@/components/home/BrandsSection';
 import Footer from '@/components/layout/Footer';
 import CoffeeShopBanner from '@/components/home/CoffeeShopBanner';
 import WhatsNew from '@/components/home/WhatsNew';
+import TopPicks from '@/components/home/TopPicks';
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       <CategoryIcons />
       <FeaturedCarousel />
       <PlatformIntro />
+      <TopPicks />
       <HandPickedBrands />
       <HotCakes />
       <ExclusiveBrownie />

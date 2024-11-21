@@ -1,6 +1,6 @@
 export default function PlatformIntro() {
     return (
-      <div className="bg-black text-white py-16 px-4">
+      <div className="bg-white text-black py-16 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">
             Kaffe Code Platform To

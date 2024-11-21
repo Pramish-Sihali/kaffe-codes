@@ -23,6 +23,42 @@ const products = [
     price: 733,
     image: '/images/products/coffee-2.jpg'
   },
+  {
+    id: 3,
+    brand: 'VALTRA MACHINES',
+    name: 'High Voltage Bones Cups - 12 Count',
+    rating: 4,
+    reviews: 150,
+    price: 733,
+    image: '/images/products/coffee-2.jpg'
+  },
+  {
+    id: 3,
+    brand: 'VALTRA MACHINES',
+    name: 'High Voltage Bones Cups - 12 Count',
+    rating: 4,
+    reviews: 150,
+    price: 733,
+    image: '/images/products/coffee-2.jpg'
+  },
+  {
+    id: 5,
+    brand: 'VALTRA MACHINES',
+    name: 'High Voltage Bones Cups - 12 Count',
+    rating: 4,
+    reviews: 150,
+    price: 733,
+    image: '/images/products/coffee-2.jpg'
+  },
+  {
+    id: 6,
+    brand: 'VALTRA MACHINES',
+    name: 'High Voltage Bones Cups - 12 Count',
+    rating: 4,
+    reviews: 150,
+    price: 733,
+    image: '/images/products/coffee-2.jpg'
+  },
   // Add other products similarly
 ];
 

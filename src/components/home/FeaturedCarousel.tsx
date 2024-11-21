@@ -1,122 +1,158 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const slides = [
+// Data for carousel
+const carouselItems = [
   {
     id: 1,
     title: "Bakery Products",
-    discount: "Up to 15% OFF",
     image: "/images/carousel/bakery.jpg",
-    link: "/category/bakery"
+    discount: "Up to 15% OFF",
+    link: "/category/bakery",
+    buttonText: "Explore"
   },
   {
     id: 2,
     title: "Tea",
-    discount: "Up to 10% OFF",
     image: "/images/carousel/tea.jpg",
-    link: "/category/tea"
+    discount: "Up to 10% OFF",
+    link: "/category/tea",
+    buttonText: "Explore"
   },
   {
     id: 3,
     title: "Utensils/ Equipment and Machinery",
-    discount: "Up to 10% OFF",
     image: "/images/carousel/equipment.jpg",
-    link: "/category/equipment"
+    discount: "Up to 10% OFF",
+    link: "/category/machinery",
+    buttonText: "Explore"
+  },
+  {
+    id: 4,
+    title: "Coffee Selection",
+    image: "/images/carousel/coffee.jpg",
+    discount: "Up to 20% OFF",
+    link: "/category/coffee",
+    buttonText: "Explore"
+  },
+  {
+    id: 5,
+    title: "Special Brownies",
+    image: "/images/carousel/bakery.jpg",
+    discount: "Up to 25% OFF",
+    link: "/category/brownies",
+    buttonText: "Explore"
   }
 ];
 
 export default function FeaturedCarousel() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
 
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
+      handleNext();
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, currentIndex]);
 
-  const nextSlide = () => {
+  const handlePrev = () => {
     setIsAutoPlaying(false);
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setCurrentIndex((prev) => 
+      prev === 0 ? carouselItems.length - 3 : prev - 1
+    );
   };
 
-  const prevSlide = () => {
-    setIsAutoPlaying(false);
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  const handleNext = () => {
+    setCurrentIndex((prev) => 
+      prev === carouselItems.length - 3 ? 0 : prev + 1
+    );
   };
 
   return (
-    <div className="relative w-full h-[300px] md:h-[500px] overflow-hidden bg-black">
-      <div 
-        className="flex h-full transition-transform duration-500 ease-out"
-        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-      >
-        {slides.map((slide) => (
-          <div key={slide.id} className="relative w-full h-full flex-shrink-0">
-            <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent z-10" />
-            <Image 
-              src={slide.image} 
-              alt={slide.title}
-              fill
-              className="object-cover object-center"
-              priority
-            />
-            <div className="absolute inset-0 z-20 flex items-center">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                <div className="max-w-lg">
-                  <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-                    {slide.title}
-                  </h2>
-                  <p className="text-xl md:text-3xl text-white mb-8">
-                    {slide.discount}
-                  </p>
-                  <button className="bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-100">
-                    Explore
-                  </button>
+    <section className="relative bg-gray-50 py-8">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="relative">
+          {/* Carousel Container */}
+          <div className="overflow-hidden">
+            <div 
+              className="flex transition-transform duration-500 ease-out gap-6"
+              style={{ transform: `translateX(-${currentIndex * 33.33}%)` }}
+            >
+              {carouselItems.map((item) => (
+                <div 
+                  key={item.id}
+                  className="min-w-[calc(33.33%-16px)] relative group"
+                >
+                  <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent">
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="text-white text-xl font-bold mb-2">
+                          {item.title}
+                        </h3>
+                        <p className="text-white/90 text-sm mb-4">
+                          {item.discount}
+                        </p>
+                        <Link 
+                          href={item.link}
+                          className="inline-block bg-white text-black px-6 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+                        >
+                          {item.buttonText}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
 
-      {/* Navigation Buttons */}
-      <div className="absolute inset-0 flex items-center justify-between px-4 z-30">
-        <button 
-          onClick={prevSlide}
-          className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-        <button 
-          onClick={nextSlide}
-          className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
-        >
-          <ChevronRight className="h-6 w-6" />
-        </button>
-      </div>
-
-      {/* Slide Indicators */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
-        {slides.map((_, index) => (
+          {/* Navigation Buttons */}
           <button
-            key={index}
-            onClick={() => {
-              setCurrentSlide(index);
-              setIsAutoPlaying(false);
-            }}
-            className={`w-2 h-2 rounded-full transition-colors ${
-              index === currentSlide ? 'bg-white' : 'bg-white/50'
-            }`}
-          />
-        ))}
+            onClick={handlePrev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+
+          <button
+            onClick={handleNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+
+          {/* Pagination Dots */}
+          <div className="flex justify-center gap-2 mt-6">
+            {Array.from({ length: carouselItems.length - 2 }).map((_, index) => (
+              <button
+                key={index}
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  index === currentIndex 
+                    ? 'bg-gray-800' 
+                    : 'bg-gray-300'
+                }`}
+                onClick={() => {
+                  setCurrentIndex(index);
+                  setIsAutoPlaying(false);
+                }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
