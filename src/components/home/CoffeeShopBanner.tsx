@@ -13,7 +13,7 @@ export default function CoffeeShopBanner() {
           </div>
           <div className="relative w-48 h-48">
             <Image
-              src="/images/coffee-cup.png"
+              src="/images/logo.png"
               alt="Coffee Cup"
               fill
               className="object-contain"
@@ -26,7 +26,7 @@ export default function CoffeeShopBanner() {
         {[...Array(8)].map((_, i) => (
           <Image
             key={i}
-            src="/images/coffee-bean.png"
+            src="/images/logo.png"
             alt="Coffee Bean"
             width={24}
             height={24}

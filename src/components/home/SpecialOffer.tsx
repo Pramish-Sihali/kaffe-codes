@@ -15,7 +15,7 @@ export default function SpecialOffer() {
             GET 50% OFF
           </span>
           <Image
-            src="/images/specials/cake.png"
+            src="/images/offer.jpg"
             alt="Special Offer"
             width={120}
             height={80}

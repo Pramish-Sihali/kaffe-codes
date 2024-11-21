@@ -6,19 +6,19 @@ const offers = [
   {
     id: 1,
     title: "A bright spot: Budge-proof concealers",
-    image: "/images/offers/concealer.jpg",
+    image: "/images/offer.jpg",
     discount: "UP TO 25% Off",
   },
   {
     id: 2,
     title: "Jura ENA8 Metropolitian Black",
-    image: "/images/offers/coffee-machine.jpg",
+    image: "/images/offer.jpg",
     discount: "UP TO 25% Off",
   },
   {
     id: 3,
     title: "Korean makeup picks for the face, eyes & lips",
-    image: "/images/offers/korean-set.jpg",
+    image: "/images/offer.jpg",
     discount: "UP TO 25% Off",
   },
 ];
@@ -85,17 +85,17 @@ export default function ExclusiveOffers() {
                 {
                   title: "Kaffe Codes Gift Box",
                   description: "Get the perfect Gift for your love",
-                  image: "/images/gifts/gift-box.png"
+                  image: "/images/gift1.jpg"
                 },
                 {
                   title: "Gift Card",
                   description: "Get the perfect Gift for your love",
-                  image: "/images/gifts/gift-card.png"
+                  image: "/images/gift1.jpg"
                 },
                 {
                   title: "Corporate Vouchers",
                   description: "Get the perfect Gift for your love",
-                  image: "/images/gifts/voucher.png"
+                  image: "/images/gift1.jpg"
                 }
               ].map((gift, index) => (
                 <div 
