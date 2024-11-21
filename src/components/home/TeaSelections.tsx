@@ -11,7 +11,7 @@ const teaProducts = [
     rating: 4,
     reviews: 150,
     price: 999,
-    image: '/images/products/green-tea-1.png'
+    image: '/images/tea1.jpg'
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const teaProducts = [
     rating: 4,
     reviews: 150,
     price: 733,
-    image: '/images/products/green-tea-2.png'
+   image: '/images/tea2.jpg'
   },
   {
     id: 3,
@@ -29,35 +29,9 @@ const teaProducts = [
     rating: 4,
     reviews: 150,
     price: 733,
-    image: '/images/products/green-tea-3.png'
+   image: '/images/tea2.jpg'
   },
-  {
-    id: 4,
-    brand: 'ELITE LEAF',
-    name: 'Kicking Green Tea Premium Box',
-    rating: 4,
-    reviews: 150,
-    price: 733,
-    image: '/images/products/green-tea-4.png'
-  },
-  {
-    id: 5,
-    brand: 'LAVAZZA',
-    name: 'Premium Green Tea Special',
-    rating: 4,
-    reviews: 150,
-    price: 733,
-    image: '/images/products/green-tea-5.png'
-  },
-  {
-    id: 6,
-    brand: 'HIGH VOLTAGE',
-    name: 'High Voltage Green Tea - 12 Count',
-    rating: 4,
-    reviews: 150,
-    price: 733,
-    image: '/images/products/green-tea-6.png'
-  }
+
 ];
 
 export default function TeaSelections() {

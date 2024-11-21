@@ -11,7 +11,7 @@ const coffeeProducts = [
     rating: 4,
     reviews: 23,
     price: 999,
-    image: '/images/products/lavazza.png'
+    image: '/images/coff1.jpg'
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const coffeeProducts = [
     rating: 4,
     reviews: 150,
     price: 733,
-    image: '/images/products/high-voltage.png'
+ image: '/images/coff2.jpg'
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const coffeeProducts = [
     rating: 5,
     reviews: 150,
     price: 733,
-    image: '/images/products/death-wish.png'
+    image: '/images/coff1.jpg'
   },
   {
     id: 4,
@@ -38,7 +38,7 @@ const coffeeProducts = [
     rating: 4,
     reviews: 150,
     price: 733,
-    image: '/images/products/kicking-horse.png'
+   image: '/images/coff2.jpg'
   }
 ];
 
