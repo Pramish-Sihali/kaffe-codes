@@ -1,6 +1,6 @@
 "use client";
 import Image from 'next/image';
-import { PlayCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { PlayCircle } from 'lucide-react';
 
 const reviews = [
   {

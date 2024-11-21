@@ -95,7 +95,7 @@ export default function BrandSelection() {
         <div className="text-center mb-12">
           <h2 className="text-2xl font-bold mb-4">Brands We Work With</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            We work with some of the world's most exciting brands across a vast range of categories to create 
+            We work with some of the world&apos; most exciting brands across a vast range of categories to create 
             better brand positioning and brand conceived innovation.
           </p>
         </div>

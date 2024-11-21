@@ -61,7 +61,7 @@ export default function Footer() {
               <h3 className="text-lg font-bold mb-4">Working Hours</h3>
               <p className="text-gray-400 mb-4">Monday - Friday: 9:00 AM - 6:00 PM</p>
               
-              <h3 className="text-lg font-bold mb-4">Let's Join To Our Newsletters</h3>
+              <h3 className="text-lg font-bold mb-4">Let&apos; Join To Our Newsletters</h3>
               <div className="flex">
                 <input
                   type="email"
