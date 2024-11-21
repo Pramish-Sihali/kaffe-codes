@@ -8,11 +8,12 @@ const reviews = [
     mainImage: "/images/reviews/main-review.jpg",
     smallImages: [
       "/images/reviews/coffee-1.jpg",
-      "/images/reviews/product-1.jpg",
-      "/images/reviews/cake-1.jpg",
-      "/images/reviews/coffee-2.jpg",
-      "/images/reviews/product-2.jpg",
-      "/images/reviews/product-3.jpg",
+      "/images/reviews/coffee-1.jpg",
+      "/images/reviews/coffee-1.jpg",
+      "/images/reviews/coffee-1.jpg",
+      "/images/reviews/coffee-1.jpg",
+      "/images/reviews/coffee-1.jpg",
+     
     ]
   }
 ];

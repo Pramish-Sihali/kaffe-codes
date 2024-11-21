@@ -6,13 +6,13 @@ export default function WhatsNew() {
   return (
     <section className="py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-2xl font-bold text-center mb-8">WHT'S NEW IN KAFFE CODES?</h2>
+        <h2 className="text-2xl font-bold text-center mb-8">WHAT'S NEW IN KAFFE CODES?</h2>
         
         <div className="relative bg-white rounded-lg p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="relative">
               <Image
-                src="/images/products/corffaa.jpg"
+                src="/images/brownies/cake3.jpg"
                 alt="CORFFAA"
                 width={400}
                 height={400}

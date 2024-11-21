@@ -6,7 +6,7 @@ export default function Footer() {
             {/* Logo and Info */}
             <div className="md:col-span-1">
               <div className="mb-4">
-                <img src="/logo.png" alt="Kaffe Codes" className="h-8" />
+                <img src="/images/logo.png" alt="Kaffe Codes" className="h-8" />
               </div>
               <p className="text-gray-400 mb-4">
                 Kaffe Codes is the platform to run a successful online business in Nepal.
