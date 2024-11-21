@@ -1,10 +1,10 @@
-// src/app/page.tsx
 import Navbar from '@/components/home/Navbar';
 import CategoryIcons from '@/components/home/CategoryIcons';
 import FeaturedCarousel from '@/components/home/FeaturedCarousel';
 import PlatformIntro from '@/components/home/PlatformIntro';
-import TopPicks from '@/components/home/TopPicks';
-import CategoriesSection from '@/components/home/CategoriesSection';
+import HandPickedBrands from '@/components/home/HandPickedBrands';
+import ExclusiveBrownie from '@/components/home/ExclusiveBrownie';
+import HotCakes from '@/components/home/HotCakes';
 
 export default function Home() {
   return (
@@ -13,9 +13,9 @@ export default function Home() {
       <CategoryIcons />
       <FeaturedCarousel />
       <PlatformIntro />
-      <TopPicks />
-      <CategoriesSection />
+      <HandPickedBrands />
+      <HotCakes />
+      <ExclusiveBrownie />
     </main>
   );
 }
-
