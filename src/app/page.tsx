@@ -16,6 +16,7 @@ import Footer from '@/components/layout/Footer';
 import CoffeeShopBanner from '@/components/home/CoffeeShopBanner';
 import WhatsNew from '@/components/home/WhatsNew';
 import TopPicks from '@/components/home/TopPicks';
+import CategoriesSection from '@/components/home/CategoriesSection';
 
 export default function Home() {
   return (
@@ -25,9 +26,10 @@ export default function Home() {
       <FeaturedCarousel />
       <PlatformIntro />
       <TopPicks />
+      <CategoriesSection/>
       <HandPickedBrands />
-      <HotCakes />
       <ExclusiveBrownie />
+      <HotCakes />
       <BestMachinery />
       <CoffeeSelections />
       <TeaSelections />

@@ -35,7 +35,7 @@ const categories = [
     id: 5,
     name: 'Machinery',
     discount: 'Up To 25% Off On Entire Range',
-    image: '/images/categories/machinery.jpg',
+    image: '/images/categories/equipment.jpg',
     link: '/category/machinery'
   }
 ];

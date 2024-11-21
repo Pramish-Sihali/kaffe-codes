@@ -11,7 +11,7 @@ const brownies = [
     rating: 4,
     reviews: 23,
     price: 999,
-    image: '/images/brownies/chocolate-mint.jpg'
+    image: '/images/brownies/cake1.jpg'
   },
   // Add other brownies...
 ];
