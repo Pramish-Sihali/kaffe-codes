@@ -1,7 +1,28 @@
 "use client";
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
+interface CoffeeBean {
+  id: number;
+  top: string;
+  left: string;
+  delay: string;
+}
+
 export default function CoffeeShopBanner() {
+  const [coffeeBeans, setCoffeeBeans] = useState<CoffeeBean[]>([]);
+
+  // Generate coffee bean positions on client side only
+  useEffect(() => {
+    const beans: CoffeeBean[] = Array.from({ length: 8 }, (_, index) => ({
+      id: index,
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      delay: `${Math.random() * 2}s`
+    }));
+    setCoffeeBeans(beans);
+  }, []);
+
   return (
     <div className="relative h-48 bg-brown-900 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 h-full relative z-10">
@@ -13,7 +34,7 @@ export default function CoffeeShopBanner() {
           </div>
           <div className="relative w-48 h-48">
             <Image
-              src="/images/logo.png"
+              src="/images/coffee-cup.png"
               alt="Coffee Cup"
               fill
               className="object-contain"
@@ -21,22 +42,27 @@ export default function CoffeeShopBanner() {
           </div>
         </div>
       </div>
-      {/* Coffee beans floating animation */}
+
+      {/* Coffee beans animation */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(8)].map((_, i) => (
-          <Image
-            key={i}
-            src="/images/logo.png"
-            alt="Coffee Bean"
-            width={24}
-            height={24}
-            className={`absolute animate-float opacity-50`}
+        {coffeeBeans.map((bean) => (
+          <div
+            key={bean.id}
+            className="absolute animate-float opacity-50"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
+              top: bean.top,
+              left: bean.left,
+              animationDelay: bean.delay,
             }}
-          />
+          >
+            <Image
+              src="/images/coffee-bean.png"
+              alt="Coffee Bean"
+              width={24}
+              height={24}
+              className="w-6 h-6"
+            />
+          </div>
         ))}
       </div>
     </div>
