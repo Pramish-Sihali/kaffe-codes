@@ -18,6 +18,7 @@ import WhatsNew from '@/components/home/WhatsNew';
 import TopPicks from '@/components/home/TopPicks';
 import CategoriesSection from '@/components/home/CategoriesSection';
 import ProductSelection from '@/components/home/ProductSelection';
+import SpecialOffer from '@/components/home/SpecialOffer';
 
 export default function Home() {
   return (
@@ -32,6 +33,7 @@ export default function Home() {
       <ExclusiveBrownie />
       <HotCakes />
       <BestMachinery />
+      <SpecialOffer />
       {/* <CoffeeSelections />
       <TeaSelections /> */}
       <ProductSelection/>

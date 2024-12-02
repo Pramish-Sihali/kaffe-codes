@@ -128,7 +128,7 @@ export default function ProductSelections() {
 
       {/* Background Image - Positioned fixed to cover both sections */}
       <div className="fixed inset-0 -z-10 pointer-events-none">
-        <div className="absolute inset-0 bg-[url('/images/7.png')] bg-cover opacity-5" />
+        <div className="absolute inset-0 bg-[url('/images/beans.png')] bg-cover opacity-5" />
         <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-white" />
       </div>
     </div>

@@ -9,7 +9,7 @@ const carouselItems = [
   {
     id: 1,
     title: "Bakery Products",
-    image: "/images/carousel/bakery.jpg",
+    image: "/images/carousel/bakery.png",
     discount: "Up to 15% OFF",
     link: "/category/bakery",
     buttonText: "Explore"
@@ -17,7 +17,7 @@ const carouselItems = [
   {
     id: 2,
     title: "Tea",
-    image: "/images/carousel/tea.jpg",
+    image: "/images/carousel/tea.png",
     discount: "Up to 10% OFF",
     link: "/category/tea",
     buttonText: "Explore"
