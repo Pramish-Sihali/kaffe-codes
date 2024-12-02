@@ -7,8 +7,8 @@ import HandPickedBrands from '@/components/home/HandPickedBrands';
 import HotCakes from '@/components/home/HotCakes';
 import ExclusiveBrownie from '@/components/home/ExclusiveBrownie';
 import BestMachinery from '@/components/home/BestMachinery';
-import CoffeeSelections from '@/components/home/CoffeeSelections';
-import TeaSelections from '@/components/home/TeaSelections';
+// import CoffeeSelections from '@/components/home/CoffeeSelections';
+// import TeaSelections from '@/components/home/TeaSelections';
 import BuyingGuidelines from '@/components/home/BuyingGuidelines';
 import UnfilteredReviews from '@/components/home/UnfilteredReviews';
 import BrandsSection from '@/components/home/BrandsSection';
@@ -17,6 +17,7 @@ import CoffeeShopBanner from '@/components/home/CoffeeShopBanner';
 import WhatsNew from '@/components/home/WhatsNew';
 import TopPicks from '@/components/home/TopPicks';
 import CategoriesSection from '@/components/home/CategoriesSection';
+import ProductSelection from '@/components/home/ProductSelection';
 
 export default function Home() {
   return (
@@ -31,8 +32,9 @@ export default function Home() {
       <ExclusiveBrownie />
       <HotCakes />
       <BestMachinery />
-      <CoffeeSelections />
-      <TeaSelections />
+      {/* <CoffeeSelections />
+      <TeaSelections /> */}
+      <ProductSelection/>
       <ExclusiveOffers />
       <BuyingGuidelines />
       <UnfilteredReviews />
