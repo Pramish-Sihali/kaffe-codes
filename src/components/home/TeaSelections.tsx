@@ -1,113 +1,81 @@
-"use client";
 import Image from 'next/image';
-import { Heart } from 'lucide-react';
-import { useState } from 'react';
+import ProductCard from './ProductCard';
 
 const teaProducts = [
   {
-    id: 1,
-    brand: 'LAVAZZA',
-    name: 'Sencha Super Green Tea Espresso',
+    id: 5,
+    brand: "LAVAZZA",
+    name: "Lavazza Super Crema Espresso",
     rating: 4,
-    reviews: 150,
+    reviews: 999,
     price: 999,
-    image: '/images/tea1.jpg'
+    image: "/images/tea1.jpg"
   },
   {
-    id: 2,
-    brand: 'HIGH VOLTAGE',
-    name: 'High Voltage Green Tea - 12 Count',
+    id: 6,
+    brand: "HIGH VOLTAGE",
+    name: "High Voltage Bones",
     rating: 4,
-    reviews: 150,
+    reviews: 733,
     price: 733,
-   image: '/images/tea2.jpg'
+    image: "/images/tea2.jpg"
   },
   {
-    id: 3,
-    brand: 'ORGANIC LEAF',
-    name: 'Organic and Fair Trade Green Tea',
+    id: 7,
+    brand: "ORGANIC AND FAIR TRADE",
+    name: "Organic and Fair Trade Dark Roast",
     rating: 4,
-    reviews: 150,
+    reviews: 733,
     price: 733,
-   image: '/images/tea2.jpg'
+    image: "/images/tea1.jpg"
   },
-
+  {
+    id: 8,
+    brand: "LAVAZZA",
+    name: "Lavazza Super Crema",
+    rating: 4,
+    reviews: 999,
+    price: 999,
+    image: "/images/tea2.jpg"
+  }
 ];
 
-export default function TeaSelections() {
-  const [favorites, setFavorites] = useState<number[]>([]);
-
-  const toggleFavorite = (id: number) => {
-    setFavorites(prev => 
-      prev.includes(id) ? prev.filter(itemId => itemId !== id) : [...prev, id]
-    );
-  };
-
+const TeaSection = () => {
   return (
-    <section className="py-12 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold">Tea Selections</h2>
-          <p className="text-gray-600 mt-1">Tasty Sip After a Long Day</p>
-        </div>
+    <section className="container mx-auto px-4 mb-12">
+      {/* Section Header */}
+      <div className="text-center mb-8">
+        <h2 className="text-2xl font-semibold text-gray-900">Tea Selections</h2>
+        <p className="text-sm text-gray-600 mt-1">Time to Sip & Savor</p>
+      </div>
 
+      {/* Content Container */}
+      <div className="flex gap-8 items-stretch">
         {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {teaProducts.map((product) => (
-            <div key={product.id} className="p-4">
-              {/* Product Image */}
-              <div className="relative mb-3">
-                <Image
-                  src={product.image}
-                  alt={product.name}
-                  width={200}
-                  height={280}
-                  className="w-full h-auto object-contain"
-                />
-                <button
-                  onClick={() => toggleFavorite(product.id)}
-                  className="absolute top-2 right-2"
-                >
-                  <Heart 
-                    className={`w-6 h-6 ${
-                      favorites.includes(product.id)
-                        ? 'fill-red-500 text-red-500'
-                        : 'text-gray-400'
-                    }`}
-                  />
-                </button>
-              </div>
-
-              {/* Product Info */}
-              <div>
-                <p className="text-sm text-gray-600">{product.brand}</p>
-                <h3 className="font-medium text-gray-900 mt-1">{product.name}</h3>
-                <div className="flex items-center mt-2">
-                  <div className="flex">
-                    {[...Array(5)].map((_, index) => (
-                      <span 
-                        key={index}
-                        className={index < product.rating ? 'text-orange-400' : 'text-gray-200'}
-                      >
-                        ★
-                      </span>
-                    ))}
-                  </div>
-                  <span className="ml-2 text-sm text-gray-600">({product.reviews})</span>
-                </div>
-                <p className="mt-2 font-medium">NPR. {product.price}</p>
-              </div>
-            </div>
-          ))}
+        <div className="w-1/2">
+          <div className="grid grid-cols-2 gap-4 h-[480px] overflow-y-auto pr-2">
+            {teaProducts.map(product => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
         </div>
 
-        {/* Pagination Dots */}
-        <div className="flex justify-center gap-2 mt-8">
-          <div className="w-2 h-2 rounded-full bg-brown-500"></div>
-          <div className="w-2 h-2 rounded-full bg-gray-300"></div>
+        {/* Background Image */}
+        <div className="w-1/2">
+          <div className="h-[480px] rounded-lg overflow-hidden">
+            <Image
+              src="/images/beans2.png"
+              alt="Tea Leaves"
+              width={500}
+              height={480}
+              className="w-full h-full object-cover"
+              priority
+            />
+          </div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default TeaSection;
