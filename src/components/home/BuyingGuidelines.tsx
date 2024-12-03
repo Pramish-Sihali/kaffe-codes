@@ -7,35 +7,39 @@ const guides = [
   {
     id: 1,
     title: "Baking Gear Guide",
-    image: "/images/brownies/machine1.jpg",
+    image: "/images/guide1.png",
     duration: "4:30",
     category: "Bakery"
   },
   {
     id: 2,
     title: "Essential Gear For Your Bakery",
-    image: "/images/brownies/machine2.jpg",
+    image: "/images/guide2.png",
+
     duration: "5:15",
     category: "Bakery"
   },
   {
     id: 3,
     title: "Coffee Machines Demystified",
-    image: "/images/brownies/machine3.jpg",
+    image: "/images/guide3.png",
+
     duration: "6:45",
     category: "Coffee"
   },
   {
     id: 4,
     title: "Equip Your Kitchen",
-    image: "/images/brownies/machine1.jpg",
+    image: "/images/guide4.png",
+
     duration: "3:20",
     category: "Kitchen"
   },
   {
     id: 5,
     title: "Cafe Supplies Guide",
-    image: "/images/brownies/machine3.jpg",
+    image: "/images/guide5.png",
+
     duration: "4:50",
     category: "Cafe"
   }

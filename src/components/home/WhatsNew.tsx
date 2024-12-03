@@ -8,7 +8,7 @@ export default function WhatsNew() {
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-2xl font-bold text-center mb-8">WHAT&apos; NEW IN KAFFE CODES?</h2>
         
-        <div className="relative bg-white rounded-lg p-8">
+        <div className="relative bg-brown-100 rounded-lg p-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="relative">
               <Image

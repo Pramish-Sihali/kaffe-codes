@@ -9,7 +9,7 @@ const coffeeProducts = [
     rating: 4,
     reviews: 299,
     price: 999,
-    image: "/images/tea1.jpg"
+    image: "/images/coffee1.png"
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const coffeeProducts = [
     rating: 4,
     reviews: 733,
     price: 733,
-    image: "/images/tea2.jpg"
+    image: "/images/coffee2.png"
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ const coffeeProducts = [
     rating: 4,
     reviews: 733,
     price: 733,
-    image: "/images/tea1.jpg"
+    image: "/images/coffee3.png"
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ const coffeeProducts = [
     rating: 4,
     reviews: 733,
     price: 733,
-    image: "/images/tea1.jpg"
+    image: "/images/coffee4.png"
   }
 ];
 

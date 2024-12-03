@@ -9,7 +9,7 @@ const teaProducts = [
     rating: 4,
     reviews: 999,
     price: 999,
-    image: "/images/tea1.jpg"
+    image: "/images/tea1.png"
   },
   {
     id: 6,
@@ -18,7 +18,7 @@ const teaProducts = [
     rating: 4,
     reviews: 733,
     price: 733,
-    image: "/images/tea2.jpg"
+    image: "/images/tea2.png"
   },
   {
     id: 7,
@@ -27,7 +27,7 @@ const teaProducts = [
     rating: 4,
     reviews: 733,
     price: 733,
-    image: "/images/tea1.jpg"
+    image: "/images/tea3.png"
   },
   {
     id: 8,
@@ -36,7 +36,25 @@ const teaProducts = [
     rating: 4,
     reviews: 999,
     price: 999,
-    image: "/images/tea2.jpg"
+    image: "/images/tea4.png"
+  },
+  {
+    id: 9,
+    brand: "LAVAZZA",
+    name: "Lavazza Super Crema",
+    rating: 4,
+    reviews: 999,
+    price: 999,
+    image: "/images/tea5.png"
+  },
+  {
+    id: 10,
+    brand: "LAVAZZA",
+    name: "Lavazza Super Crema",
+    rating: 4,
+    reviews: 999,
+    price: 999,
+    image: "/images/tea6.png"
   }
 ];
 
