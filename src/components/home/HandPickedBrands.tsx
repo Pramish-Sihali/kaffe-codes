@@ -52,12 +52,12 @@ const brands = [
 ];
 
 const categories = [
-  { icon: '☕', label: 'Coffee' },
-  { icon: '🥖', label: 'Bakery' },
-  { icon: '🫖', label: 'Tea' },
-  { icon: '🍽️', label: 'Utensils' },
-  { icon: '⚙️', label: 'Machineries' },
-  { icon: '🎂', label: 'Cakes' }
+  { icon: '/images/icons/beans.svg', label: 'Coffee' },
+  { icon: '/images/icons/bakery.svg', label: 'Bakery' },
+  { icon: '/images/icons/tea.svg', label: 'Tea' },
+  { icon: '/images/icons/utensils.svg', label: 'Utensils' },
+  { icon: '/images/icons/machineries.svg', label: 'Machineries' },
+  { icon: '/images/icons/cake.svg', label: 'Cakes' }
 ];
 
 export default function HandPickedBrands() {
@@ -100,18 +100,24 @@ export default function HandPickedBrands() {
 
         {/* Category Icons */}
         <div className="flex justify-center gap-8 mb-10 overflow-x-auto no-scrollbar px-4">
-          {categories.map((category, index) => (
-            <div 
-              key={index} 
-              className="flex flex-col items-center flex-shrink-0 cursor-pointer hover:scale-105 transition-transform"
-            >
-              <div className="w-14 h-14 rounded-full bg-brown-50 hover:bg-brown-100 flex items-center justify-center mb-2 transition-colors">
-                <span className="text-2xl">{category.icon}</span>
-              </div>
-              <span className="text-sm text-gray-600 whitespace-nowrap">{category.label}</span>
-            </div>
-          ))}
-        </div>
+  {categories.map((category, index) => (
+    <div 
+      key={index} 
+      className="flex flex-col items-center flex-shrink-0 cursor-pointer hover:scale-105 transition-transform"
+    >
+      <div className="w-14 h-14 rounded-full bg-brown-50 hover:bg-brown-100 flex items-center justify-center mb-2 transition-colors">
+        <Image 
+          src={category.icon}
+          alt={category.label}
+          width={28}
+          height={28}
+          className="w-7 h-7"
+        />
+      </div>
+      <span className="text-sm text-gray-600 whitespace-nowrap">{category.label}</span>
+    </div>
+  ))}
+</div>
 
         {/* Products Carousel */}
         <div className="relative">

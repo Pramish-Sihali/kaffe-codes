@@ -8,7 +8,7 @@ export default function PlatformIntro() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentWordIndex((prevIndex) => (prevIndex + 1) % words.length);
-    }, 3000); // Change word every 3 seconds
+    }, 2000); // Reduced total time to 2 seconds per word
 
     return () => clearInterval(interval);
   }, []);
@@ -21,18 +21,21 @@ export default function PlatformIntro() {
         </h2>
         <div className="h-[48px] md:h-[56px] relative overflow-hidden">
           {words.map((word, index) => (
-            <h1
+            <div
               key={word}
-              className={`text-3xl md:text-4xl font-bold text-green-500 absolute w-full transition-transform duration-500 ease-in-out ${
-                index === currentWordIndex 
-                  ? 'translate-y-0 opacity-100' 
-                  : index < currentWordIndex 
-                    ? '-translate-y-full opacity-0'
-                    : 'translate-y-full opacity-0'
-              }`}
+              className="absolute w-full transition-all duration-400 ease-out"
+              style={{
+                opacity: currentWordIndex === index ? 1 : 0,
+                transform: `translateY(${(index - currentWordIndex) * 100}%)`,
+                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                transitionDuration: '400ms',
+                visibility: Math.abs(index - currentWordIndex) <= 1 ? 'visible' : 'hidden'
+              }}
             >
-              {word}
-            </h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-green-500">
+                {word}
+              </h1>
+            </div>
           ))}
         </div>
         <h2 className="text-2xl md:text-3xl font-bold mb-6">

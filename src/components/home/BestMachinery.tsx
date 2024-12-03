@@ -4,8 +4,8 @@ import Image from 'next/image';
 import { Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const categories = [
-  { icon: '⚙️', label: 'Machineries' },
-  { icon: '🍽️', label: 'Utensils' }
+  { icon: '/images/icons/machineries.svg', label: 'Machineries' },
+  { icon: '/images/icons/utensils.svg', label: 'Utensils' }
 ];
 
 const machines = [
@@ -91,18 +91,24 @@ export default function BestMachinery() {
 
         {/* Category Icons */}
         <div className="flex justify-center gap-8 mb-10">
-          {categories.map((category, index) => (
-            <div 
-              key={index} 
-              className="flex flex-col items-center cursor-pointer group"
-            >
-              <div className="w-16 h-16 rounded-full bg-brown-50 flex items-center justify-center mb-2 group-hover:bg-brown-100 transition-colors">
-                <span className="text-3xl">{category.icon}</span>
-              </div>
-              <span className="text-sm text-gray-600">{category.label}</span>
-            </div>
-          ))}
-        </div>
+  {categories.map((category, index) => (
+    <div 
+      key={index} 
+      className="flex flex-col items-center cursor-pointer group"
+    >
+      <div className="w-16 h-16 rounded-full bg-brown-50 flex items-center justify-center mb-2 group-hover:bg-brown-100 transition-colors">
+        <Image 
+          src={category.icon}
+          alt={category.label}
+          width={32}
+          height={32}
+          className="w-8 h-8"
+        />
+      </div>
+      <span className="text-sm text-gray-600">{category.label}</span>
+    </div>
+  ))}
+</div>
 
         {/* Products Grid/Carousel */}
         <div className="relative">

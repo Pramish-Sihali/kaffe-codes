@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const categories = [
-  { icon: '🍰', label: 'Bento Cake' },
-  { icon: '🎂', label: 'Regular Cake' },
-  { icon: '🍫', label: 'Brownies' }
+  { icon: '/images/icons/cake.svg', label: 'Bento Cake' },
+  { icon: '/images/icons/bakery.svg', label: 'Regular Cake' },
+  { icon: '/images/icons/brownies.svg', label: 'Brownies' }
 ];
 
 const cakes = [
@@ -103,7 +103,13 @@ export default function HotCakes() {
               className="flex flex-col items-center cursor-pointer group"
             >
               <div className="w-16 h-16 rounded-full bg-brown-50 flex items-center justify-center mb-2 group-hover:bg-brown-100 transition-colors">
-                <span className="text-3xl">{category.icon}</span>
+                <Image 
+                  src={category.icon}
+                  alt={category.label}
+                  width={32}
+                  height={32}
+                  className="w-8 h-8"
+                />
               </div>
               <span className="text-sm text-gray-600">{category.label}</span>
             </div>
