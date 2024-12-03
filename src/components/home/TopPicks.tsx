@@ -1,3 +1,4 @@
+// TopPicks.tsx
 "use client";
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -49,29 +50,50 @@ const topPicks: Product[] = [
     reviews: 150,
     price: 733,
     image: "/images/Top-picks/image5.png"
+  },
+  {
+    id: 6,
+    brand: 'ORGANIC MATCHA',
+    name: 'Organic Matcha Fresh Tea Powder',
+    rating: 5,
+    reviews: 150,
+    price: 733,
+    image: '/images/handpicked/image5.png'
+  },
+  {
+    id: 7,
+    brand: 'COFFEE BEANS',
+    name: 'Premium Coffee Beans Selection',
+    rating: 5,
+    reviews: 150,
+    price: 733,
+    image: '/images/handpicked/image3.png'
   }
 ];
 
 export default function TopPicks() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const maxIndex = Math.max(0, topPicks.length - 5);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      handleNext();
+      setCurrentIndex((prev) => 
+        prev >= maxIndex ? 0 : prev + 1
+      );
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [currentIndex]);
+  }, [maxIndex]);
 
   const handleNext = () => {
     setCurrentIndex((prev) => 
-      prev === topPicks.length - 4 ? 0 : prev + 1
+      prev >= maxIndex ? maxIndex : prev + 1
     );
   };
 
   const handlePrev = () => {
     setCurrentIndex((prev) => 
-      prev === 0 ? topPicks.length - 4 : prev - 1
+      prev <= 0 ? 0 : prev - 1
     );
   };
 
