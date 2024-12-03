@@ -56,7 +56,7 @@ export default function CoffeeShopBanner() {
             }}
           >
             <Image
-              src="/images/coffee-bean.png"
+              src="/images/icons/beans.svg"
               alt="Coffee Bean"
               width={24}
               height={24}

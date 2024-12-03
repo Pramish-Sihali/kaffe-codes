@@ -1,4 +1,3 @@
-// TopPicks.tsx
 "use client";
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -71,26 +70,26 @@ const topPicks: Product[] = [
   }
 ];
 
+
 export default function TopPicks() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const maxIndex = Math.max(0, topPicks.length - 5);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => 
-        prev >= maxIndex ? 0 : prev + 1
-      );
+      handleNext();
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [maxIndex]);
+  }, [currentIndex]);
+
+  const maxIndex = Math.max(0, topPicks.length - 4); // or topPicks.length - 4 for TopPicks
 
   const handleNext = () => {
     setCurrentIndex((prev) => 
       prev >= maxIndex ? maxIndex : prev + 1
     );
   };
-
+  
   const handlePrev = () => {
     setCurrentIndex((prev) => 
       prev <= 0 ? 0 : prev - 1
@@ -104,14 +103,17 @@ export default function TopPicks() {
         
         <div className="relative">
           <div className="overflow-hidden">
-            <div 
+          <div 
               className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${currentIndex * 25}%)` }}
-            >
+             style={{ 
+    transform: `translateX(-${(currentIndex * 100 / 4)}%)`
+                        }}
+                          >
+
               {topPicks.map((product) => (
                 <div 
                   key={product.id} 
-                  className="min-w-[20%] px-4"
+                  className="min-w-[25%] px-4"
                 >
                   <ProductCard 
                     product={product} 

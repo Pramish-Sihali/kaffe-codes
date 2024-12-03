@@ -104,15 +104,25 @@ export default function HandPickedBrands() {
 
   const handleNext = () => {
     setCurrentIndex((prev) => 
-      prev >= maxIndex ? maxIndex : prev + 1
+      prev === brands.length - 4 ? 0 : prev + 1
     );
   };
-
+  
   const handlePrev = () => {
     setCurrentIndex((prev) => 
-      prev <= 0 ? 0 : prev - 1
+      prev === 0 ? 0 : prev - 1
     );
   };
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => 
+        prev === brands.length - 4 ? 0 : prev + 1
+      );
+    }, 5000);
+  
+    return () => clearInterval(interval);
+  }, [currentIndex]);
 
   return (
     <section className="py-12 bg-white">
@@ -139,38 +149,43 @@ export default function HandPickedBrands() {
           ))}
         </div>
 
-        <div className="relative">
-          <div className="overflow-hidden">
-            <div 
-              className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${currentIndex * 25}%)` }}
-            >
-              {brands.map((product) => (
-                <div 
-                  key={product.id} 
-                  className="min-w-[20%] px-4"
-                >
-                  <ProductCard product={product} backgroundColor="bg-white" />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <button
-            onClick={handlePrev}
-            className="absolute -left-5 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"
-          >
-            <ChevronLeft className="w-6 h-6 text-gray-600" />
-          </button>
-          
-          <button
-            onClick={handleNext}
-            className="absolute -right-5 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"
-          >
-            <ChevronRight className="w-6 h-6 text-gray-600" />
-          </button>
+        {/* Products Carousel */}
+<div className="relative">
+  <div className="overflow-hidden">
+    <div 
+      className="flex transition-transform duration-500 ease-out gap-6"
+      style={{ transform: `translateX(-${currentIndex * (100/4)}%)` }}
+    >
+      {brands.map((product) => (
+        <div 
+          key={product.id} 
+          className="min-w-[calc(20%-18px)]"  // 25% width minus 3/4 of the gap (24px)
+        >
+          <ProductCard 
+            product={product}
+            backgroundColor="bg-white"
+          />
         </div>
-      </div>
+      ))}
+    </div>
+  </div>
+
+  {/* Navigation Arrows */}
+  <button
+    onClick={handlePrev}
+    className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
+  >
+    <ChevronLeft className="w-5 h-5 text-gray-600" />
+  </button>
+  
+  <button
+    onClick={handleNext}
+    className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
+  >
+    <ChevronRight className="w-5 h-5 text-gray-600" />
+  </button>
+</div>
+     </div>
     </section>
   );
 }
