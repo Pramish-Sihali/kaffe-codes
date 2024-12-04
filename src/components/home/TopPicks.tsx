@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ProductCard from './ProductCard';
@@ -70,7 +71,6 @@ const topPicks: Product[] = [
   }
 ];
 
-
 export default function TopPicks() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -82,43 +82,44 @@ export default function TopPicks() {
     return () => clearInterval(interval);
   }, [currentIndex]);
 
-  const maxIndex = Math.max(0, topPicks.length - 4); // or topPicks.length - 4 for TopPicks
+  const maxIndex = Math.max(0, topPicks.length - 5);
 
   const handleNext = () => {
-    setCurrentIndex((prev) => 
-      prev >= maxIndex ? maxIndex : prev + 1
+    setCurrentIndex((prev) =>
+      prev >= maxIndex ? 0 : prev + 1
     );
   };
-  
+
   const handlePrev = () => {
-    setCurrentIndex((prev) => 
-      prev <= 0 ? 0 : prev - 1
+    setCurrentIndex((prev) =>
+      prev <= 0 ? maxIndex : prev - 1
     );
   };
 
   return (
     <section className="py-8 bg-gray-100">
-      <div className="max-w-[1400px] mx-auto px-4">
+      <div className="max-w-[1200px] mx-auto px-4">
         <h2 className="text-4xl font-bold mb-12">Top Picks</h2>
         
         <div className="relative">
           <div className="overflow-hidden">
-          <div 
+            <div
               className="flex transition-transform duration-500 ease-out"
-             style={{ 
-    transform: `translateX(-${(currentIndex * 100 / 4)}%)`
-                        }}
-                          >
-
+              style={{
+                transform: `translateX(-${(currentIndex * 100 / 5)}%)`
+              }}
+            >
               {topPicks.map((product) => (
-                <div 
-                  key={product.id} 
-                  className="min-w-[25%] px-4"
+                <div
+                  key={product.id}
+                  className="min-w-[20%] px-2"
                 >
-                  <ProductCard 
-                    product={product} 
-                    backgroundColor="bg-gray-100"
-                  />
+                  <div className="max-w-[250px] mx-auto">
+                    <ProductCard
+                      product={product}
+                      backgroundColor="bg-gray-100"
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -130,7 +131,7 @@ export default function TopPicks() {
           >
             <ChevronLeft className="w-6 h-6 text-gray-600" />
           </button>
-          
+
           <button
             onClick={handleNext}
             className="absolute -right-5 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"

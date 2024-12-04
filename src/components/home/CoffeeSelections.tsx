@@ -1,4 +1,7 @@
-import React from 'react';
+"use client";
+
+import { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import ProductCard from './ProductCard';
 
@@ -41,45 +44,118 @@ const coffeeProducts = [
   }
 ];
 
-const CoffeeSelection = () => {
+export default function CoffeeSelections() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const itemsPerGroup = 4;
+  const totalGroups = Math.ceil(coffeeProducts.length / itemsPerGroup);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % totalGroups);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [totalGroups]);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % totalGroups);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + totalGroups) % totalGroups);
+  };
+
+  const getCurrentProducts = () => {
+    const startIndex = currentIndex * itemsPerGroup;
+    return coffeeProducts.slice(startIndex, startIndex + itemsPerGroup);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row">
-          {/* Left side - Coffee Beans Image */}
-          <div className="w-full lg:w-[35%] relative">
-            <div className="relative h-[400px] lg:sticky lg:top-8">
-              <div className="coffee-beans-wrapper">
+    <section className="py-12 bg-white relative overflow-hidden">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold mb-2">Coffee Selections</h2>
+          <p className="text-gray-600">From Harvest to Happiness</p>
+        </div>
+
+        <div className="flex min-h-[600px]">
+          {/* Left side with coffee beans and frame */}
+          <div className="w-1/2 relative">
+            <div className="absolute inset-0 flex items-center justify-center">
+              {/* Base layer - Coffee beans */}
+              <div className="absolute w-[600px] h-[800px]">
                 <Image
                   src="/images/coffee/beans.svg"
                   alt="Coffee Beans"
                   fill
-                  className="object-cover"
+                  className="object-contain"
+                  priority
+                />
+              </div>
+              {/* Frame layer */}
+              <div className="absolute w-[600px] h-[800px]">
+                <Image
+                  src="/images/coffee/frame.svg"
+                  alt="Coffee Frame"
+                  fill
+                  className="object-contain opacity-100"
                   priority
                 />
               </div>
             </div>
           </div>
 
-          {/* Right side - Products Grid */}
-          <div className="w-full lg:w-[65%] pl-0 lg:pl-8">
-            <div className="mb-6">
-              <h1 className="text-2xl font-semibold">Coffee Selections</h1>
-              <p className="text-sm text-gray-600">From Harvest to Happiness</p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {coffeeProducts.map((product) => (
-                <div key={product.id}>
-                  <ProductCard product={product} backgroundColor="bg-gray-50" />
+          {/* Right side with products grid */}
+          <div className="w-1/2 px-8 flex flex-col justify-center">
+            <div className="relative">
+              <div className="flex items-center">
+                <button
+                  onClick={handlePrev}
+                  className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10 mr-4"
+                >
+                  <ChevronLeft className="w-5 h-5 text-gray-600" />
+                </button>
+
+                <div className="flex-1">
+                  <div className="grid grid-cols-2 gap-4">
+                    {getCurrentProducts().map((product) => (
+                      <div key={product.id} className="w-full">
+                        <div className="max-w-[220px]">
+                          <ProductCard
+                            product={product}
+                            backgroundColor="bg-white"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
+
+                <button
+                  onClick={handleNext}
+                  className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10 ml-4"
+                >
+                  <ChevronRight className="w-5 h-5 text-gray-600" />
+                </button>
+              </div>
+
+              <div className="flex justify-center gap-2 mt-6">
+                {[...Array(totalGroups)].map((_, index) => (
+                  <button
+                    key={index}
+                    className={`w-2 h-2 rounded-full transition-colors ${
+                      index === currentIndex
+                        ? 'bg-brown-500 w-4'
+                        : 'bg-gray-300 hover:bg-brown-300'
+                    }`}
+                    onClick={() => setCurrentIndex(index)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default CoffeeSelection;
+}

@@ -90,7 +90,7 @@ const categories = [
 
 export default function HandPickedBrands() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const maxIndex = Math.max(0, brands.length - 5);
+  const maxIndex = Math.max(0, brands.length - 6);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -104,25 +104,15 @@ export default function HandPickedBrands() {
 
   const handleNext = () => {
     setCurrentIndex((prev) => 
-      prev === brands.length - 4 ? 0 : prev + 1
+      prev === brands.length - 6 ? 0 : prev + 1
     );
   };
   
   const handlePrev = () => {
     setCurrentIndex((prev) => 
-      prev === 0 ? 0 : prev - 1
+      prev === 0 ? maxIndex : prev - 1
     );
   };
-  
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => 
-        prev === brands.length - 4 ? 0 : prev + 1
-      );
-    }, 5000);
-  
-    return () => clearInterval(interval);
-  }, [currentIndex]);
 
   return (
     <section className="py-12 bg-white">
@@ -149,43 +139,55 @@ export default function HandPickedBrands() {
           ))}
         </div>
 
-        {/* Products Carousel */}
-<div className="relative">
-  <div className="overflow-hidden">
-    <div 
-      className="flex transition-transform duration-500 ease-out gap-6"
-      style={{ transform: `translateX(-${currentIndex * (100/4)}%)` }}
-    >
-      {brands.map((product) => (
-        <div 
-          key={product.id} 
-          className="min-w-[calc(20%-18px)]"  // 25% width minus 3/4 of the gap (24px)
-        >
-          <ProductCard 
-            product={product}
-            backgroundColor="bg-white"
-          />
-        </div>
-      ))}
-    </div>
-  </div>
+        <div className="relative">
+          <div className="overflow-hidden">
+            <div 
+              className="flex transition-transform duration-500 ease-out gap-6"
+              style={{ transform: `translateX(-${currentIndex * (100/6)}%)` }}
+            >
+              {brands.map((product) => (
+                <div 
+                  key={product.id} 
+                  className="min-w-[calc(16.666%-20px)]"
+                >
+                  <ProductCard 
+                    product={product}
+                    backgroundColor="bg-white"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
 
-  {/* Navigation Arrows */}
-  <button
-    onClick={handlePrev}
-    className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
-  >
-    <ChevronLeft className="w-5 h-5 text-gray-600" />
-  </button>
-  
-  <button
-    onClick={handleNext}
-    className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
-  >
-    <ChevronRight className="w-5 h-5 text-gray-600" />
-  </button>
-</div>
-     </div>
+          <button
+            onClick={handlePrev}
+            className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
+          >
+            <ChevronLeft className="w-5 h-5 text-gray-600" />
+          </button>
+          
+          <button
+            onClick={handleNext}
+            className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
+          >
+            <ChevronRight className="w-5 h-5 text-gray-600" />
+          </button>
+        </div>
+
+        {/* Dot indicators */}
+        <div className="flex justify-center mt-6 space-x-2">
+          {[...Array(maxIndex + 1)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+                currentIndex === index ? 'bg-gray-800' : 'bg-gray-300'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

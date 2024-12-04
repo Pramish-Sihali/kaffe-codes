@@ -49,8 +49,7 @@ const machines = [
     reviews: 23,
     image: "/images/machinery/machine4.svg",
     description: "Perfect for Cafes and Restaurants"
-  }
-  ,
+  },
   {
     id: 5,
     brand: "KAFFE CODES",
@@ -75,7 +74,7 @@ const machines = [
 
 export default function BestMachinery() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const maxIndex = Math.max(0, machines.length - 3);
+  const maxIndex = Math.max(0, machines.length - 4);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -89,20 +88,20 @@ export default function BestMachinery() {
 
   const handleNext = () => {
     setCurrentIndex((prev) => 
-      prev >= maxIndex ? maxIndex : prev + 1
+      prev === machines.length - 4 ? 0 : prev + 1
     );
   };
 
   const handlePrev = () => {
     setCurrentIndex((prev) => 
-      prev <= 0 ? 0 : prev - 1
+      prev === 0 ? maxIndex : prev - 1
     );
   };
 
   return (
     <section className="py-12 bg-gray-50">
       <div className="max-w-[1400px] mx-auto px-4">
-        <h2 className="text-2xl font-bold mb-8">Best Purchase on Machinery</h2>
+        <h2 className="text-2xl text-center font-bold mb-8">Best Purchase on Machinery</h2>
 
         {/* Category Icons */}
         <div className="flex justify-center gap-8 mb-10">
@@ -130,12 +129,12 @@ export default function BestMachinery() {
           <div className="overflow-hidden">
             <div 
               className="flex transition-transform duration-500 ease-out gap-6"
-              style={{ transform: `translateX(-${currentIndex * (100/3)}%)` }}
+              style={{ transform: `translateX(-${currentIndex * (100/4)}%)` }}
             >
               {machines.map((product) => (
                 <div 
                   key={product.id} 
-                  className="min-w-[calc(25%-16px)]"
+                  className="min-w-[calc(25%-18px)]"
                 >
                   <ProductCard 
                     product={product}
