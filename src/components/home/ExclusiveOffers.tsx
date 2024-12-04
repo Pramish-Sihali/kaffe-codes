@@ -6,7 +6,7 @@ const offers = [
   {
     id: 1,
     title: "A bright spot: Budge-proof concealers",
-    image: "/images/offer1.png",
+    image: "/images/offer3.png",
     discount: "UP TO 25% Off",
   },
   {
@@ -53,68 +53,71 @@ export default function ExclusiveOffers() {
           ))}
         </div>
 
-        {/* Gift Pack Section */}
-        <div className="mt-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="md:col-span-1">
-              <h3 className="text-xl font-medium mb-2">Make Your Own</h3>
-              <h2 className="text-3xl font-bold text-green-600 mb-8">Gift Pack</h2>
+       {/* Modified Gift Pack Section */}
+       <div className="mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
+            {/* Left side - Steps */}
+            <div>
+              <h3 className="text-xl font-medium">Make Your Own</h3>
+              <h2 className="text-3xl font-bold text-[#00B207] mb-8">Gift Pack</h2>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center text-sm">1</div>
-                  <span className="text-sm font-medium">FILL A BOX</span>
+                  <div className="w-6 h-6 rounded-full bg-[#00B207] text-white flex items-center justify-center text-sm font-medium">1</div>
+                  <span className="text-sm">FILL A BOX</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center text-sm">2</div>
-                  <span className="text-sm font-medium">PICK A CARD</span>
+                  <div className="w-6 h-6 rounded-full bg-[#00B207] text-white flex items-center justify-center text-sm font-medium">2</div>
+                  <span className="text-sm">PICK A CARD</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center text-sm">3</div>
-                  <span className="text-sm font-medium">SEND IT OFF</span>
+                  <div className="w-6 h-6 rounded-full bg-[#00B207] text-white flex items-center justify-center text-sm font-medium">3</div>
+                  <span className="text-sm">SEND IT OFF</span>
                 </div>
-                <Link href="#" className="inline-block mt-6 text-green-600 font-medium">
+                <Link href="#" className="inline-block mt-6 text-[#00B207] hover:underline">
                   Build a Box →
                 </Link>
               </div>
             </div>
 
-            <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Right side - Gift Options */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
                   title: "Kaffe Codes Gift Box",
                   description: "Get the perfect Gift for your love",
-                  image: "/images/coffee1.png"
+                  image: "/images/coffee1.png",
+                  bgColor: "bg-[#F2F8F2]"
                 },
                 {
                   title: "Gift Card",
                   description: "Get the perfect Gift for your love",
-                  image: "/images/Voucher1.png"
+                  image: "/images/Voucher1.png",
+                  bgColor: "bg-[#F2F8F2]"
                 },
                 {
                   title: "Corporate Vouchers",
                   description: "Get the perfect Gift for your love",
-                  image: "/images/Voucher2.png"
+                  image: "/images/Voucher2.png",
+                  bgColor: "bg-[#F2F8F2]"
                 }
               ].map((gift, index) => (
-                <Link 
-                  href="#"
+                <div 
                   key={index}
-                  className="bg-gray-50/50 p-6 rounded-2xl hover:shadow-lg transition-all group"
+                  className={`${gift.bgColor} rounded-lg overflow-hidden group cursor-pointer`}
                 >
-                  <div className="aspect-square relative mb-4">
-                    <Image
-                      src={gift.image}
-                      alt={gift.title}
-                      fill
-                      className="object-contain p-4 group-hover:scale-105 transition-transform"
-                    />
-                  </div >
-                  <div className="bg-green-600">
-
-                  <h4 className="font-medium text-center text-lg mb-1">{gift.title}</h4>
-                  <p className="text-sm text-gray-600 text-center">{gift.description}</p>
+                  <div className="p-6">
+                    <div className="aspect-square relative mb-4">
+                      <Image
+                        src={gift.image}
+                        alt={gift.title}
+                        fill
+                        className="object-contain p-4 group-hover:scale-105 transition-transform"
+                      />
+                    </div>
+                    <h4 className="font-medium text-center text-lg mb-1">{gift.title}</h4>
+                    <p className="text-sm text-gray-600 text-center">{gift.description}</p>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>

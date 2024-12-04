@@ -62,7 +62,7 @@ export default function BuyingGuidelines() {
                 key={index}
                 className="relative flex-shrink-0 w-[250px] group"
               >
-                <div className="relative h-[420px] rounded-2xl overflow-hidden">
+                <div className="relative h-[570px] rounded-2xl overflow-hidden">
                   <Image
                     src={guide.src}
                     alt={guide.title}
