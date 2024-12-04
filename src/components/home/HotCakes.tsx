@@ -60,7 +60,7 @@ const cakes = [
 
 export default function HotCakes() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const maxIndex = Math.max(0, cakes.length - 5);
+  const maxIndex = Math.max(0, cakes.length - 4);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -74,18 +74,18 @@ export default function HotCakes() {
 
   const handleNext = () => {
     setCurrentIndex((prev) => 
-      prev >= maxIndex ? maxIndex : prev + 1
+      prev >= maxIndex ? 0 : prev + 1
     );
   };
 
   const handlePrev = () => {
     setCurrentIndex((prev) => 
-      prev <= 0 ? 0 : prev - 1
+      prev <= 0 ? maxIndex : prev - 1
     );
   };
 
   return (
-    <section className="py-12 bg-slate-100">
+    <section className="py-12 bg-white">
       <div className="max-w-[1400px] mx-auto px-4">
         <h2 className="text-2xl font-bold text-center mb-8">Hot Cakes</h2>
 
@@ -114,13 +114,13 @@ export default function HotCakes() {
         <div className="relative">
           <div className="overflow-hidden">
             <div 
-              className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${currentIndex * 25}%)` }}
+              className="flex transition-transform duration-500 ease-out gap-6"
+              style={{ transform: `translateX(-${currentIndex * (100/4)}%)` }}
             >
               {cakes.map((product) => (
                 <div 
                   key={product.id} 
-                  className="min-w-[25%] px-4"
+                  className="min-w-[calc(25%-18px)]"
                 >
                   <ProductCard 
                     product={product}
@@ -133,14 +133,14 @@ export default function HotCakes() {
 
           <button
             onClick={handlePrev}
-            className="absolute -left-5 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"
+            className="absolute -left-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"
           >
             <ChevronLeft className="w-6 h-6 text-gray-600" />
           </button>
           
           <button
             onClick={handleNext}
-            className="absolute -right-5 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"
+            className="absolute -right-5 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"
           >
             <ChevronRight className="w-6 h-6 text-gray-600" />
           </button>

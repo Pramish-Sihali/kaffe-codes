@@ -46,7 +46,7 @@ export default function UnfilteredReviews() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Main Review Image */}
-          <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-100">
+          <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 ">
             <Image
               src={allImages[currentIndex]}
               alt="Main Review"

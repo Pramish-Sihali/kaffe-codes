@@ -6,12 +6,12 @@ export default function Footer() {
             {/* Logo and Info */}
             <div className="md:col-span-1">
               <div className="mb-4">
-                <img src="/images/logo2.svg" alt="Kaffe Codes" className="h-8" />
+                <img src="/images/logo2.svg" alt="Kaffe Codes" className="w-auto h-12" />
               </div>
               <p className="text-gray-400 mb-4">
                 Kaffe Codes is the platform to run a successful online business in Nepal.
               </p>
-              <p className="text-gray-400 mb-2">Bshnehopi, kathmandu</p>
+              <p className="text-gray-400 mb-2">Bishalnagar, kathmandu</p>
               <p className="text-gray-400">+977 981234578</p>
               <div className="flex space-x-4 mt-4">
                 <a href="#" className="text-gray-400 hover:text-white">

@@ -27,9 +27,9 @@ export default function Navbar() {
             <Image
               src="/images/logo.svg"
               alt="Kaffe Codes"
-              width={120}
-              height={40}
-              className="h-10 w-auto"
+              width={0}
+              height={0}
+              className="h-16 w-auto"
               priority
             />
           </Link>
