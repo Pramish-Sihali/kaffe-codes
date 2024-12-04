@@ -17,8 +17,8 @@ export default function SpecialOffer() {
           <Image
             src="/images/creamcake.png"
             alt="Special Offer"
-            width={120}
-            height={80}
+            width={200}
+            height={160}
             className="hidden md:block"
           />
         </div>

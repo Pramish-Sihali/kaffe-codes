@@ -46,7 +46,7 @@ export default function CategoriesSection() {
       <div className="max-w-[1400px] mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-8 text-green-950">Categories</h2>
         
-        <div className="grid grid-cols-6 gap-3">
+        <div className="grid grid-cols-6 gap-3 m-2">
           {/* First Row */}
           <Link 
             href={categories[0].link}
@@ -112,7 +112,7 @@ export default function CategoriesSection() {
           {/* Second Row */}
           <Link 
             href={categories[3].link}
-            className="col-span-3 relative overflow-hidden rounded-lg h-[280px]"
+            className="col-span-3 relative overflow-hidden rounded-lg h-[380px]"
           >
             <Image
               src={categories[3].image}
@@ -132,7 +132,7 @@ export default function CategoriesSection() {
           </Link>
           <Link 
             href={categories[4].link}
-            className="col-span-3 relative overflow-hidden rounded-lg h-[280px]"
+            className="col-span-3 relative overflow-hidden rounded-lg h-[380px]"
           >
             <Image
               src={categories[4].image}
