@@ -6,7 +6,7 @@ const offers = [
   {
     id: 1,
     title: "A bright spot: Budge-proof concealers",
-    image: "/images/offer3.png",
+    image: "/images/offer1.png",
     discount: "UP TO 25% Off",
   },
   {
@@ -85,7 +85,7 @@ export default function ExclusiveOffers() {
                 {
                   title: "Kaffe Codes Gift Box",
                   description: "Get the perfect Gift for your love",
-                  image: "/images/coffee1.png",
+                  image: "/images/Voucher2.png",
                   bgColor: "bg-[#F2F8F2]"
                 },
                 {

@@ -31,7 +31,6 @@ export default function UnfilteredReviews() {
     setCurrentIndex((prev) => (prev - 1 + allImages.length) % allImages.length);
   };
 
-  // Get small images array, excluding current main image
   const getSmallImages = () => {
     return allImages.filter((_, index) => index !== currentIndex);
   };
@@ -44,9 +43,9 @@ export default function UnfilteredReviews() {
           <p className="text-gray-600 mt-1">Buy after knowing your product review</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="flex gap-8 h-[500px]">
           {/* Main Review Image */}
-          <div className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 ">
+          <div className="relative w-1/2 rounded-xl overflow-hidden bg-gray-100">
             <Image
               src={allImages[currentIndex]}
               alt="Main Review"
@@ -90,11 +89,11 @@ export default function UnfilteredReviews() {
           </div>
 
           {/* Small Images Grid */}
-          <div className="grid grid-cols-3 gap-4 h-fit content-start">
+          <div className="w-1/2 grid grid-cols-3 gap-4 h-full">
             {getSmallImages().slice(0, 6).map((image, index) => (
               <div 
                 key={index} 
-                className="relative aspect-square rounded-lg overflow-hidden bg-gray-100"
+                className="relative rounded-lg overflow-hidden bg-gray-100"
               >
                 <Image
                   src={image}

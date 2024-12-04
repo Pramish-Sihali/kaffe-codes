@@ -64,7 +64,7 @@ const teaProducts = [
 
 export default function TeaSelections() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerGroup = 4;
+  const itemsPerGroup = 6;  // Changed to show all 6 items
   const totalGroups = Math.ceil(teaProducts.length / itemsPerGroup);
 
   useEffect(() => {
@@ -89,87 +89,87 @@ export default function TeaSelections() {
   };
 
   return (
-    <section className="py-12 bg-white relative overflow-hidden">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="text-center mb-16">
+    <section className="w-full bg-white relative">
+      {/* Fixed position header */}
+      <div className="w-full bg-white py-8">
+        <div className="text-center">
           <h2 className="text-3xl font-bold mb-2">Tea Selections</h2>
           <p className="text-gray-600">From Garden to Cup</p>
         </div>
+      </div>
 
-        <div className="flex min-h-[600px] mt-8">
-          {/* Left side with products grid */}
-          <div className="w-1/2 px-8 flex flex-col justify-center">
-            <div className="relative">
-              <div className="flex items-center">
-                <button
-                  onClick={handlePrev}
-                  className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10 mr-4"
-                >
-                  <ChevronLeft className="w-5 h-5 text-gray-600" />
-                </button>
+      {/* Main content */}
+      <div className="w-full flex h-[800px]">
+        {/* Left side with products grid */}
+        <div className="w-1/2 px-8 flex flex-col justify-center relative">
+          <div className="absolute inset-0 flex flex-col justify-center px-8">
+            <div className="flex items-center h-full">
+              <button
+                onClick={handlePrev}
+                className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10 mr-4"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-600" />
+              </button>
 
-                <div className="flex-1">
-                  <div className="grid grid-cols-2 gap-4">
-                    {getCurrentProducts().map((product) => (
-                      <div key={product.id} className="w-full">
-                        <div className="max-w-[220px]">
-                          <ProductCard
-                            product={product}
-                            backgroundColor="bg-white"
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+              <div className="flex-1 h-full flex flex-col justify-center">
+                <div className="grid grid-cols-3 grid-rows-2 gap-6">
+                  {getCurrentProducts().map((product) => (
+                    <div key={product.id} className="w-full">
+                      <ProductCard
+                        product={product}
+                        backgroundColor="bg-white"
+                      />
+                    </div>
+                  ))}
                 </div>
+              </div>
 
+              <button
+                onClick={handleNext}
+                className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10 ml-4"
+              >
+                <ChevronRight className="w-5 h-5 text-gray-600" />
+              </button>
+            </div>
+
+            <div className="flex justify-center gap-2 mt-6 mb-8">
+              {[...Array(totalGroups)].map((_, index) => (
                 <button
-                  onClick={handleNext}
-                  className="w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10 ml-4"
-                >
-                  <ChevronRight className="w-5 h-5 text-gray-600" />
-                </button>
-              </div>
-
-              <div className="flex justify-center gap-2 mt-6">
-                {[...Array(totalGroups)].map((_, index) => (
-                  <button
-                    key={index}
-                    className={`w-2 h-2 rounded-full transition-colors ${
-                      index === currentIndex
-                        ? 'bg-brown-500 w-4'
-                        : 'bg-gray-300 hover:bg-brown-300'
-                    }`}
-                    onClick={() => setCurrentIndex(index)}
-                  />
-                ))}
-              </div>
+                  key={index}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    index === currentIndex
+                      ? 'bg-brown-500 w-4'
+                      : 'bg-gray-300 hover:bg-brown-300'
+                  }`}
+                  onClick={() => setCurrentIndex(index)}
+                />
+              ))}
             </div>
           </div>
+        </div>
 
-          {/* Right side with tea leaves and frame */}
-          <div className="w-1/2 relative">
-            <div className="absolute inset-0 flex items-center justify-center -ml-16">
-              {/* Base layer - Tea leaves */}
-              <div className="absolute w-[600px] h-[800px]">
-                <Image
-                  src="/images/tea/beans.svg"
-                  alt="Tea Leaves"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-              {/* Frame layer */}
-              <div className="absolute w-[600px] h-[800px] ml-0">
-                <Image
-                  src="/images/tea/frame.svg"
-                  alt="Tea Frame"
-                  fill
-                  className="object-contain opacity-100"
-                  priority
-                />
-              </div>
+        {/* Right side with tea leaves and frame */}
+        <div className="w-1/2 relative h-full">
+          <div className="absolute inset-0 flex items-center justify-center">
+            {/* Base layer - Tea leaves */}
+            <div className="absolute w-full h-full">
+              <Image
+                src="/images/tea/beans.svg"
+                alt="Tea Leaves"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            {/* Frame layer */}
+            <div className="absolute w-full h-full">
+              <Image
+                src="/images/tea/frame.svg"
+                alt="Tea Frame"
+                fill
+                className="object-contain opacity-100"
+                priority
+              />
             </div>
           </div>
         </div>
