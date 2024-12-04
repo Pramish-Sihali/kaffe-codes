@@ -1,18 +1,38 @@
-// components/BuyingGuidelines.js
 "use client";
 import Image from 'next/image';
 import { useState } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Play } from 'lucide-react';
 
-const BuyingGuidelines = () => {
-  const guides = [
-    { src: '/images/guides/guide1.png', title: 'Baking Gear Guide' },
-    { src: '/images/guides/guide2.png', title: 'Essential Gear For Your Bakery' },
-    { src: '/images/guides/guide3.png', title: 'Coffee Machines Demystified' },
-    { src: '/images/guides/guide4.png', title: 'Equip Your Kitchen' },
-    { src: '/images/guides/guide5.png', title: 'Cafe Supplies!' },
-  ];
+const guides = [
+  {
+    src: '/images/guides/guide1.png',
+    title: 'Baking Gear Guide',
+    hasVideo: true
+  },
+  {
+    src: '/images/guides/guide2.png',
+    title: 'Essential Gear For Your Bakery',
+    hasVideo: true
+  },
+  {
+    src: '/images/guides/guide3.png',
+    title: 'Coffee Machines Demystified',
+    hasVideo: true
+  },
+  {
+    src: '/images/guides/guide4.png',
+    title: 'Equip Your Kitchen',
+    hasVideo: true
+  },
+  {
+    src: '/images/guides/guide5.png',
+    title: 'Café Supplies',
+    hasVideo: true
+  }
+];
 
+export default function BuyingGuidelines() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrev = () => {
@@ -24,50 +44,59 @@ const BuyingGuidelines = () => {
   };
 
   return (
-    <div
-      className="relative bg-cover bg-no-repeat py-8"
-      style={{ backgroundImage: `url('/images/guides/backdrop.svg')` }}
+    <section 
+      className="py-16 relative"
+      style={{
+        backgroundImage: `url('/images/guides/backdrop.svg')`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
-      <div className="container mx-auto">
-        <h2 className="text-2xl font-bold mb-4">Buying Guidelines</h2>
+      <div className="max-w-[1400px] mx-auto px-4">
+        <h2 className="text-3xl font-bold mb-8 text-gray-800">Buying Guidelines</h2>
+        
         <div className="relative">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="flex gap-6 overflow-x-auto no-scrollbar py-4">
             {guides.map((guide, index) => (
               <div
                 key={index}
-                className={`bg-white rounded-lg shadow-md ${
-                  index === currentIndex ? 'block' : 'hidden sm:block'
-                }`}
+                className="relative flex-shrink-0 w-[250px] group"
               >
-                <Image
-                  src={guide.src}
-                  alt={guide.title}
-                  width={240}
-                  height={240}
-                  className="rounded-t-lg object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold">{guide.title}</h3>
+                <div className="relative h-[420px] rounded-2xl overflow-hidden">
+                  <Image
+                    src={guide.src}
+                    alt={guide.title}
+                    fill
+                    className="object-cover"
+                  />
+                  {guide.hasVideo && (
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center">
+                        <Play className="w-6 h-6 text-white fill-white" />
+                      </div>
+                    </div>
+                  )}
                 </div>
+                <h3 className="mt-4 text-lg font-medium text-gray-800">{guide.title}</h3>
               </div>
             ))}
           </div>
+
           <button
-            className="absolute top-1/2 -translate-y-1/2 left-4 text-white hover:text-gray-300 focus:outline-none"
             onClick={handlePrev}
+            className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
           >
-            <FaChevronLeft size={24} />
+            <ChevronLeft className="w-5 h-5 text-gray-600" />
           </button>
+
           <button
-            className="absolute top-1/2 -translate-y-1/2 right-4 text-white hover:text-gray-300 focus:outline-none"
             onClick={handleNext}
+            className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
           >
-            <FaChevronRight size={24} />
+            <ChevronRight className="w-5 h-5 text-gray-600" />
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default BuyingGuidelines;
+}

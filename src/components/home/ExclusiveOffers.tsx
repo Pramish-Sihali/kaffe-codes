@@ -35,48 +35,46 @@ export default function ExclusiveOffers() {
             <Link 
               href="#" 
               key={offer.id}
-              className="relative group overflow-hidden rounded-lg"
+              className="relative group overflow-hidden rounded-2xl h-[280px]"
             >
-              <div className="aspect-[4/3]">
-                <Image
-                  src={offer.image}
-                  alt={offer.title}
-                  fill
-                  className="object-cover transition-transform group-hover:scale-105"
-                />
-                <div className="absolute top-4 right-4 bg-white text-sm px-3 py-1 rounded-full">
-                  {offer.discount}
-                </div>
-                <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
-                  <h3 className="text-white font-medium">{offer.title}</h3>
-                </div>
+              <Image
+                src={offer.image}
+                alt={offer.title}
+                fill
+                className="object-cover transition-transform group-hover:scale-105"
+              />
+              <div className="absolute top-4 left-4 bg-white text-sm px-4 py-1 rounded-full">
+                {offer.discount}
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/70 to-transparent">
+                <h3 className="text-white text-lg font-medium leading-tight">{offer.title}</h3>
               </div>
             </Link>
           ))}
         </div>
 
         {/* Gift Pack Section */}
-        <div className="mt-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="md:col-span-1">
-              <h3 className="text-xl font-bold mb-4">Make Your Own</h3>
-              <h2 className="text-2xl font-bold text-green-600 mb-6">Gift Pack</h2>
-              <div className="space-y-3">
-                <div className="flex items-center gap-2">
+              <h3 className="text-xl font-medium mb-2">Make Your Own</h3>
+              <h2 className="text-3xl font-bold text-green-600 mb-8">Gift Pack</h2>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center text-sm">1</div>
-                  <span>FILL A BOX</span>
+                  <span className="text-sm font-medium">FILL A BOX</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center text-sm">2</div>
-                  <span>PICK A CARD</span>
+                  <span className="text-sm font-medium">PICK A CARD</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <div className="w-6 h-6 rounded-full bg-green-600 text-white flex items-center justify-center text-sm">3</div>
-                  <span>SEND IT OFF</span>
+                  <span className="text-sm font-medium">SEND IT OFF</span>
                 </div>
-                <button className="mt-4 text-green-600 font-medium flex items-center gap-2">
+                <Link href="#" className="inline-block mt-6 text-green-600 font-medium">
                   Build a Box →
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -86,8 +84,6 @@ export default function ExclusiveOffers() {
                   title: "Kaffe Codes Gift Box",
                   description: "Get the perfect Gift for your love",
                   image: "/images/coffee1.png"
-
-
                 },
                 {
                   title: "Gift Card",
@@ -100,20 +96,25 @@ export default function ExclusiveOffers() {
                   image: "/images/Voucher2.png"
                 }
               ].map((gift, index) => (
-                <div 
+                <Link 
+                  href="#"
                   key={index}
-                  className="bg-gray-50 p-6 rounded-lg hover:shadow-lg transition-shadow"
+                  className="bg-gray-50/50 p-6 rounded-2xl hover:shadow-lg transition-all group"
                 >
-                  <Image
-                    src={gift.image}
-                    alt={gift.title}
-                    width={200}
-                    height={120}
-                    className="mx-auto mb-4"
-                  />
-                  <h4 className="font-medium text-center">{gift.title}</h4>
+                  <div className="aspect-square relative mb-4">
+                    <Image
+                      src={gift.image}
+                      alt={gift.title}
+                      fill
+                      className="object-contain p-4 group-hover:scale-105 transition-transform"
+                    />
+                  </div >
+                  <div className="bg-green-600">
+
+                  <h4 className="font-medium text-center text-lg mb-1">{gift.title}</h4>
                   <p className="text-sm text-gray-600 text-center">{gift.description}</p>
-                </div>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
