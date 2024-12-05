@@ -50,6 +50,22 @@ const carouselItems = [
 export default function FeaturedCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isMobile, setIsMobile] = useState(true); // Default to mobile to avoid hydration mismatch
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Initial check
+    checkMobile();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
@@ -64,29 +80,31 @@ export default function FeaturedCarousel() {
   const handlePrev = () => {
     setIsAutoPlaying(false);
     setCurrentIndex((prev) => 
-      prev === 0 ? carouselItems.length - 3 : prev - 1
+      prev === 0 ? carouselItems.length - (isMobile ? 1 : 3) : prev - 1
     );
   };
 
   const handleNext = () => {
     setCurrentIndex((prev) => 
-      prev === carouselItems.length - 3 ? 0 : prev + 1
+      prev === carouselItems.length - (isMobile ? 1 : 3) ? 0 : prev + 1
     );
   };
 
   return (
-    <section className="relative bg-gray-50">
-      <div className="w-full overflow-hidden space-x-2">
+    <section className="relative w-full bg-gray-50">
+      <div className="w-full overflow-hidden">
         <div 
-          className="flex transition-transform duration-500 ease-out gap-6"
-          style={{ transform: `translateX(-${currentIndex * 33.33}%)` }}
+          className="flex transition-transform duration-500 ease-out gap-0 md:gap-6"
+          style={{ 
+            transform: `translateX(-${currentIndex * (isMobile ? 100 : 33.333)}%)`
+          }}
         >
           {carouselItems.map((item) => (
             <div 
               key={item.id}
-              className="w-full min-w-[calc(33.33vw-32px)] relative group"
+              className="w-full md:w-1/3 flex-shrink-0"
             >
-              <div className="relative h-[500px] overflow-hidden mt-4 px-2 ">
+              <div className="relative h-[400px] md:h-[60vh] overflow-hidden">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -94,16 +112,16 @@ export default function FeaturedCarousel() {
                   className="object-cover transition-transform duration-300 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent">
-                  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
-                    <h3 className="text-white text-2xl md:text-3xl font-bold mb-3">
+                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
+                    <h3 className="text-white text-lg md:text-xl font-bold mb-2">
                       {item.title}
                     </h3>
-                    <p className="text-white/90 text-lg mb-6">
+                    <p className="text-white/90 text-sm md:text-base mb-4">
                       {item.discount}
                     </p>
                     <Link 
                       href={item.link}
-                      className="inline-block bg-white text-black px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors text-lg"
+                      className="inline-block bg-white text-black px-4 md:px-6 py-2 hover:bg-gray-100 transition-colors text-sm"
                     >
                       {item.buttonText}
                     </Link>
@@ -115,38 +133,19 @@ export default function FeaturedCarousel() {
         </div>
       </div>
 
-      {/* Navigation Buttons */}
       <button
         onClick={handlePrev}
-        className="absolute left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-8 md:w-10 h-8 md:h-10 rounded-full bg-white/80 shadow-lg flex items-center justify-center hover:bg-white transition-colors z-10"
       >
-        <ChevronLeft className="h-6 w-6" />
+        <ChevronLeft className="h-4 md:h-5 w-4 md:w-5" />
       </button>
 
       <button
         onClick={handleNext}
-        className="absolute right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-8 md:w-10 h-8 md:h-10 rounded-full bg-white/80 shadow-lg flex items-center justify-center hover:bg-white transition-colors z-10"
       >
-        <ChevronRight className="h-6 w-6" />
+        <ChevronRight className="h-4 md:h-5 w-4 md:w-5" />
       </button>
-
-      {/* Pagination Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex justify-center gap-2 ">
-        {Array.from({ length: carouselItems.length - 2 }).map((_, index) => (
-          <button
-            key={index}
-            className={`w-3 h-3 rounded-full transition-colors  ${
-              index === currentIndex 
-                ? 'bg-white' 
-                : 'bg-white/50'
-            }`}
-            onClick={() => {
-              setCurrentIndex(index);
-              setIsAutoPlaying(false);
-            }}
-          />
-        ))}
-      </div>
     </section>
   );
 }

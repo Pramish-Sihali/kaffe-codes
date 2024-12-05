@@ -138,7 +138,7 @@ export default function BestMachinery() {
                 >
                   <ProductCard 
                     product={product}
-                    backgroundColor="bg-white" 
+                    backgroundColor="bg-gray-50" 
                   />
                 </div>
               ))}

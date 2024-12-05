@@ -20,6 +20,10 @@ module.exports = {
           800: '#846358',
           900: '#43302b',
         },
+        // Adding your custom colors
+        'custom-green': '#007500',
+        'custom-brown': '#87512F',
+        'custom-white': '#FFFFFF',
       },
       maxWidth: {
         '7xl': '80rem',

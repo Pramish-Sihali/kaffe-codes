@@ -32,7 +32,7 @@ export default function PlatformIntro() {
                 visibility: Math.abs(index - currentWordIndex) <= 1 ? 'visible' : 'hidden'
               }}
             >
-              <h1 className="text-3xl md:text-4xl font-bold text-green-500">
+              <h1 className="text-3xl md:text-4xl font-bold text-custom-green">
                 {word}
               </h1>
             </div>

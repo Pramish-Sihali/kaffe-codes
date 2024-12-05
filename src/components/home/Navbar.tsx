@@ -71,7 +71,7 @@ export default function Navbar() {
             <button className="text-gray-600 hover:text-gray-900 transition-colors duration-200">
               <ShoppingBag className="h-6 w-6" />
             </button>
-            <button className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors duration-200">
+            <button className="bg-custom-green text-white px-4 py-2 rounded-[50px] hover:bg-green-700 transition-colors duration-200">
               Sign in
             </button>
             <button 
