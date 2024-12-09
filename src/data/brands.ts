@@ -1,12 +1,4 @@
-// src/types/brand.ts
 
-export interface Brand {
-    id: number;
-    name: string;
-    category: string[];
-    logo: string;
-  }
-  
   export const brands: Brand[] = [
     // Coffee Brands
     {

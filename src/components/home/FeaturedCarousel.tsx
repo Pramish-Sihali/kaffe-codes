@@ -40,7 +40,7 @@ const carouselItems = [
   {
     id: 5,
     title: "Special Brownies",
-    image: "/images/carousel/bakery.jpg",
+    image: "/images/carousel/bakery.png",
     discount: "Up to 25% OFF",
     link: "/category/brownies",
     buttonText: "Explore"

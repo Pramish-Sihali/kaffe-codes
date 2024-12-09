@@ -1,46 +1,93 @@
 "use client";
-import Image from 'next/image';
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Play } from 'lucide-react';
 
-const guides = [
+import VideoModal from './VideoModal';
+import { GuideCard } from './GuideCard';
+import { Carousel } from './Carousel';
+
+interface Guide {
+  src: string;
+  title: string;
+  hasVideo: boolean;
+  videoPreview?: string;
+  description?: string;
+  videoPath?: string;
+}
+
+const guides: Guide[] = [
   {
     src: '/images/guides/guide1.png',
-    title: 'Baking Gear Guide',
-    hasVideo: true
+    title: 'Professional Baking Equipment',
+    description: 'Complete guide to ovens, mixers, and baking tools',
+    hasVideo: true,
+    videoPreview: '/images/guides/guide8.mp4',
+    videoPath: '/images/guides/guide8.mp4'
   },
   {
     src: '/images/guides/guide2.png',
-    title: 'Essential Gear For Your Bakery',
-    hasVideo: true
+    title: 'Restaurant Kitchen Essentials',
+    description: 'Essential equipment for commercial kitchens',
+    hasVideo: true,
+    videoPreview: '/images/guides/guide8.mp4',
+    videoPath: '/images/guides/guide8.mp4'
   },
   {
     src: '/images/guides/guide3.png',
-    title: 'Coffee Machines Demystified',
-    hasVideo: true
+    title: 'Café Setup Guide',
+    description: 'From espresso machines to grinders - complete café guide',
+    hasVideo: true,
+    videoPreview: '/images/guides/guide8.mp4',
+    videoPath: '/images/guides/guide8.mp4'
   },
   {
     src: '/images/guides/guide4.png',
-    title: 'Equip Your Kitchen',
-    hasVideo: true
+    title: 'Food Storage Solutions',
+    description: 'Professional storage and refrigeration equipment',
+    hasVideo: true,
+    videoPreview: '/images/guides/guide8.mp4',
+    videoPath: '/images/guides/guide8.mp4'
   },
   {
     src: '/images/guides/guide5.png',
-    title: 'Café Supplies',
-    hasVideo: true
+    title: 'Food Prep Equipment',
+    description: 'Essential tools for professional food preparation',
+    hasVideo: true,
+    videoPreview: '/images/guides/guide8.mp4',
+    videoPath: '/images/guides/guide8.mp4'
+  },
+  {
+    src: '/images/guides/guide1.png',
+    title: 'Kitchen Safety Equipment',
+    description: 'Essential safety gear and equipment for professional kitchens',
+    hasVideo: true,
+    videoPreview: '/images/guides/guide8.mp4',
+    videoPath: '/images/guides/guide8.mp4'
+  },
+  {
+    src: '/images/guides/guide2.png',
+    title: 'Dishwashing Systems',
+    description: 'Commercial dishwashing and cleaning equipment guide',
+    hasVideo: true,
+    videoPreview: '/images/guides/guide8.mp4',
+    videoPath: '/images/guides/guide8.mp4'
+  },
+  {
+    src: '/images/guides/guide3.png',
+    title: 'Ventilation Systems',
+    description: 'Commercial kitchen ventilation and hood systems',
+    hasVideo: true,
+    videoPreview: '/images/guides/guide8.mp4',
+    videoPath: '/images/guides/guide8.mp4'
   }
 ];
 
 export default function BuyingGuidelines() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedVideoPath, setSelectedVideoPath] = useState('');
 
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? guides.length - 1 : prevIndex - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === guides.length - 1 ? 0 : prevIndex + 1));
+  const handlePlayVideo = (videoPath: string) => {
+    setSelectedVideoPath(videoPath);
+    setIsModalOpen(true);
   };
 
   return (
@@ -52,51 +99,42 @@ export default function BuyingGuidelines() {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      <div className="max-w-[1400px] mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8 text-gray-800">Buying Guidelines</h2>
+      <div className="max-w-[1400px] mx-auto">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Buying Guidelines</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Explore our comprehensive guides to help you make informed decisions about your equipment needs
+          </p>
+        </div>
         
-        <div className="relative">
-          <div className="flex gap-6 overflow-x-auto no-scrollbar py-4">
+        {/* Remove the inner max-w-[1400px] div since it's redundant */}
+        <div className="w-full">
+          <Carousel 
+            itemsPerView={4} 
+            autoPlayInterval={10000}
+            className="w-full"
+          >
             {guides.map((guide, index) => (
-              <div
+              <GuideCard
                 key={index}
-                className="relative flex-shrink-0 w-[250px] group"
-              >
-                <div className="relative h-[400px] rounded-2xl overflow-hidden">
-                  <Image
-                    src={guide.src}
-                    alt={guide.title}
-                    fill
-                    className="object-cover"
-                  />
-                  {guide.hasVideo && (
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center">
-                        <Play className="w-6 h-6 text-white fill-white" />
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <h3 className="mt-4 text-lg font-medium text-gray-800">{guide.title}</h3>
-              </div>
+                src={guide.src}
+                title={guide.title}
+                description={guide.description}
+                hasVideo={guide.hasVideo}
+                videoPreview={guide.videoPreview}
+                isPriority={index < 5} // Only set priority for first 5 items
+                onPlayVideo={() => handlePlayVideo(guide.videoPath || '')}
+              />
             ))}
-          </div>
-
-          <button
-            onClick={handlePrev}
-            className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
-          >
-            <ChevronLeft className="w-5 h-5 text-gray-600" />
-          </button>
-
-          <button
-            onClick={handleNext}
-            className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
-          >
-            <ChevronRight className="w-5 h-5 text-gray-600" />
-          </button>
+          </Carousel>
         </div>
       </div>
+
+      <VideoModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        videoSrc={selectedVideoPath}
+      />
     </section>
   );
 }

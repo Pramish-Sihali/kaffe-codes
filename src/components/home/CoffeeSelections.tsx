@@ -41,6 +41,24 @@ const coffeeProducts = [
     reviews: 150,
     price: 733,
     image: "/images/coffee/coffee4.png"
+  },
+  {
+    id: 5,
+    brand: "BLUE BOTTLE",
+    name: "Blue Bottle Coffee Bella Donovan Blend",
+    rating: 5,
+    reviews: 180,
+    price: 899,
+    image: "/images/coffee/coffee5.png"
+  },
+  {
+    id: 6,
+    brand: "STUMPTOWN",
+    name: "Stumptown Hair Bender Whole Bean",
+    rating: 4,
+    reviews: 165,
+    price: 845,
+    image: "/images/coffee/coffee6.png"
   }
 ];
 
@@ -72,41 +90,45 @@ export default function CoffeeSelections() {
 
   return (
     <section className="py-12 bg-white relative overflow-hidden">
-      <div className="max-w-[1400px] mx-auto">
-        <div className="text-center mb-8">
+      <div className="max-w-[1600px] mx-auto">
+        <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-2">Coffee Selections</h2>
           <p className="text-gray-600">From Harvest to Happiness</p>
         </div>
 
-        <div className="flex min-h-[600px]">
+        <div className="flex min-h-[500px]">
           {/* Left side with coffee beans and frame */}
-          <div className="w-1/2 relative">
-            <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-1/2 relative -ml-12">
+            <div className="relative w-full h-full">
               {/* Base layer - Coffee beans */}
-              <div className="absolute w-[600px] h-[800px]">
-                <Image
-                  src="/images/coffee/beans.svg"
-                  alt="Coffee Beans"
-                  fill
-                  className="object-contain"
-                  priority
-                />
+              <div className="absolute inset-0 flex items-center justify-start">
+                <div className="relative w-[600px] h-[600px]">
+                  <Image
+                    src="/images/coffee/beans.svg"
+                    alt="Coffee Beans"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
               </div>
               {/* Frame layer */}
-              <div className="absolute w-[600px] h-[800px]">
-                <Image
-                  src="/images/coffee/frame.svg"
-                  alt="Coffee Frame"
-                  fill
-                  className="object-contain opacity-100"
-                  priority
-                />
+              <div className="absolute inset-0 flex items-center justify-start">
+                <div className="relative w-[600px] h-[600px]">
+                  <Image
+                    src="/images/coffee/frame.svg"
+                    alt="Coffee Frame"
+                    fill
+                    className="object-contain opacity-100"
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </div>
 
           {/* Right side with products grid */}
-          <div className="w-1/2 px-8 flex flex-col justify-center">
+          <div className="w-1/2 flex flex-col justify-center pr-8">
             <div className="relative">
               <div className="flex items-center">
                 <button
@@ -117,10 +139,10 @@ export default function CoffeeSelections() {
                 </button>
 
                 <div className="flex-1">
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4 min-h-[400px]">
                     {getCurrentProducts().map((product) => (
                       <div key={product.id} className="w-full">
-                        <div className="max-w-[220px]">
+                        <div className="max-w-[200px]">
                           <ProductCard
                             product={product}
                             backgroundColor="bg-white"
@@ -139,7 +161,7 @@ export default function CoffeeSelections() {
                 </button>
               </div>
 
-              <div className="flex justify-center gap-2 mt-6">
+              <div className="flex justify-center gap-2 mt-8">
                 {[...Array(totalGroups)].map((_, index) => (
                   <button
                     key={index}

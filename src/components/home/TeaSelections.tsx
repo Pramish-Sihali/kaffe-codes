@@ -59,12 +59,48 @@ const teaProducts = [
     reviews: 180,
     price: 859,
     image: "/images/tea/tea6.png"
+  },
+  {
+    id: 7,
+    brand: "JASMINE PEARL",
+    name: "Premium Jasmine Pearl Green Tea",
+    rating: 5,
+    reviews: 200,
+    price: 899,
+    image: "/images/tea/tea1.png"
+  },
+  {
+    id: 8,
+    brand: "ROOIBOS GOLD",
+    name: "African Rooibos Red Tea",
+    rating: 4,
+    reviews: 175,
+    price: 879,
+    image: "/images/tea/tea2.png"
+  },
+  {
+    id: 9,
+    brand: "SILVER NEEDLE",
+    name: "White Silver Needle Tea",
+    rating: 5,
+    reviews: 220,
+    price: 799,
+    image: "/images/tea/tea3.png"
+  },
+  {
+    id: 10,
+    brand: "SENCHA",
+    name: "Japanese Sencha Green Tea",
+    rating: 4,
+    reviews: 160,
+    price: 869,
+    image: "/images/tea/tea4.png"
   }
 ];
 
 export default function TeaSelections() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerGroup = 6;  // Changed to show all 6 items
+  const itemsPerGroup = 6;
   const totalGroups = Math.ceil(teaProducts.length / itemsPerGroup);
 
   useEffect(() => {
@@ -89,20 +125,15 @@ export default function TeaSelections() {
   };
 
   return (
-    <section className="w-full bg-white relative">
-      {/* Fixed position header */}
-      <div className="w-full bg-white py-8">
-        <div className="text-center">
+    <section className="py-8 bg-white relative overflow-hidden">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="text-center mb-8">
           <h2 className="text-3xl font-bold mb-2">Tea Selections</h2>
           <p className="text-gray-600">From Garden to Cup</p>
         </div>
-      </div>
 
-      {/* Main content */}
-      <div className="w-full flex h-[800px]">
-        {/* Left side with products grid */}
-        <div className="w-1/2 px-8 flex flex-col justify-center relative">
-          <div className="absolute inset-0 flex flex-col justify-center px-8">
+        <div className="flex min-h-[550px]">
+          <div className="w-3/5 flex flex-col justify-center relative pr-12">
             <div className="flex items-center h-full">
               <button
                 onClick={handlePrev}
@@ -112,13 +143,15 @@ export default function TeaSelections() {
               </button>
 
               <div className="flex-1 h-full flex flex-col justify-center">
-                <div className="grid grid-cols-3 grid-rows-2 gap-6">
+                <div className="grid grid-cols-3 grid-rows-2 gap-4 max-w-[800px]">
                   {getCurrentProducts().map((product) => (
                     <div key={product.id} className="w-full">
-                      <ProductCard
-                        product={product}
-                        backgroundColor="bg-white"
-                      />
+                      <div className="max-w-[180px]">
+                        <ProductCard
+                          product={product}
+                          backgroundColor="bg-white"
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -132,7 +165,7 @@ export default function TeaSelections() {
               </button>
             </div>
 
-            <div className="flex justify-center gap-2 mt-6 mb-8">
+            <div className="flex justify-center gap-2 mt-6">
               {[...Array(totalGroups)].map((_, index) => (
                 <button
                   key={index}
@@ -146,30 +179,31 @@ export default function TeaSelections() {
               ))}
             </div>
           </div>
-        </div>
 
-        {/* Right side with tea leaves and frame */}
-        <div className="w-1/2 relative h-full">
-          <div className="absolute inset-0 flex items-center justify-center">
-            {/* Base layer - Tea leaves */}
-            <div className="absolute w-full h-full">
-              <Image
-                src="/images/tea/beans.svg"
-                alt="Tea Leaves"
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
-            {/* Frame layer */}
-            <div className="absolute w-full h-full">
-              <Image
-                src="/images/tea/frame.svg"
-                alt="Tea Frame"
-                fill
-                className="object-contain opacity-100"
-                priority
-              />
+          <div className="w-2/5 relative -mr-32">
+            <div className="relative w-full h-full">
+              <div className="absolute inset-0 flex items-center justify-end">
+                <div className="relative w-[900px] h-[900px]">
+                  <Image
+                    src="/images/tea/beans.svg"
+                    alt="Tea Leaves"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-end">
+                <div className="relative w-[900px] h-[900px]">
+                  <Image
+                    src="/images/tea/frame.svg"
+                    alt="Tea Frame"
+                    fill
+                    className="object-contain opacity-100"
+                    priority
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
