@@ -91,3 +91,4 @@ const teaProducts = [
     }
   ];
   
+  export default teaProducts;

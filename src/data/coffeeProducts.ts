@@ -54,3 +54,5 @@ const coffeeProducts = [
       image: "/images/coffee/coffee6.png"
     }
   ];
+
+  export default coffeeProducts;
