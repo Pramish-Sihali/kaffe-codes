@@ -1,166 +1,256 @@
+import type { Brand } from '../types';
 
-  export const brands: Brand[] = [
-    // Coffee Brands
-    {
-      id: 1,
-      name: "Arabica Coffee",
-      category: ["Top Coffee Brands"],  // Changed from "Coffee Brands"
-      logo: "/images/brands/arabica.png"
-    },
-    {
-      id: 2,
-      name: "Black Dog Coffee",
-      category: ["Top Coffee Brands"],
-      logo: "/images/brands/black-dog.png"
-    },
-    {
-      id: 3,
-      name: "Cafe Excellence",
-      category: ["Top Coffee Brands"],
-      logo: "/images/brands/cafe-excellence.png"
-    },
-    {
-      id: 4,
-      name: "Daily Roast",
-      category: ["Top Coffee Brands"],
-      logo: "/images/brands/daily-roast.png"
-    },
-    
-    // Tea Brands
-    {
-      id: 5,
-      name: "Alpine Tea",
-      category: ["Top Tea Brands"],  // Changed from "Tea Brands"
-      logo: "/images/brands/alpine-tea.png"
-    },
-    {
-      id: 6,
-      name: "Brew Magic",
-      category: ["Top Tea Brands"],
-      logo: "/images/brands/brew-magic.png"
-    },
-    {
-      id: 7,
-      name: "Cuppa",
-      category: ["Top Tea Brands"],
-      logo: "/images/brands/cuppa.png"
-    },
-    {
-      id: 8,
-      name: "Diamond Tea",
-      category: ["Top Tea Brands"],
-      logo: "/images/brands/diamond-tea.png"
-    },
-  
-    // Utensils
-    {
-      id: 9,
-      name: "KitchenPro",
-      category: ["Utensils"],
-      logo: "/images/brands/kitchenpro.png"
-    },
-    {
-      id: 10,
-      name: "Maxwell Tools",
-      category: ["Utensils"],
-      logo: "/images/brands/maxwell.png"
-    },
-    {
-      id: 11,
-      name: "Perfect Pour",
-      category: ["Utensils"],
-      logo: "/images/brands/perfect-pour.png"
-    },
-    {
-      id: 12,
-      name: "Quality Chef",
-      category: ["Utensils"],
-      logo: "/images/brands/quality-chef.png"
-    },
-  
-    // Machinery
-    {
-      id: 13,
-      name: "Barista Tech",
-      category: ["Machinery"],
-      logo: "/images/brands/barista-tech.png"
-    },
-    {
-      id: 14,
-      name: "Coffee Master",
-      category: ["Machinery"],
-      logo: "/images/brands/coffee-master.png"
-    },
-    {
-      id: 15,
-      name: "Grind Pro",
-      category: ["Machinery"],
-      logo: "/images/brands/grind-pro.png"
-    },
-    {
-      id: 16,
-      name: "Tea Mate",
-      category: ["Machinery"],
-      logo: "/images/brands/tea-mate.png"
-    },
-  
-    // Bakery Products
-    {
-      id: 17,
-      name: "Artisan Bakery",
-      category: ["Bakery Products"],
-      logo: "/images/brands/artisan.png"
-    },
-    {
-      id: 18,
-      name: "Baker's Choice",
-      category: ["Bakery Products"],
-      logo: "/images/brands/bakers-choice.png"
-    },
-    {
-      id: 19,
-      name: "Golden Crust",
-      category: ["Bakery Products"],
-      logo: "/images/brands/golden-crust.png"
-    },
-    {
-      id: 20,
-      name: "Sweet Success",
-      category: ["Bakery Products"],
-      logo: "/images/brands/sweet-success.png"
-    },
-  
-    // Multiple Categories
-    {
-      id: 21,
-      name: "Global Kitchen",
-      category: ["Utensils", "Machinery"],
-      logo: "/images/brands/global-kitchen.png"
-    },
-    {
-      id: 22,
-      name: "Premium Blend",
-      category: ["Top Coffee Brands", "Top Tea Brands"],
-      logo: "/images/brands/premium-blend.png"
-    },
-    {
-      id: 23,
-      name: "Royal Taste",
-      category: ["Top Coffee Brands", "Top Tea Brands", "Bakery Products"],
-      logo: "/images/brands/royal-taste.png"
-    },
-    {
-      id: 24,
-      name: "Supreme Quality",
-      category: ["Top Coffee Brands", "Top Tea Brands", "Bakery Products"],
-      logo: "/images/brands/supreme-quality.png"
-    }
-  ];
-  
-  export const categories = [
-    "Top Tea Brands",
-    "Top Coffee Brands",
-    "Utensils",
-    "Machinery",
-    "Bakery Products"
-  ];
+export const brands: Brand[] = [
+  {
+    name: "Arabica Coffee",
+    category: "Premium",
+    image_path: "/images/brands/image1",
+    additional_info: "Smooth and balanced flavor, best for black coffee.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Brewed Delight",
+    category: "Artisanal",
+    image_path: "/images/brands/image2",
+    additional_info: "Handcrafted blends, perfect for espresso drinks.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Café Central",
+    category: "Classic",
+    image_path: "/images/brands/image3",
+    additional_info: "Rich, robust flavor, ideal for all-day drinking.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Dawn Brew",
+    category: "Organic",
+    image_path: "/images/brands/image4",
+    additional_info: "Organic, eco-friendly beans, smooth flavor profile.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Espresso Essence",
+    category: "Espresso",
+    image_path: "/images/brands/image5",
+    additional_info: "Intense, bold espresso perfect for a quick pick-me-up.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Frothy Bliss",
+    category: "Cafe Style",
+    image_path: "/images/brands/image6",
+    additional_info: "Creamy and frothy coffee, perfect for lattes and cappuccinos.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Golden Brew",
+    category: "Blended",
+    image_path: "/images/brands/image7",
+    additional_info: "A balanced blend of beans for a rich, golden finish.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Himalayan Beans",
+    category: "Specialty",
+    image_path: "/images/brands/image8",
+    additional_info: "Sourced from the foothills of the Himalayas, exotic and flavorful.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Italian Roast",
+    category: "Dark Roast",
+    image_path: "/images/brands/image9",
+    additional_info: "Deeply roasted beans, perfect for dark roast lovers.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Java Java",
+    category: "Classic",
+    image_path: "/images/brands/image10",
+    additional_info: "Bold and rich, a classic cup of coffee every time.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Kona Gold",
+    category: "Premium",
+    image_path: "/images/brands/image11",
+    additional_info: "Grown in the volcanic soils of Hawaii, smooth with a sweet finish.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Lunar Blend",
+    category: "Organic",
+    image_path: "/images/brands/image12",
+    additional_info: "Unique organic blend with a smooth, full-bodied flavor.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Misty Mountain",
+    category: "Light Roast",
+    image_path: "/images/brands/image13",
+    additional_info: "Light roast with subtle fruity flavors, perfect for morning coffee.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Nectar of the Bean",
+    category: "Specialty",
+    image_path: "/images/brands/image14",
+    additional_info: "Exclusive single-origin coffee with a floral aroma.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Onyx Brew",
+    category: "Dark Roast",
+    image_path: "/images/brands/image15",
+    additional_info: "Rich, intense dark roast with a smoky finish.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Peruvian Peaks",
+    category: "Organic",
+    image_path: "/images/brands/image16",
+    additional_info: "Certified organic beans from the Peruvian highlands, with nutty overtones.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Quaint Coffee",
+    category: "Blended",
+    image_path: "/images/brands/image17",
+    additional_info: "A medium blend with hints of chocolate and caramel.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Roast & Brew",
+    category: "Artisanal",
+    image_path: "/images/brands/image18",
+    additional_info: "Handcrafted small-batch roasts, full-bodied flavor.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Silver Moon",
+    category: "Cafe Style",
+    image_path: "/images/brands/image19",
+    additional_info: "Flavored coffee, perfect for a sweet and indulgent treat.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Tropical Twist",
+    category: "Specialty",
+    image_path: "/images/brands/image20",
+    additional_info: "Exotic tropical flavors with a smooth, fruity profile.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Urban Grind",
+    category: "Premium",
+    image_path: "/images/brands/image21",
+    additional_info: "Bold and vibrant flavors, perfect for a quick urban pick-me-up.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Vibrant Bean",
+    category: "Artisanal",
+    image_path: "/images/brands/image22",
+    additional_info: "Bright, citrusy coffee with a smooth finish.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Wicked Brew",
+    category: "Dark Roast",
+    image_path: "/images/brands/image23",
+    additional_info: "Bold, full-bodied dark roast with a touch of bitterness.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Xtreme Espresso",
+    category: "Espresso",
+    image_path: "/images/brands/image24",
+    additional_info: "Super strong espresso blend for the ultimate caffeine kick.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Yeti Roast",
+    category: "Classic",
+    image_path: "/images/brands/image25",
+    additional_info: "Balanced roast with a smooth and hearty flavor.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Zenith Brew",
+    category: "Blended",
+    image_path: "/images/brands/image26",
+    additional_info: "Perfect blend of light and dark beans, offering the best of both worlds.",
+    tab_category: "Top Coffee Brands"
+  },
+  {
+    name: "Tea Supreme",
+    category: "Premium",
+    image_path: "/images/brands/image27",
+    additional_info: "Fine blend of Assam and Darjeeling tea leaves.",
+    tab_category: "Top Tea Brands"
+  },
+  {
+    name: "Citrus Fresh",
+    category: "Herbal",
+    image_path: "/images/brands/image28",
+    additional_info: "Herbal tea with refreshing citrus flavors.",
+    tab_category: "Top Tea Brands"
+  },
+  {
+    name: "Mountain Dew",
+    category: "Green Tea",
+    image_path: "/images/brands/image29",
+    additional_info: "Fresh green tea with a clean, crisp taste.",
+    tab_category: "Top Tea Brands"
+  },
+  {
+    name: "Royal Chai",
+    category: "Spiced",
+    image_path: "/images/brands/image30",
+    additional_info: "Traditional chai with aromatic spices and rich flavor.",
+    tab_category: "Top Tea Brands"
+  },
+  {
+    name: "Golden Herb",
+    category: "Herbal",
+    image_path: "/images/brands/image31",
+    additional_info: "Caffeine-free herbal tea with soothing qualities.",
+    tab_category: "Top Tea Brands"
+  },
+  {
+    name: "Twilight Tea",
+    category: "Black Tea",
+    image_path: "/images/brands/image32",
+    additional_info: "Strong black tea with a deep, rich flavor.",
+    tab_category: "Top Tea Brands"
+  },
+  {
+    name: "Eclipse Green",
+    category: "Green Tea",
+    image_path: "/images/brands/image33",
+    additional_info: "Delicate green tea with a hint of floral notes.",
+    tab_category: "Top Tea Brands"
+  },
+  {
+    name: "Blossom Blend",
+    category: "Herbal",
+    image_path: "/images/brands/image34",
+    additional_info: "Floral tea with a calming and refreshing taste.",
+    tab_category: "Top Tea Brands"
+  },
+  {
+    name: "Island Breeze",
+    category: "Spiced",
+    image_path: "/images/brands/image35",
+    additional_info: "A spiced herbal tea blend with hints of coconut and ginger.",
+    tab_category: "Top Tea Brands"
+  },
+  {
+    name: "Peach Infusion",
+    category: "Fruity",
+    image_path: "/images/brands/image36",
+    additional_info: "Light fruity tea with a refreshing peach flavor.",
+    tab_category: "Top Tea Brands"
+  }
+];

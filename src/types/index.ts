@@ -26,3 +26,17 @@ export interface Category {
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string;
   }
+
+  // src/types/index.ts or src/types/general.ts
+export type NavItem = {
+  label: string;
+  path: string;
+};
+
+export type Brand = {
+  name: string;
+  category: string;
+  image_path: string;
+  additional_info: string;
+  tab_category: string;
+};
