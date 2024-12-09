@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import ProductCard from './ProductCard';
 
-import teaProducts from '../../data/teaProducts'; 
+import teaProducts from '../../data/teaProducts'; // Add this import
 
 export default function TeaSelections() {
   const [currentIndex, setCurrentIndex] = useState(0);

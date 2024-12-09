@@ -36,7 +36,7 @@ export default function ExclusiveOffers() {
             <Link 
               href="#" 
               key={offer.id}
-              className="relative group overflow-hidden rounded-xl sm:rounded-2xl h-[180px] sm:h-[280px]"
+              className="relative group overflow-hidden rounded-xl sm:rounded-2xl h-[280px] sm:h-[480px]"
             >
               <Image
                 src={offer.image}
