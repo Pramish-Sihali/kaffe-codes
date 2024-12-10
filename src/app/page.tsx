@@ -27,19 +27,33 @@ export default function Home() {
       <CategoryIcons />
       <FeaturedCarousel />
       <PlatformIntro />
-      <TopPicks />
-      <CategoriesSection/>
-      <HandPickedBrands />
-      <ExclusiveBrownie />
-      <HotCakes />
-      <BestMachinery />
-      <SpecialOffer />
-    <ProductSelections />
-      <ExclusiveOffers />
-      <BuyingGuidelines />
-      <UnfilteredReviews />
-      <CoffeeShopBanner />
-      <WhatsNew/>
+      
+      {/* Offers Section */}
+      <section id="offers-section">
+        <TopPicks />
+        <CategoriesSection/>
+        <HandPickedBrands />
+        <ExclusiveBrownie />
+        <HotCakes />
+        <BestMachinery />
+        <SpecialOffer />
+        <CoffeeSelections/>
+        <TeaSelections/>
+      </section>
+
+      {/* Buying Guidelines Section */}
+      <section id="guidelines-section">
+        <BuyingGuidelines />
+        <UnfilteredReviews />
+      </section>
+
+      {/* Gifts Section */}
+      <section id="gifts-section">
+        <ExclusiveOffers />
+        <CoffeeShopBanner />
+        <WhatsNew />
+      </section>
+
       <BrandsSection />
       <Footer />
     </main>

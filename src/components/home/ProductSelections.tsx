@@ -3,7 +3,7 @@ import TeaSection from './TeaSelections';
 
 const ProductSelections = () => {
   return (
-    <div className="bg-gray-50 py-16">
+    <div className="bg-gray-50 ">
       <CoffeeSection />
       <TeaSection />
     </div>

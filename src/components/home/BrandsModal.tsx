@@ -16,6 +16,7 @@ const categoryTabs = [
   { id: 'tea', label: 'Top Tea Brands' },
   { id: 'coffee', label: 'Top Coffee Brands' },
   { id: 'utensils', label: 'Utensils' },
+  { id: 'machinery', label: 'Machinery' },
   { id: 'bakery', label: 'Bakery Products' },
 ];
 
@@ -76,37 +77,37 @@ const BrandsModal: React.FC<BrandsModalProps> = ({ isOpen, onClose }) => {
       <div className="fixed inset-20 bg-white rounded-xl shadow-xl overflow-hidden">
         <div className="flex h-full">
           {/* Left Sidebar */}
-          <div className="w-72 bg-gray-50 flex flex-col rounded-l-xl relative">
+          <div className="w-80 bg-gray-50 flex flex-col rounded-l-xl relative p-4">
             {/* Search Bar */}
-            <div className="p-4">
+            <div className="mb-6">
               <div className="relative">
                 <input
                   type="text"
                   placeholder="Search Brands"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full h-10 pl-9 pr-3 text-base rounded-2xl bg-white shadow-sm focus:outline-none focus:ring-1 focus:ring-green-500"
+                  className="w-full h-12 pl-10 pr-4 text-lg rounded-2xl bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
-                <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-4 h-5 w-5 text-gray-400" />
               </div>
             </div>
 
             {/* Brand List and Alphabet Navigation */}
             <div className="flex flex-1 overflow-hidden">
               {/* Brand List */}
-              <div className="flex-1 overflow-y-auto px-4">
+              <div className="flex-1 overflow-y-auto pr-4">
                 {alphabet.map((letter) => {
                   const brandsForLetter = brandsByLetter[letter] || [];
                   if (brandsForLetter.length === 0) return null;
                   
                   return (
-                    <div key={letter} className="mb-4">
-                      <div className="text-lg font-semibold mb-2">{letter}</div>
+                    <div key={letter} className="mb-6">
+                      <div className="text-xl font-semibold mb-2">{letter}</div>
                       {brandsForLetter.map((brandName) => (
                         <div
                           key={brandName}
-                          onClick={() => setSelectedLetter(letter === selectedLetter ? null : letter)}
-                          className={`py-1 text-base cursor-pointer ${
+                          onClick={() => setSelectedLetter(letter)}
+                          className={`py-1.5 text-lg cursor-pointer ${
                             selectedLetter === letter ? 'text-green-600' : 'text-gray-600 hover:text-gray-900'
                           }`}
                         >
@@ -119,12 +120,18 @@ const BrandsModal: React.FC<BrandsModalProps> = ({ isOpen, onClose }) => {
               </div>
 
               {/* Alphabet Quick Navigation */}
-              <div className="w-6 flex flex-col items-center py-2 mr-2">
+              <div className="w-8 flex flex-col items-center py-2">
                 {alphabet.map((letter) => (
                   <button
                     key={letter}
-                    onClick={() => setSelectedLetter(letter === selectedLetter ? null : letter)}
-                    className={`text-xs py-0.5 w-full text-center transition-colors ${
+                    onClick={() => {
+                      setSelectedLetter(letter);
+                      const firstBrandElement = document.querySelector(`[data-letter="${letter}"]`);
+                      if (firstBrandElement) {
+                        firstBrandElement.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                    className={`text-sm py-1 w-full text-center transition-colors ${
                       selectedLetter === letter 
                         ? 'text-green-600 font-medium' 
                         : 'text-gray-400 hover:text-gray-600'
@@ -140,8 +147,8 @@ const BrandsModal: React.FC<BrandsModalProps> = ({ isOpen, onClose }) => {
           {/* Main Content */}
           <div className="flex-1 flex flex-col bg-white">
             {/* Category Tabs */}
-            <div className="px-6 pt-4 pb-6">
-              <div className="flex space-x-3 overflow-x-auto">
+            <div className="px-8 pt-6 pb-8">
+              <div className="flex space-x-4 overflow-x-auto">
                 {categoryTabs.map((tab) => (
                   <button
                     key={tab.id}
@@ -149,7 +156,7 @@ const BrandsModal: React.FC<BrandsModalProps> = ({ isOpen, onClose }) => {
                       setActiveTab(activeTab === tab.id ? null : tab.id);
                       setSelectedLetter(null);
                     }}
-                    className={`px-5 py-2.5 rounded-lg text-base font-medium whitespace-nowrap transition-colors
+                    className={`px-6 py-3 rounded-lg text-lg font-semibold whitespace-nowrap transition-colors
                       ${activeTab === tab.id 
                         ? 'bg-green-900 text-white' 
                         : 'bg-green-900 bg-opacity-5 text-green-900 hover:bg-opacity-10'
@@ -162,15 +169,18 @@ const BrandsModal: React.FC<BrandsModalProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Brands Grid */}
-            <div className="flex-1 overflow-y-auto px-6 pb-6">
-              <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-6">
+            <div className="flex-1 overflow-y-auto px-8 pb-8">
+              <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-8">
                 {filteredBrands.map((brand) => (
                   <Link
                     key={brand.name}
                     href={`/brands/${brand.name.toLowerCase().replace(/\s+/g, '-')}`}
                     className="group"
                   >
-                    <div className="aspect-square bg-white border rounded-xl p-3 flex items-center justify-center transition-all hover:shadow-md hover:border-green-200">
+                    <div 
+                      data-letter={brand.name.charAt(0).toUpperCase()}
+                      className="aspect-square bg-white border rounded-xl p-4 flex items-center justify-center transition-all hover:shadow-lg hover:border-green-200"
+                    >
                       <Image
                         src={brand.image_path}
                         alt={brand.name}
@@ -179,7 +189,7 @@ const BrandsModal: React.FC<BrandsModalProps> = ({ isOpen, onClose }) => {
                         className="object-contain"
                       />
                     </div>
-                    <p className="mt-2 text-sm text-center text-gray-700 font-medium group-hover:text-green-600">
+                    <p className="mt-3 text-base text-center text-gray-700 font-medium group-hover:text-green-600">
                       {brand.name}
                     </p>
                   </Link>
@@ -191,9 +201,9 @@ const BrandsModal: React.FC<BrandsModalProps> = ({ isOpen, onClose }) => {
           {/* Close Button */}
           <button 
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
-            <X className="h-6 w-6" />
+            <X className="h-7 w-7" />
           </button>
         </div>
       </div>

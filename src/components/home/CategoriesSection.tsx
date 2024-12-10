@@ -8,35 +8,35 @@ const categories = [
     name: 'Bakery Products',
     discount: 'Up To 25% Off On Entire Range',
     image: '/images/carousel/categories/01.png',
-    link: '/category/bakery'
+    link: '/products'
   },
   {
     id: 2,
     name: 'Tea',
     discount: 'Up To 25% Off On Entire Range',
     image: '/images/carousel/categories/02.png',
-    link: '/category/tea'
+    link: '/products'
   },
   {
     id: 3,
     name: 'Coffee',
     discount: 'Up To 25% Off On Entire Range',
     image: '/images/carousel/categories/03.png',
-    link: '/category/coffee'
+    link: '/products'
   },
   {
     id: 4,
     name: 'Utensils',
     discount: 'Up To 25% Off On Entire Range',
     image: '/images/carousel/categories/04.png',
-    link: '/category/utensils'
+    link: '/products'
   },
   {
     id: 5,
     name: 'Machinery',
     discount: 'Up To 25% Off On Entire Range',
     image: '/images/carousel/categories/05.png',
-    link: '/category/machinery'
+    link: '/products'
   }
 ];
 
@@ -51,17 +51,17 @@ export default function CategoriesSection() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 m-2">
           {/* First Row */}
           <Link 
-            href={categories[0].link}
-            className="col-span-1 sm:col-span-1 lg:col-span-2 relative overflow-hidden rounded-lg h-[200px] sm:h-[240px] lg:h-[280px]"
+            href="/products"
+            className="col-span-1 sm:col-span-1 lg:col-span-2 relative overflow-hidden rounded-lg h-[200px] sm:h-[240px] lg:h-[280px] group"
           >
             <Image
               src={categories[0].image}
               alt={categories[0].name}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4 transition-opacity duration-300 group-hover:from-black/70">
               <h3 className="text-white text-lg md:text-xl font-medium mb-1">
                 {categories[0].name}
               </h3>
@@ -71,17 +71,17 @@ export default function CategoriesSection() {
             </div>
           </Link>
           <Link 
-            href={categories[1].link}
-            className="col-span-1 sm:col-span-1 lg:col-span-2 relative overflow-hidden rounded-lg h-[200px] sm:h-[240px] lg:h-[280px]"
+            href="/products"
+            className="col-span-1 sm:col-span-1 lg:col-span-2 relative overflow-hidden rounded-lg h-[200px] sm:h-[240px] lg:h-[280px] group"
           >
             <Image
               src={categories[1].image}
               alt={categories[1].name}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4 transition-opacity duration-300 group-hover:from-black/70">
               <h3 className="text-white text-lg md:text-xl font-medium mb-1">
                 {categories[1].name}
               </h3>
@@ -91,17 +91,17 @@ export default function CategoriesSection() {
             </div>
           </Link>
           <Link 
-            href={categories[2].link}
-            className="col-span-1 sm:col-span-2 lg:col-span-2 relative overflow-hidden rounded-lg h-[200px] sm:h-[240px] lg:h-[280px]"
+            href="/products"
+            className="col-span-1 sm:col-span-2 lg:col-span-2 relative overflow-hidden rounded-lg h-[200px] sm:h-[240px] lg:h-[280px] group"
           >
             <Image
               src={categories[2].image}
               alt={categories[2].name}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4 transition-opacity duration-300 group-hover:from-black/70">
               <h3 className="text-white text-lg md:text-xl font-medium mb-1">
                 {categories[2].name}
               </h3>
@@ -113,17 +113,17 @@ export default function CategoriesSection() {
 
           {/* Second Row */}
           <Link 
-            href={categories[3].link}
-            className="col-span-1 sm:col-span-1 lg:col-span-3 relative overflow-hidden rounded-lg h-[280px] sm:h-[320px] lg:h-[380px]"
+            href="/products"
+            className="col-span-1 sm:col-span-1 lg:col-span-3 relative overflow-hidden rounded-lg h-[280px] sm:h-[320px] lg:h-[380px] group"
           >
             <Image
               src={categories[3].image}
               alt={categories[3].name}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4 transition-opacity duration-300 group-hover:from-black/70">
               <h3 className="text-white text-lg md:text-xl font-medium mb-1">
                 {categories[3].name}
               </h3>
@@ -133,17 +133,17 @@ export default function CategoriesSection() {
             </div>
           </Link>
           <Link 
-            href={categories[4].link}
-            className="col-span-1 sm:col-span-1 lg:col-span-3 relative overflow-hidden rounded-lg h-[280px] sm:h-[320px] lg:h-[380px]"
+            href="/products"
+            className="col-span-1 sm:col-span-1 lg:col-span-3 relative overflow-hidden rounded-lg h-[280px] sm:h-[320px] lg:h-[380px] group"
           >
             <Image
               src={categories[4].image}
               alt={categories[4].name}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-4 transition-opacity duration-300 group-hover:from-black/70">
               <h3 className="text-white text-lg md:text-xl font-medium mb-1">
                 {categories[4].name}
               </h3>

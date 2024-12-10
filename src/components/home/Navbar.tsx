@@ -5,20 +5,44 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Search, Heart, ShoppingBag, Menu, X } from 'lucide-react';
-import type { NavItem } from '@/types';
 import BrandsModal from './BrandsModal';
+
+interface NavItem {
+  label: string;
+  path: string;
+}
 
 const navItems: NavItem[] = [
   { label: 'Brands', path: '/brands' },
-  { label: 'Offers', path: '/offers' },
-  { label: 'Buying Guidelines', path: '/buying-guide' },
-  { label: 'Gifts', path: '/gifts' },
+  { label: 'Offers', path: 'offers-section' },
+  { label: 'Buying Guidelines', path: 'guidelines-section' },
+  { label: 'Gifts', path: 'gifts-section' },
 ];
 
-export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isBrandsModalOpen, setIsBrandsModalOpen] = useState(false);
+const Navbar: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isBrandsModalOpen, setIsBrandsModalOpen] = useState<boolean>(false);
   const pathname = usePathname();
+
+  const scrollToSection = (sectionId: string): void => {
+    if (typeof window !== 'undefined') {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
+    }
+  };
+
+  const handleNavClick = (item: NavItem): void => {
+    if (item.label === 'Brands') {
+      setIsBrandsModalOpen(true);
+    } else {
+      scrollToSection(item.path);
+    }
+  };
 
   return (
     <>
@@ -42,11 +66,7 @@ export default function Navbar() {
               {navItems.map((item) => (
                 <button
                   key={item.path}
-                  onClick={() => {
-                    if (item.label === 'Brands') {
-                      setIsBrandsModalOpen(true);
-                    }
-                  }}
+                  onClick={() => handleNavClick(item)}
                   className={`text-gray-600 hover:text-gray-900 transition-colors duration-200 ${
                     pathname === item.path ? 'text-green-600 font-medium' : ''
                   }`}
@@ -113,9 +133,7 @@ export default function Navbar() {
               <button
                 key={item.path}
                 onClick={() => {
-                  if (item.label === 'Brands') {
-                    setIsBrandsModalOpen(true);
-                  }
+                  handleNavClick(item);
                   setIsMenuOpen(false);
                 }}
                 className={`block w-full text-left py-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 ${
@@ -135,4 +153,6 @@ export default function Navbar() {
       />
     </>
   );
-}
+};
+
+export default Navbar;
