@@ -18,7 +18,7 @@ export const blogPosts: BlogPost[] = [
       <p>While quality grinders might seem expensive, they're an investment in better coffee. A good grinder can last years and significantly improve your daily brew.</p>
     `,
     category: 'COFFEE',
-    image: '/images/blogs/coffee-grinder.jpg',
+    image: '/images/machinery/machine1.svg',
     author: 'Admin',
     date: '24 Aug 2024',
     tags: ['Coffee', 'Machinery', 'Tips']
@@ -37,7 +37,7 @@ export const blogPosts: BlogPost[] = [
       <p>Unlike a cappuccino or latte, the milk in a cortado is steamed with minimal foam, creating a smooth, velvety texture.</p>
     `,
     category: 'DRINKS',
-    image: '/images/blogs/cortado.jpg',
+    image: '/images/coffee/coffee2.png',
     author: 'Admin',
     date: '24 Aug 2024',
     tags: ['Coffee', 'Drinks', 'Recipes']
@@ -57,7 +57,7 @@ export const blogPosts: BlogPost[] = [
       <p>4. Mindful Movements</p>
     `,
     category: 'TEA',
-    image: '/images/blogs/tea-ceremony.jpg',
+    image: '/images/tea/tea1.png',
     author: 'Tea Master',
     date: '22 Aug 2024',
     tags: ['Tea', 'Culture', 'Traditions']
@@ -74,7 +74,7 @@ export const blogPosts: BlogPost[] = [
       <p>Precise measurements are crucial in baking. Learn the difference between volume and weight measurements.</p>
     `,
     category: 'BAKERY',
-    image: '/images/blogs/baking.jpg',
+    image: "/images/cakes/image5.png",
     author: 'Chef Sarah',
     date: '20 Aug 2024',
     tags: ['Bakery', 'Tips', 'Recipes']
@@ -91,7 +91,7 @@ export const blogPosts: BlogPost[] = [
       <p>3. Asia Pacific: Earthy, full-bodied</p>
     `,
     category: 'COFFEE',
-    image: '/images/blogs/coffee-beans.jpg',
+    image: '/images/coffee/coffee1.png',
     author: 'Coffee Expert',
     date: '18 Aug 2024',
     tags: ['Coffee', 'Education', 'Origins']
