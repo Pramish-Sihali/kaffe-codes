@@ -1,4 +1,3 @@
-// context/CartContext.tsx
 "use client";
 
 import { createContext, useContext, useState, useEffect } from 'react';
@@ -37,27 +36,29 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [cartItems]);
 
   const addToCart = (product: Product, quantity: number = 1) => {
-    setCartItems(prev => {
-      const existingItem = prev.find(item => item.id === product.id);
+    setCartItems((prevCartItems) => {
+      const existingItem = prevCartItems.find((item) => item.id === product.id);
       if (existingItem) {
-        return prev.map(item =>
+        return prevCartItems.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + quantity }
             : item
         );
       }
-      return [...prev, { ...product, quantity }];
+      return [...prevCartItems, { ...product, quantity }];
     });
   };
 
   const removeFromCart = (productId: string) => {
-    setCartItems(prev => prev.filter(item => item.id !== productId));
+    setCartItems((prevCartItems) =>
+      prevCartItems.filter((item) => item.id !== productId)
+    );
   };
 
   const updateQuantity = (productId: string, quantity: number) => {
     if (quantity < 1) return;
-    setCartItems(prev =>
-      prev.map(item =>
+    setCartItems((prevCartItems) =>
+      prevCartItems.map((item) =>
         item.id === productId ? { ...item, quantity } : item
       )
     );
@@ -68,18 +69,23 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const totalAmount = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const totalAmount = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
-    <CartContext.Provider value={{
-      cartItems,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      clearCart,
-      totalItems,
-      totalAmount
-    }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        totalItems,
+        totalAmount,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

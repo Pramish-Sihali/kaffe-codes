@@ -1,37 +1,38 @@
-// components/wishlist/WishlistItem.tsx
+
+"use client";
 import Image from 'next/image';
 import { Trash } from 'lucide-react';
 import { Product } from '@/types/products';
-import { useCart } from '@/context/CartContext';
+import AddButton from '@/components/home/AddButton';
+import BaseListItem from '@/components/home/BaseListItem';
 
 interface WishlistItemProps {
   product: Product;
   isSelected: boolean;
+  isAdded: boolean;
   onSelect: () => void;
   onRemove: () => void;
+  onAddToBag: () => void;
 }
 
 export default function WishlistItem({
   product,
   isSelected,
+  isAdded,
   onSelect,
   onRemove,
+  onAddToBag,
 }: WishlistItemProps) {
-  const { addToCart } = useCart();
-
-  const handleAddToBag = () => {
-    addToCart(product);
-  };
-
   return (
-    <div className="flex items-center gap-4 py-4 px-4 bg-white">
-      <input
-        type="checkbox"
-        checked={isSelected}
-        onChange={onSelect}
-        className="w-5 h-5 border-gray-300 rounded text-green-600 focus:ring-green-500"
-      />
-      <div className="flex flex-1 items-center gap-4">
+    <BaseListItem>
+      <div className="flex items-center gap-8 flex-1 max-w-4xl">
+        <input
+          type="checkbox"
+          checked={isSelected}
+          onChange={onSelect}
+          className="w-5 h-5 border-gray-900 rounded text-green-600 bg-gray-900 focus:ring-green-500"
+        />
+        
         <div className="relative w-16 h-16">
           <Image
             src={product.image}
@@ -40,25 +41,30 @@ export default function WishlistItem({
             className="object-contain"
           />
         </div>
+
         <div className="flex-1">
-          <h3 className="text-base font-medium text-gray-900">{product.name}</h3>
-          <p className="text-sm text-gray-600">NPR. {product.price.toLocaleString()}</p>
+          <h3 className="text-lg font-medium text-gray-900">{product.name}</h3>
+          <p className="text-sm mt-1">
+            <span className="text-gray-500">NPR.</span> {product.price.toLocaleString()}
+          </p>
         </div>
       </div>
-      <div className="flex items-center gap-4">
+
+      <div className="flex items-center gap-8 ml-8">
         <button
           onClick={onRemove}
-          className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          className="p-2 text-gray-400 hover:text-gray-600 rounded"
         >
-          <Trash className="w-5 h-5 text-gray-400" />
+          <Trash className="w-5 h-5" />
         </button>
-        <button
-          onClick={handleAddToBag}
-          className="bg-green-600 text-white px-4 py-2 rounded-full hover:bg-green-700 transition-colors text-sm whitespace-nowrap"
-        >
-          ADD TO BAG
-        </button>
+        <AddButton
+          text={isAdded ? 'ADDED' : 'ADD TO BAG'}
+          onClick={onAddToBag}
+          className={isAdded ? 'cursor-not-allowed' : ''}
+          disabled={isAdded}
+          variant="list"
+        />
       </div>
-    </div>
+    </BaseListItem>
   );
 }

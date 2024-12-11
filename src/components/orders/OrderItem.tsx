@@ -1,6 +1,4 @@
-// components/orders/OrderItem.tsx
 import Image from 'next/image';
-import { Product } from '@/types/products';
 
 interface OrderItemProps {
   image: string;
@@ -15,7 +13,7 @@ interface OrderItemProps {
   };
 }
 
-export default function OrderItem({
+const OrderItem = ({
   image,
   name,
   price,
@@ -23,10 +21,10 @@ export default function OrderItem({
   status,
   deliveredDate,
   discount,
-}: OrderItemProps) {
+}: OrderItemProps) => {
   return (
-    <div className="flex items-center gap-6 py-4">
-      <div className="relative w-20 h-20 border rounded">
+    <div className="grid grid-cols-[auto,1fr,auto,auto,auto] items-center gap-8 px-8 py-4">
+      <div className="relative w-16 h-16 border rounded bg-white">
         <Image
           src={image}
           alt={name}
@@ -34,17 +32,17 @@ export default function OrderItem({
           className="object-contain p-2"
         />
       </div>
-      
-      <div className="flex-1">
+
+      <div>
         <h3 className="text-base font-medium text-gray-900">{name}</h3>
-        <div className="flex items-center gap-2">
-          <p className="text-sm text-gray-600">NPR. {price.toLocaleString()}</p>
+        <div className="flex items-center gap-2 text-sm mt-1">
+          <span className="text-gray-600">NPR. {price}</span>
           {discount && (
             <>
-              <span className="text-sm text-gray-400 line-through">
-                NPR.{discount.originalPrice.toLocaleString()}
+              <span className="text-gray-400 line-through">
+                NPR. {discount.originalPrice}
               </span>
-              <span className="text-sm text-green-600">
+              <span className="text-green-600">
                 ({discount.percentage}% OFF)
               </span>
             </>
@@ -52,25 +50,28 @@ export default function OrderItem({
         </div>
       </div>
 
-      <div className="text-right">
-        <div className="flex items-center justify-end gap-8">
-          <p className="text-sm text-gray-600">Quantity: {quantity}</p>
-          <span className={`px-3 py-1 rounded-full text-sm ${
-            status === 'Delivered' 
-              ? 'bg-green-100 text-green-700'
-              : status === 'Cancelled'
-              ? 'bg-red-100 text-red-700'
-              : 'bg-yellow-100 text-yellow-700'
-          }`}>
-            {status}
-          </span>
-        </div>
-        {deliveredDate && (
-          <p className="text-sm text-gray-500 mt-1">
-            Delivered on {deliveredDate}
-          </p>
-        )}
+      <div className="text-gray-600 text-sm">
+        Quantity: {quantity}
       </div>
+
+      <span
+        className={`
+          px-3 py-1 rounded-full text-sm whitespace-nowrap
+          ${status === 'Delivered' ? 'bg-green-100 text-green-700' : 
+            status === 'Cancelled' ? 'bg-red-100 text-red-700' : 
+            'bg-yellow-100 text-yellow-700'}
+        `}
+      >
+        {status}
+      </span>
+
+      {deliveredDate && (
+        <p className="text-sm text-gray-500 whitespace-nowrap">
+          Delivered on {deliveredDate}
+        </p>
+      )}
     </div>
   );
-}
+};
+
+export default OrderItem;

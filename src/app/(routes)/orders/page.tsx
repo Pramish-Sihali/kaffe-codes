@@ -1,8 +1,8 @@
-// app/(routes)/orders/page.tsx
 "use client";
 
 import { useState } from 'react';
 import OrderItem from '@/components/orders/OrderItem';
+import OrderGroup from '@/components/orders/OrderGroup';
 
 const mockOrders = [
   {
@@ -10,7 +10,7 @@ const mockOrders = [
     placedOn: '21 Jan 2024 22:08:49',
     items: [
       {
-        image: '/images/coffee/coffee1.png',
+        image: '/images/products/sumatra-coffee.png',
         name: 'Sumatra Single - Origin Coffee | 12oz',
         price: 305,
         quantity: 3,
@@ -18,7 +18,7 @@ const mockOrders = [
         deliveredDate: '21 Jan 2024 22:08:49'
       },
       {
-        image: '/images/coffee/coffee2.png',
+        image: '/images/products/lavazza-coffee.png',
         name: 'Lavazza Super Crema Espresso',
         price: 400,
         quantity: 5,
@@ -26,7 +26,7 @@ const mockOrders = [
         deliveredDate: '15Jan 2024 10:05:50'
       },
       {
-        image: '/images/coffee/coffee3.png',
+        image: '/images/products/bones-cups.png',
         name: 'High Voltage Bones Cups - 12 Count',
         price: 235,
         quantity: 1,
@@ -40,7 +40,7 @@ const mockOrders = [
     placedOn: '15 Jan 2024 23:07:50',
     items: [
       {
-        image: '/images/machines/machine1.png',
+        image: '/images/products/black-decker.png',
         name: 'BLACK+DECKER 12-Cup Digital Coffee Maker',
         price: 1048,
         quantity: 3,
@@ -50,14 +50,6 @@ const mockOrders = [
           originalPrice: 1498,
           percentage: 30
         }
-      },
-      {
-        image: '/images/machines/machine2.png',
-        name: 'Ninja CFN601 Espresso & Coffee Barista System',
-        price: 1200,
-        quantity: 3,
-        status: 'Delivered' as const,
-        deliveredDate: '21 Jan 2024 22:08:49'
       }
     ]
   }
@@ -66,21 +58,24 @@ const mockOrders = [
 export default function OrdersPage() {
   const [filter, setFilter] = useState('All Orders');
 
+  const totalItems = mockOrders.reduce((sum, order) => sum + order.items.length, 0);
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="bg-gray-50 rounded-lg">
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl font-semibold">My Orders</h1>
-            <span className="text-gray-500">(6 items)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-600">Show:</span>
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="mb-8">
+        <div className="flex items-center gap-2 mb-4">
+          <h1 className="text-2xl font-medium">
+            My Orders
+          </h1>
+          <span className="text-xl text-gray-500">({totalItems} items)</span>
+        </div>
+        <div>
+          <div className="flex items-center gap-3">
+            <span className="text-sm">Show:</span>
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="border rounded px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-brown-500"
+              className="border rounded px-4 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-green-500"
             >
               <option>All Orders</option>
               <option>Delivered</option>
@@ -89,30 +84,20 @@ export default function OrdersPage() {
             </select>
           </div>
         </div>
+      </div>
 
-        {/* Orders */}
-        <div className="divide-y">
-          {mockOrders.map((order) => (
-            <div key={order.id} className="px-6 py-4">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <p className="text-sm">
-                    Order ID{' '}
-                    <span className="text-green-600 font-medium">{order.id}</span>
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Placed on {order.placedOn}
-                  </p>
-                </div>
-              </div>
-              <div className="divide-y">
-                {order.items.map((item, index) => (
-                  <OrderItem key={`${order.id}-${index}`} {...item} />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="space-y-6">
+        {mockOrders.map((order) => (
+          <OrderGroup 
+            key={order.id} 
+            id={order.id}
+            placedOn={order.placedOn}
+          >
+            {order.items.map((item, index) => (
+              <OrderItem key={`${order.id}-${index}`} {...item} />
+            ))}
+          </OrderGroup>
+        ))}
       </div>
     </div>
   );

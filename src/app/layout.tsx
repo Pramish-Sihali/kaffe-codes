@@ -4,6 +4,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { WishlistProvider } from '@/context/WishlistContext';
 import { CartProvider } from '@/context/CartContext';
+import { UserProvider } from '@/context/UserContext';
 import './globals.css';
 
 const nunito = Nunito({ 
@@ -25,17 +26,19 @@ export default function RootLayout({
   return (
     <html lang="en" className={nunito.variable}>
       <body className={`${nunito.className} flex flex-col min-h-screen`}>
-        <WishlistProvider>
-          <CartProvider>
-            <div className="flex flex-col min-h-screen">
-              <Header />
-              <main className="flex-grow">
-                {children}
-              </main>
-              <Footer />
-            </div>
-          </CartProvider>
-        </WishlistProvider>
+        <UserProvider>
+          <WishlistProvider>
+            <CartProvider>
+              <div className="flex flex-col min-h-screen">
+                <Header />
+                <main className="flex-grow">
+                  {children}
+                </main>
+                <Footer />
+              </div>
+            </CartProvider>
+          </WishlistProvider>
+        </UserProvider>
       </body>
     </html>
   );

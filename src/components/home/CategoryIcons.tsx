@@ -45,7 +45,7 @@ export default function CategoryIcons() {
               href="/products"
               className="flex flex-col items-center space-y-2 min-w-[72px] md:min-w-[80px] group"
             >
-              <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-brown-50 flex items-center justify-center hover:bg-brown-100 transition-colors duration-300">
+              <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gray-100 flex items-center justify-center hover:bg-brown-100 transition-colors duration-300">
                 <Image
                   src={category.icon}
                   alt={category.name}

@@ -1,4 +1,3 @@
-// components/home/ExclusiveBrownie.tsx
 "use client";
 
 import Image from 'next/image';
@@ -12,7 +11,7 @@ export default function ExclusiveBrownie() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => 
+      setCurrentIndex((prev) =>
         prev === brownieProducts.length - 2 ? 0 : prev + 1
       );
     }, 5000);
@@ -21,27 +20,28 @@ export default function ExclusiveBrownie() {
   }, []);
 
   const handleNext = () => {
-    setCurrentIndex((prev) => 
+    setCurrentIndex((prev) =>
       prev === brownieProducts.length - 2 ? 0 : prev + 1
     );
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => 
+    setCurrentIndex((prev) =>
       prev === 0 ? 0 : prev - 1
     );
   };
 
   return (
-    <section className="py-12 bg-[#F5F8F5]">
-      <div className="max-w-[1400px] mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-          <div className="relative aspect-square rounded-lg overflow-hidden">
+    <section className="min-h-screen bg-[#F5F8F5]">
+      <div className="max-w-[1400px] mx-auto h-full">
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] h-full">
+          <div className="relative h-[500px] md:h-full -ml-4 md:-ml-8">
             <Image
               src="/images/cakes/image5.png"
               alt="Brownie Box"
               fill
-              className="object-cover"
+              className="object-cover object-right"
+              priority
             />
             <div className="absolute inset-0 bg-black/30 flex items-end p-8">
               <p className="text-white text-lg">
@@ -50,21 +50,21 @@ export default function ExclusiveBrownie() {
             </div>
           </div>
 
-          <div>
+          <div className="p-8">
             <h2 className="text-2xl font-bold mb-8">Exclusive Brownie</h2>
             
             <div className="relative">
               <div className="overflow-hidden">
-                <div 
+                <div
                   className="flex transition-transform duration-500 ease-out gap-6"
                   style={{ transform: `translateX(-${currentIndex * (100/2)}%)` }}
                 >
                   {brownieProducts.map((brownie) => (
-                    <div 
-                      key={brownie.id} 
+                    <div
+                      key={brownie.id}
                       className="min-w-[calc(50%-12px)]"
                     >
-                      <ProductCard 
+                      <ProductCard
                         product={brownie}
                         backgroundColor="bg-gray-100"
                         section="brownies"
@@ -93,8 +93,8 @@ export default function ExclusiveBrownie() {
                   <button
                     key={index}
                     className={`w-2 h-2 rounded-full transition-colors ${
-                      index === currentIndex 
-                        ? 'bg-brown-500 w-4' 
+                      index === currentIndex
+                        ? 'bg-brown-500 w-4'
                         : 'bg-gray-300 hover:bg-brown-300'
                     }`}
                     onClick={() => setCurrentIndex(index)}

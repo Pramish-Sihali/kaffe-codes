@@ -4,6 +4,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import ProductCard from './ProductCard';
+import { Carousel } from '@/components/home/Carousel';
 import { cakeProducts } from '@/data/cakeProducts';
 
 const categories = [
@@ -30,7 +31,6 @@ export default function ExclusiveCakes() {
   return (
     <section className="py-8 md:py-12 bg-white">
       <div className="max-w-[1400px] mx-auto px-4">
-        {/* Title and Category Tabs */}
         <div className="text-center mb-8">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">Hot Cakes</h2>
           <div className="flex justify-center items-center gap-8">
@@ -41,8 +41,8 @@ export default function ExclusiveCakes() {
                 className="flex flex-col items-center group"
               >
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 transition-colors ${
-                  activeCategory === category.id 
-                    ? 'bg-brown-600' 
+                  activeCategory === category.id
+                    ? 'bg-brown-600'
                     : 'bg-gray-100 group-hover:bg-brown-100'
                 }`}>
                   <Image
@@ -56,8 +56,8 @@ export default function ExclusiveCakes() {
                   />
                 </div>
                 <span className={`text-sm ${
-                  activeCategory === category.id 
-                    ? 'text-brown-600 font-medium' 
+                  activeCategory === category.id
+                    ? 'text-brown-600 font-medium'
                     : 'text-gray-600'
                 }`}>
                   {category.label}
@@ -67,18 +67,23 @@ export default function ExclusiveCakes() {
           </div>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+        <Carousel
+          itemsPerView={5}
+          autoPlayInterval={5000}
+          showDots={true}
+          showArrows={true}
+          className="px-4"
+        >
           {cakeProducts.map((cake) => (
-            <div key={cake.id} className="w-full">
-              <ProductCard 
+            <div key={cake.id} className="max-w-[250px] mx-auto">
+              <ProductCard
                 product={cake}
                 backgroundColor="bg-white"
                 section="cakes"
               />
             </div>
           ))}
-        </div>
+        </Carousel>
       </div>
     </section>
   );

@@ -52,7 +52,7 @@ export default function CategoriesSection() {
           {/* First Row */}
           <Link 
             href="/products"
-            className="col-span-1 sm:col-span-1 lg:col-span-2 relative overflow-hidden rounded-lg h-[200px] sm:h-[240px] lg:h-[280px] group"
+            className="col-span-1 sm:col-span-1 lg:col-span-2 relative overflow-hidden rounded-lg h-[400px] sm:h-[440px] lg:h-[480px] group"
           >
             <Image
               src={categories[0].image}
@@ -72,7 +72,7 @@ export default function CategoriesSection() {
           </Link>
           <Link 
             href="/products"
-            className="col-span-1 sm:col-span-1 lg:col-span-2 relative overflow-hidden rounded-lg h-[200px] sm:h-[240px] lg:h-[280px] group"
+            className="col-span-1 sm:col-span-1 lg:col-span-2 relative overflow-hidden rounded-lg h-[400px] sm:h-[440px] lg:h-[480px] group"
           >
             <Image
               src={categories[1].image}
@@ -92,7 +92,7 @@ export default function CategoriesSection() {
           </Link>
           <Link 
             href="/products"
-            className="col-span-1 sm:col-span-2 lg:col-span-2 relative overflow-hidden rounded-lg h-[200px] sm:h-[240px] lg:h-[280px] group"
+            className="col-span-1 sm:col-span-2 lg:col-span-2 relative overflow-hidden rounded-lg h-[400px] sm:h-[440px] lg:h-[480px] group"
           >
             <Image
               src={categories[2].image}
@@ -111,7 +111,7 @@ export default function CategoriesSection() {
             </div>
           </Link>
 
-          {/* Second Row */}
+          {/* Second Row - Unchanged */}
           <Link 
             href="/products"
             className="col-span-1 sm:col-span-1 lg:col-span-3 relative overflow-hidden rounded-lg h-[280px] sm:h-[320px] lg:h-[380px] group"

@@ -1,61 +1,107 @@
-// app/(routes)/cart/page.tsx
 "use client";
 
+import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 import CartItem from '@/components/cart/CartItem';
 import { ShoppingBag } from 'lucide-react';
+import OrderSummary from '@/components/cart/OrderSummary';
+import { Product } from '@/types/products';
 
-export default function CartPage() {
-  const { cartItems, totalAmount, clearCart } = useCart();
+const CartPage = () => {
+  const { cartItems } = useCart();
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-  if (cartItems.length === 0) {
+  const itemsByBrand = cartItems?.reduce((acc, item) => {
+    if (!acc[item.brand]) {
+      acc[item.brand] = [];
+    }
+    acc[item.brand].push(item);
+    return acc;
+  }, {} as Record<string, (Product & { quantity: number })[]>) || {};
+
+  const handleSelectAll = () => {
+    if (selectedItems.length === cartItems?.length) {
+      setSelectedItems([]);
+    } else {
+      setSelectedItems(cartItems?.map((item) => item.id) || []);
+    }
+  };
+
+  const handleCheckout = () => {
+    // Implement checkout logic
+    console.log('Checking out with items:', selectedItems);
+  };
+
+  if (!cartItems || cartItems.length === 0) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <div className="text-center py-12">
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <h1 className="text-2xl font-medium mb-8">My Bag</h1>
+        <div className="text-center py-12 bg-gray-100 rounded-lg">
           <ShoppingBag className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-500">Your shopping bag is empty</p>
+          <p className="text-gray-500 text-lg">Your shopping bag is empty</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="bg-gray-50 rounded-lg">
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b">
-          <div className="flex items-center gap-2">
-            <h1 className="text-xl font-semibold">Shopping Bag</h1>
-            <span className="text-gray-500">({cartItems.length} items)</span>
+    <div className="max-w-7xl mx-auto px-4 py-12">
+      <h1 className="text-2xl font-medium mb-8">
+        My Bag <span className="text-xl text-gray-500">({cartItems.length} items)</span>
+      </h1>
+
+      <div className="flex gap-8">
+        <div className="flex-1">
+          <div className="space-y-6">
+            <div className="bg-gray-50 rounded-lg p-6">
+              <label className="flex items-center gap-3">
+                <input
+                  type="checkbox"
+                  checked={selectedItems.length === cartItems.length}
+                  onChange={handleSelectAll}
+                  className="w-5 h-5 border-gray-300 rounded text-green-600 bg-gray-50 focus:ring-green-500"
+                />
+                <span className="font-medium text-base">SELECT ALL</span>
+              </label>
+            </div>
+
+            {Object.entries(itemsByBrand).map(([brand, items]) => (
+              <div key={brand} className="bg-gray-50 rounded-lg overflow-hidden">
+                <div className="px-8 py-4 border-b border-gray-200">
+                  <h2 className="text-base font-medium">{brand}</h2>
+                </div>
+                <div>
+                  {items.map((item) => (
+                    <CartItem 
+                      key={item.id} 
+                      item={item} 
+                      isSelected={selectedItems.includes(item.id)}
+                      onSelect={() => {
+                        setSelectedItems(prev => {
+                          if (prev.includes(item.id)) {
+                            return prev.filter(id => id !== item.id);
+                          }
+                          return [...prev, item.id];
+                        });
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
-          <button
-            onClick={clearCart}
-            className="text-red-600 hover:text-red-700 text-sm font-medium"
-          >
-            Clear All
-          </button>
         </div>
 
-        {/* Items */}
-        <div className="divide-y px-6">
-          {cartItems.map((item) => (
-            <CartItem key={item.id} item={item} />
-          ))}
-        </div>
-
-        {/* Summary */}
-        <div className="px-6 py-4 bg-white mt-4 rounded-b-lg">
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-gray-600">Subtotal</span>
-            <span className="font-medium">NPR. {totalAmount.toLocaleString()}</span>
-          </div>
-          <button 
-            className="w-full bg-green-600 text-white py-3 rounded-full hover:bg-green-700 transition-colors font-medium"
-          >
-            PROCEED TO CHECKOUT
-          </button>
+        <div className="w-96">
+          <OrderSummary
+            cartItems={cartItems}
+            selectedItemIds={selectedItems}
+            onCheckout={handleCheckout}
+          />
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default CartPage;
