@@ -23,7 +23,8 @@ const ProductCard = memo(({
   const [isFavorite, setIsFavorite] = useState(false);
 
   const uniqueProductId = `${section}-${product.id}`;
-  const modifiedProduct: Product = {
+  
+  const modifiedProduct = {
     ...product,
     id: uniqueProductId,
   };
@@ -50,7 +51,6 @@ const ProductCard = memo(({
   return (
     <Link href={`/products/${product.id}`} className="group block">
       <div className={`${backgroundColor} w-full flex flex-col transition-all duration-300 hover:shadow-lg rounded-lg p-3`}>
-        {/* Product Image Container */}
         <div className="relative aspect-square w-full mb-2">
           <div className="relative w-full h-full">
             <Image
@@ -83,7 +83,6 @@ const ProductCard = memo(({
           )}
         </div>
 
-        {/* Product Details */}
         <div className="space-y-2 flex-grow">
           <div className="space-y-1">
             <p className="text-sm text-gray-600 font-medium">{product.brand}</p>
@@ -92,7 +91,6 @@ const ProductCard = memo(({
             </h3>
           </div>
 
-          {/* Rating */}
           <div className="flex items-center">
             <div className="flex text-base">
               {[...Array(5)].map((_, index) => (
@@ -104,15 +102,12 @@ const ProductCard = memo(({
                 </span>
               ))}
             </div>
-            {product.reviews && (
-              <span className="ml-2 text-sm text-gray-600">
-                ({product.reviews})
-              </span>
-            )}
+            <span className="ml-2 text-sm text-gray-600">
+              ({product.reviews})
+            </span>
           </div>
 
-          {/* Price */}
-          <div className="flex items-center justify-between">
+          <div className="pt-2">
             <p className="text-lg font-semibold text-gray-900">
               NPR. {product.price.toLocaleString()}
             </p>

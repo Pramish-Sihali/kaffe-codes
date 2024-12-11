@@ -1,4 +1,4 @@
-// src/components/layout/Navbar.tsx
+// components/layout/Navbar.tsx
 "use client";
 
 import { useState } from 'react';
@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Search, Heart, ShoppingBag, Menu, X } from 'lucide-react';
 import { useWishlist } from '@/context/WishlistContext';
+import { useCart } from '@/context/CartContext';
 import BrandsModal from './BrandsModal';
 import ProfileDropdown from '../profile/ProfileDropdown';
 
@@ -22,30 +23,28 @@ const navItems: NavItem[] = [
   { label: 'Gifts', path: 'gifts-section' },
 ];
 
-const Navbar: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [isBrandsModalOpen, setIsBrandsModalOpen] = useState<boolean>(false);
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBrandsModalOpen, setIsBrandsModalOpen] = useState(false);
   const pathname = usePathname();
   const { wishlistItems } = useWishlist();
-
-  const scrollToSection = (sectionId: string): void => {
-    if (typeof window !== 'undefined') {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
-      }
-    }
-  };
+  const { totalItems: cartItems } = useCart();
 
   const handleNavClick = (item: NavItem): void => {
     if (item.label === 'Brands') {
       setIsBrandsModalOpen(true);
     } else {
-      scrollToSection(item.path);
+      if (typeof window !== 'undefined') {
+        const element = document.getElementById(item.path);
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+        }
+      }
     }
+    setIsMenuOpen(false);
   };
 
   return (
@@ -53,6 +52,7 @@ const Navbar: React.FC = () => {
       <nav className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center h-16">
+            {/* Logo */}
             <Link href="/" className="flex-shrink-0">
               <Image
                 src="/images/logo.svg"
@@ -64,6 +64,7 @@ const Navbar: React.FC = () => {
               />
             </Link>
 
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               {navItems.map((item) => (
                 <button
@@ -78,6 +79,7 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
+            {/* Search Bar */}
             <div className="hidden md:flex items-center flex-1 max-w-xs ml-8">
               <div className="relative w-full">
                 <input
@@ -89,8 +91,12 @@ const Navbar: React.FC = () => {
               </div>
             </div>
 
+            {/* Action Buttons */}
             <div className="flex items-center space-x-4">
-              <Link href="/wishlist" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 relative">
+              <Link 
+                href="/wishlist" 
+                className="text-gray-600 hover:text-gray-900 transition-colors duration-200 relative"
+              >
                 <Heart className="h-6 w-6" />
                 {wishlistItems.length > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -98,10 +104,21 @@ const Navbar: React.FC = () => {
                   </span>
                 )}
               </Link>
-              <button className="text-gray-600 hover:text-gray-900 transition-colors duration-200">
+
+              <Link 
+                href="/cart" 
+                className="text-gray-600 hover:text-gray-900 transition-colors duration-200 relative"
+              >
                 <ShoppingBag className="h-6 w-6" />
-              </button>
+                {cartItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartItems}
+                  </span>
+                )}
+              </Link>
+
               <ProfileDropdown />
+              
               <button 
                 className="md:hidden"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -117,6 +134,7 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
+        {/* Mobile Menu */}
         <div
           className={`md:hidden border-t transition-all duration-300 ${
             isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
@@ -134,10 +152,7 @@ const Navbar: React.FC = () => {
             {navItems.map((item) => (
               <button
                 key={item.path}
-                onClick={() => {
-                  handleNavClick(item);
-                  setIsMenuOpen(false);
-                }}
+                onClick={() => handleNavClick(item)}
                 className={`block w-full text-left py-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 ${
                   pathname === item.path ? 'text-green-600 font-medium' : ''
                 }`}

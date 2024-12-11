@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Heart } from 'lucide-react';
 import { Product } from '@/types/products';
 import { useWishlist } from '@/context/WishlistContext';
+import { useCart } from '@/context/CartContext';
 import { Carousel } from '@/components/home/Carousel';
 import ProductCard from '@/components/home/ProductCard';
 import ProductTabs from './ProductTabs';
@@ -44,6 +45,7 @@ export default function ProductDetailClient({
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const { addToCart } = useCart();
   const isFavorite = isInWishlist(product.id);
 
   const productImages = Array(5).fill(product.image);
@@ -61,6 +63,12 @@ export default function ProductDetailClient({
       removeFromWishlist(product.id);
     } else {
       addToWishlist(product);
+    }
+  };
+
+  const handleAddToBag = () => {
+    if (product.inStock) {
+      addToCart(product, quantity);
     }
   };
 
@@ -164,8 +172,11 @@ export default function ProductDetailClient({
                         +
                       </button>
                     </div>
-                    <button className="flex-1 bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition-colors">
-                      Add to Cart
+                    <button 
+                      onClick={handleAddToBag}
+                      className="flex-1 bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition-colors"
+                    >
+                      ADD TO BAG
                     </button>
                   </div>
                 )}

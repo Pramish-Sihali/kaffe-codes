@@ -39,12 +39,12 @@ interface FilterState {
 const banners = [
   {
     id: 1,
-    image: '/images/banners/banner1.jpg',
+    image: '/images/categories/bakery.jpg',
     alt: 'Coffee Collection'
   },
   {
     id: 2,
-    image: '/images/banners/banner2.jpg',
+    image: '/images/categories/coffee.jpg',
     alt: 'Special Offers'
   }
 ];
