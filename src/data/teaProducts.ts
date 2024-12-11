@@ -75,7 +75,7 @@ export const teaProducts: Product[] = [
     rating: 4.3,
     reviews: 512,
     price: 299,
-    image: "/images/tea/tea7.png",
+    image: "/images/tea/tea4.png",
     category: "Tea",
     inStock: true
   },
@@ -86,7 +86,7 @@ export const teaProducts: Product[] = [
     rating: 4.4,
     reviews: 310,
     price: 550,
-    image: "/images/tea/tea8.png",
+    image: "/images/tea/tea3.png",
     category: "Tea",
     inStock: true
   },
@@ -97,7 +97,7 @@ export const teaProducts: Product[] = [
     rating: 4.6,
     reviews: 650,
     price: 800,
-    image: "/images/tea/tea9.png",
+    image: "/images/tea/tea2.png",
     category: "Tea",
     inStock: true
   },
@@ -108,7 +108,7 @@ export const teaProducts: Product[] = [
     rating: 4.5,
     reviews: 270,
     price: 700,
-    image: "/images/tea/tea10.png",
+    image: "/images/tea/tea1.png",
     category: "Tea",
     inStock: true
   }

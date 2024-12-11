@@ -52,7 +52,7 @@ export const coffeeProducts: Product[] = [
     rating: 4.7,
     reviews: 875,
     price: 799,
-    image: "/images/coffee/coffee5.png",
+    image: "/images/coffee/coffee2.png",
     category: "Coffee",
     inStock: true
   },
@@ -63,7 +63,7 @@ export const coffeeProducts: Product[] = [
     rating: 4.3,
     reviews: 400,
     price: 950,
-    image: "/images/coffee/coffee6.png",
+    image: "/images/coffee/coffee1.png",
     category: "Coffee",
     inStock: true
   },
@@ -74,7 +74,7 @@ export const coffeeProducts: Product[] = [
     rating: 4.2,
     reviews: 550,
     price: 450,
-    image: "/images/coffee/coffee7.png",
+    image: "/images/coffee/coffee4.png",
     category: "Coffee",
     inStock: true
   },
@@ -85,7 +85,7 @@ export const coffeeProducts: Product[] = [
     rating: 4.6,
     reviews: 680,
     price: 800,
-    image: "/images/coffee/coffee8.png",
+    image: "/images/coffee/coffee3.png",
     category: "Coffee",
     inStock: true
   },
@@ -96,7 +96,7 @@ export const coffeeProducts: Product[] = [
     rating: 4.8,
     reviews: 350,
     price: 1200,
-    image: "/images/coffee/coffee9.png",
+    image: "/images/coffee/coffee1.png",
     category: "Coffee",
     inStock: true
   },
@@ -107,7 +107,7 @@ export const coffeeProducts: Product[] = [
     rating: 4.3,
     reviews: 200,
     price: 850,
-    image: "/images/coffee/coffee10.png",
+    image: "/images/coffee/coffee2.png",
     category: "Coffee",
     inStock: true
   }
