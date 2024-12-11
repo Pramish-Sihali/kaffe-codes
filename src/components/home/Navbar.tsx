@@ -1,3 +1,4 @@
+// src/components/layout/Navbar.tsx
 "use client";
 
 import { useState } from 'react';
@@ -5,7 +6,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Search, Heart, ShoppingBag, Menu, X } from 'lucide-react';
+import { useWishlist } from '@/context/WishlistContext';
 import BrandsModal from './BrandsModal';
+import ProfileDropdown from '../profile/ProfileDropdown';
 
 interface NavItem {
   label: string;
@@ -23,6 +26,7 @@ const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const [isBrandsModalOpen, setIsBrandsModalOpen] = useState<boolean>(false);
   const pathname = usePathname();
+  const { wishlistItems } = useWishlist();
 
   const scrollToSection = (sectionId: string): void => {
     if (typeof window !== 'undefined') {
@@ -46,10 +50,9 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav className="bg-white border-b sticky top-0 z-40">
+      <nav className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center h-16">
-            {/* Logo */}
             <Link href="/" className="flex-shrink-0">
               <Image
                 src="/images/logo.svg"
@@ -61,7 +64,6 @@ const Navbar: React.FC = () => {
               />
             </Link>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               {navItems.map((item) => (
                 <button
@@ -76,7 +78,6 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
-            {/* Search Bar */}
             <div className="hidden md:flex items-center flex-1 max-w-xs ml-8">
               <div className="relative w-full">
                 <input
@@ -88,17 +89,19 @@ const Navbar: React.FC = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="flex items-center space-x-4">
-              <button className="text-gray-600 hover:text-gray-900 transition-colors duration-200">
+              <Link href="/wishlist" className="text-gray-600 hover:text-gray-900 transition-colors duration-200 relative">
                 <Heart className="h-6 w-6" />
-              </button>
+                {wishlistItems.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                    {wishlistItems.length}
+                  </span>
+                )}
+              </Link>
               <button className="text-gray-600 hover:text-gray-900 transition-colors duration-200">
                 <ShoppingBag className="h-6 w-6" />
               </button>
-              <button className="bg-green-600 text-white px-4 py-2 rounded-[50px] hover:bg-green-700 transition-colors duration-200">
-                Sign in
-              </button>
+              <ProfileDropdown />
               <button 
                 className="md:hidden"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -114,7 +117,6 @@ const Navbar: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <div
           className={`md:hidden border-t transition-all duration-300 ${
             isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'

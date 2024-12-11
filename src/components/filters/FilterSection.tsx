@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown, ChevronUp, Search } from 'lucide-react';
 
 interface FilterState {
   brands: string[];
@@ -14,26 +14,28 @@ interface FilterState {
 
 interface FilterSectionProps {
   availableBrands: string[];
+  availableCategories: string[];
   onFiltersChange: (filters: FilterState) => void;
   onReset: () => void;
+  initialFilters: FilterState;
 }
 
-export default function FilterSection({ availableBrands, onFiltersChange, onReset }: FilterSectionProps) {
-  const [filters, setFilters] = useState<FilterState>({
-    brands: [],
-    priceRange: [0, 2500],
-    category: [],
-    discount: [],
-    inStock: false
-  });
-
+export default function FilterSection({
+  availableBrands,
+  availableCategories,
+  onFiltersChange,
+  onReset,
+  initialFilters
+}: FilterSectionProps) {
+  const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [expanded, setExpanded] = useState({
-    category: false,
-    brands: false,
-    discount: false,
-    price: false,
-    availability: false
+    category: true,
+    brands: true,
+    discount: true,
+    price: true,
+    availability: true
   });
+  const [brandSearch, setBrandSearch] = useState('');
 
   const toggleSection = (section: keyof typeof expanded) => {
     setExpanded(prev => ({ ...prev, [section]: !prev[section] }));
@@ -45,12 +47,15 @@ export default function FilterSection({ availableBrands, onFiltersChange, onRese
     onFiltersChange(updatedFilters);
   };
 
+  const filteredBrands = availableBrands.filter(brand =>
+    brand.toLowerCase().includes(brandSearch.toLowerCase())
+  );
+
   return (
-    <div className="w-full md:w-64 bg-white">
-      {/* Header */}
-      <div className="flex justify-between items-center bg-brown-600 text-white px-4 py-3">
-        <h3 className="text-lg font-medium">Filter by</h3>
-        <button
+    <div className="bg-white rounded shadow w-72">
+      <div className="flex justify-between items-center bg-brown-600 text-white px-4 py-3 rounded-t">
+        <h3 className="text-base font-medium">Filter by</h3>
+        <button 
           onClick={onReset}
           className="text-sm hover:underline"
         >
@@ -58,83 +63,93 @@ export default function FilterSection({ availableBrands, onFiltersChange, onRese
         </button>
       </div>
 
-      {/* Filter Sections */}
       <div className="divide-y">
-        {/* Category Section */}
-        <div className="px-4 py-3">
+        {/* Category Filter */}
+        <div className="px-4 py-4">
           <button
             onClick={() => toggleSection('category')}
             className="flex justify-between items-center w-full"
           >
             <span className="text-base font-medium">Category</span>
-            {expanded.category ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            {expanded.category ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </button>
           {expanded.category && (
-            <div className="mt-2 space-y-2">
-              {/* Add your categories here */}
-            </div>
-          )}
-        </div>
-
-        {/* Brands Section */}
-        <div className="px-4 py-3">
-          <button
-            onClick={() => toggleSection('brands')}
-            className="flex justify-between items-center w-full"
-          >
-            <span className="text-base font-medium">Brands</span>
-            {expanded.brands ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-          </button>
-          {expanded.brands && (
-            <div className="mt-2 space-y-2">
-              {availableBrands.map((brand) => (
-                <label key={brand} className="flex items-center">
+            <div className="mt-3 space-y-2.5">
+              {availableCategories.map((category) => (
+                <label key={category} className="flex items-center hover:bg-gray-50 p-1 rounded">
                   <input
                     type="checkbox"
-                    checked={filters.brands.includes(brand)}
+                    checked={filters.category.includes(category)}
                     onChange={() => {
-                      const newBrands = filters.brands.includes(brand)
-                        ? filters.brands.filter(b => b !== brand)
-                        : [...filters.brands, brand];
-                      updateFilters({ brands: newBrands });
+                      const newCategories = filters.category.includes(category)
+                        ? filters.category.filter(c => c !== category)
+                        : [...filters.category, category];
+                      updateFilters({ category: newCategories });
                     }}
-                    className="w-4 h-4 border-gray-300 rounded"
+                    className="w-4 h-4 border-gray-300 rounded text-brown-600 focus:ring-brown-500"
                   />
-                  <span className="ml-2 text-sm text-gray-700">{brand}</span>
+                  <span className="ml-2 text-gray-700">{category}</span>
                 </label>
               ))}
             </div>
           )}
         </div>
 
-        {/* Discount Section */}
-        <div className="px-4 py-3">
+        {/* Brands Filter */}
+        <div className="px-4 py-4">
           <button
-            onClick={() => toggleSection('discount')}
+            onClick={() => toggleSection('brands')}
             className="flex justify-between items-center w-full"
           >
-            <span className="text-base font-medium">Discount</span>
-            {expanded.discount ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            <span className="text-base font-medium">Brands</span>
+            {expanded.brands ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </button>
-          {expanded.discount && (
-            <div className="mt-2">
-              {/* Add your discount options here */}
+          {expanded.brands && (
+            <div className="mt-3">
+              <div className="relative mb-3">
+                <input
+                  type="text"
+                  value={brandSearch}
+                  onChange={(e) => setBrandSearch(e.target.value)}
+                  placeholder="Search brands..."
+                  className="w-full pl-8 pr-3 py-1.5 border rounded text-sm focus:ring-1 focus:ring-brown-500 focus:border-brown-500"
+                />
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              </div>
+              <div className="space-y-2.5 max-h-60 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                {filteredBrands.map((brand) => (
+                  <label key={brand} className="flex items-center hover:bg-gray-50 p-1 rounded">
+                    <input
+                      type="checkbox"
+                      checked={filters.brands.includes(brand)}
+                      onChange={() => {
+                        const newBrands = filters.brands.includes(brand)
+                          ? filters.brands.filter(b => b !== brand)
+                          : [...filters.brands, brand];
+                        updateFilters({ brands: newBrands });
+                      }}
+                      className="w-4 h-4 border-gray-300 rounded text-brown-600 focus:ring-brown-500"
+                    />
+                    <span className="ml-2 text-gray-700">{brand}</span>
+                  </label>
+                ))}
+              </div>
             </div>
           )}
         </div>
 
-        {/* Price Range Section */}
-        <div className="px-4 py-3">
+        {/* Price Range */}
+        <div className="px-4 py-4">
           <button
             onClick={() => toggleSection('price')}
             className="flex justify-between items-center w-full"
           >
             <span className="text-base font-medium">Price</span>
-            {expanded.price ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            {expanded.price ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </button>
           {expanded.price && (
-            <div className="mt-4 px-2">
-              <div className="relative mb-4">
+            <div className="mt-4">
+              <div className="px-2 mb-4">
                 <input
                   type="range"
                   min="0"
@@ -143,31 +158,35 @@ export default function FilterSection({ availableBrands, onFiltersChange, onRese
                   onChange={(e) => updateFilters({
                     priceRange: [filters.priceRange[0], parseInt(e.target.value)]
                   })}
-                  className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                  className="w-full accent-brown-600"
                 />
               </div>
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
                 <div className="flex-1">
                   <input
-                    type="number"
-                    value={filters.priceRange[0]}
-                    onChange={(e) => updateFilters({
-                      priceRange: [parseInt(e.target.value) || 0, filters.priceRange[1]]
-                    })}
-                    className="w-full px-3 py-2 border rounded text-sm"
-                    placeholder="NPR. 0"
+                    type="text"
+                    value={`NPR. ${filters.priceRange[0]}`}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value.replace(/\D/g, ''));
+                      updateFilters({
+                        priceRange: [value || 0, filters.priceRange[1]]
+                      });
+                    }}
+                    className="w-full px-3 py-1.5 border rounded text-sm focus:ring-1 focus:ring-brown-500 focus:border-brown-500"
                   />
                 </div>
-                <span className="text-gray-500">To</span>
+                <span className="text-sm text-gray-500">To</span>
                 <div className="flex-1">
                   <input
-                    type="number"
-                    value={filters.priceRange[1]}
-                    onChange={(e) => updateFilters({
-                      priceRange: [filters.priceRange[0], parseInt(e.target.value) || 2500]
-                    })}
-                    className="w-full px-3 py-2 border rounded text-sm"
-                    placeholder="NPR. 2500"
+                    type="text"
+                    value={`NPR. ${filters.priceRange[1]}`}
+                    onChange={(e) => {
+                      const value = parseInt(e.target.value.replace(/\D/g, ''));
+                      updateFilters({
+                        priceRange: [filters.priceRange[0], value || 2500]
+                      });
+                    }}
+                    className="w-full px-3 py-1.5 border rounded text-sm focus:ring-1 focus:ring-brown-500 focus:border-brown-500"
                   />
                 </div>
               </div>
@@ -175,32 +194,39 @@ export default function FilterSection({ availableBrands, onFiltersChange, onRese
           )}
         </div>
 
-        {/* Availability Section */}
-        <div className="px-4 py-3">
+        {/* Availability */}
+        <div className="px-4 py-4">
           <button
             onClick={() => toggleSection('availability')}
             className="flex justify-between items-center w-full"
           >
             <span className="text-base font-medium">Availability</span>
-            {expanded.availability ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+            {expanded.availability ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </button>
           {expanded.availability && (
-            <div className="mt-2 space-y-2">
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.inStock}
-                  onChange={(e) => updateFilters({ inStock: e.target.checked })}
-                  className="w-4 h-4 border-gray-300 rounded"
-                />
-                <span className="ml-2 text-sm text-gray-700">In Stock (15)</span>
+            <div className="mt-3 space-y-2.5">
+              <label className="flex items-center justify-between hover:bg-gray-50 p-1 rounded">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={filters.inStock}
+                    onChange={(e) => updateFilters({ inStock: e.target.checked })}
+                    className="w-4 h-4 border-gray-300 rounded text-brown-600 focus:ring-brown-500"
+                  />
+                  <span className="ml-2 text-gray-700">In Stock</span>
+                </div>
+                <span className="text-sm text-gray-400">(15)</span>
               </label>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 border-gray-300 rounded"
-                />
-                <span className="ml-2 text-sm text-gray-700">Out of Stock (7)</span>
+              <label className="flex items-center justify-between hover:bg-gray-50 p-1 rounded opacity-50">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    disabled
+                    className="w-4 h-4 border-gray-300 rounded"
+                  />
+                  <span className="ml-2 text-gray-700">Out of Stock</span>
+                </div>
+                <span className="text-sm text-gray-400">(7)</span>
               </label>
             </div>
           )}

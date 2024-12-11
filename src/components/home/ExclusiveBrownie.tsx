@@ -1,39 +1,11 @@
+// components/home/ExclusiveBrownie.tsx
 "use client";
+
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
-
-const brownies = [
-  {
-    id: 1,
-    brand: 'KAFFE CODES',
-    name: 'Chocolate Brownie With Mint Leaves Toppings',
-    rating: 4,
-    reviews: 23,
-    price: 999,
-    image: '/images/cakes/image6.png',
-    description: 'Since opening our first shop in 2017 AD, Kaffe Codes goal has been straightforward.'
-  },
-  {
-    id: 2,
-    brand: 'KAFFE CODES',
-    name: 'Chocolate Brownie With Mint Leaves Toppings',
-    rating: 4,
-    reviews: 23,
-    price: 999,
-    image: '/images/cakes/image6.png'
-  },
-  {
-    id: 3,
-    brand: 'KAFFE CODES',
-    name: 'Chocolate Brownie With Mint Leaves Toppings',
-    rating: 4,
-    reviews: 23,
-    price: 999,
-    image: '/images/cakes/image6.png'
-  }
-];
+import { brownieProducts } from '@/data/brownieProducts';
 
 export default function ExclusiveBrownie() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,7 +13,7 @@ export default function ExclusiveBrownie() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => 
-        prev === brownies.length - 2 ? 0 : prev + 1
+        prev === brownieProducts.length - 2 ? 0 : prev + 1
       );
     }, 5000);
 
@@ -50,7 +22,7 @@ export default function ExclusiveBrownie() {
 
   const handleNext = () => {
     setCurrentIndex((prev) => 
-      prev === brownies.length - 2 ? 0 : prev + 1
+      prev === brownieProducts.length - 2 ? 0 : prev + 1
     );
   };
 
@@ -63,7 +35,6 @@ export default function ExclusiveBrownie() {
   return (
     <section className="py-12 bg-[#F5F8F5]">
       <div className="max-w-[1400px] mx-auto px-4">
-        {/* Title and Description */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           <div className="relative aspect-square rounded-lg overflow-hidden">
             <Image
@@ -74,7 +45,7 @@ export default function ExclusiveBrownie() {
             />
             <div className="absolute inset-0 bg-black/30 flex items-end p-8">
               <p className="text-white text-lg">
-                {brownies[0].description}
+                {brownieProducts[0].description}
               </p>
             </div>
           </div>
@@ -82,14 +53,13 @@ export default function ExclusiveBrownie() {
           <div>
             <h2 className="text-2xl font-bold mb-8">Exclusive Brownie</h2>
             
-            {/* Products Carousel */}
             <div className="relative">
               <div className="overflow-hidden">
                 <div 
                   className="flex transition-transform duration-500 ease-out gap-6"
                   style={{ transform: `translateX(-${currentIndex * (100/2)}%)` }}
                 >
-                  {brownies.map((brownie) => (
+                  {brownieProducts.map((brownie) => (
                     <div 
                       key={brownie.id} 
                       className="min-w-[calc(50%-12px)]"
@@ -97,6 +67,7 @@ export default function ExclusiveBrownie() {
                       <ProductCard 
                         product={brownie}
                         backgroundColor="bg-gray-100"
+                        section="brownies"
                       />
                     </div>
                   ))}
@@ -117,9 +88,8 @@ export default function ExclusiveBrownie() {
                 <ChevronRight className="w-5 h-5 text-gray-600" />
               </button>
 
-              {/* Dots Indicator */}
               <div className="flex justify-center gap-2 mt-6">
-                {[...Array(brownies.length - 1)].map((_, index) => (
+                {[...Array(brownieProducts.length - 1)].map((_, index) => (
                   <button
                     key={index}
                     className={`w-2 h-2 rounded-full transition-colors ${

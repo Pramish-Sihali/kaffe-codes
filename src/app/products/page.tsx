@@ -3,17 +3,30 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Navbar from '@/components/home/Navbar';
-import CategoryIcons from '@/components/home/CategoryIcons';
-import Footer from '@/components/layout/Footer';
 import ProductCard from '@/components/home/ProductCard';
 import FilterSection from '@/components/filters/FilterSection';
-import coffeeProducts from '@/data/coffeeProducts';
+import Pagination from '@/components/ui/Pagination';
+import { Product } from '@/types/products';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Navigation, Pagination as SwiperPagination } from 'swiper/modules';
+import { coffeeProducts } from '@/data/coffeeProducts';
+import { teaProducts } from '@/data/teaProducts';
+import { cakeProducts } from '@/data/cakeProducts';
+import { machines } from '@/data/machineProduct';
+import { topPicksData } from '@/data/topPicks';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+
+const allProducts: Product[] = [
+  ...coffeeProducts,
+  ...teaProducts,
+  ...cakeProducts,
+  ...machines,
+  ...topPicksData
+];
+
+const availableCategories = ['Coffee', 'Tea', 'Cakes', 'Machines', 'Utensils'];
 
 interface FilterState {
   brands: string[];
@@ -23,7 +36,6 @@ interface FilterState {
   inStock: boolean;
 }
 
-// Sample banner data - replace with your actual banners
 const banners = [
   {
     id: 1,
@@ -37,25 +49,30 @@ const banners = [
   }
 ];
 
+const PRODUCTS_PER_PAGE = 16;
+
 export default function ProductsPage() {
   const searchParams = useSearchParams();
-  const [filteredProducts, setFilteredProducts] = useState(coffeeProducts);
+  const initialCategory = searchParams.get('category');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(allProducts);
   const [filters, setFilters] = useState<FilterState>({
     brands: [],
     priceRange: [0, 2500],
-    category: [],
+    category: initialCategory ? [initialCategory] : [],
     discount: [],
     inStock: false
   });
   const [sortBy, setSortBy] = useState('popularity');
 
-  // Get unique brands from products
   const availableBrands = Array.from(
-    new Set(coffeeProducts.map(product => product.brand))
+    new Set(allProducts.map(product => product.brand))
   );
 
   const handleFiltersChange = (newFilters: FilterState) => {
     setFilters(newFilters);
+    setCurrentPage(1); // Reset to first page when filters change
   };
 
   const handleReset = () => {
@@ -66,23 +83,29 @@ export default function ProductsPage() {
       discount: [],
       inStock: false
     });
+    setCurrentPage(1);
   };
 
   useEffect(() => {
-    let filtered = coffeeProducts;
+    let filtered = allProducts;
 
-    // Apply brand filter
+    if (filters.category.length > 0) {
+      filtered = filtered.filter(p => filters.category.includes(p.category));
+    }
+
     if (filters.brands.length > 0) {
       filtered = filtered.filter(p => filters.brands.includes(p.brand));
     }
 
-    // Apply price filter
     filtered = filtered.filter(p => 
       p.price >= filters.priceRange[0] && 
       p.price <= filters.priceRange[1]
     );
 
-    // Apply sorting
+    if (filters.inStock) {
+      filtered = filtered.filter(p => p.inStock);
+    }
+
     filtered = [...filtered].sort((a, b) => {
       switch (sortBy) {
         case 'price-low':
@@ -99,15 +122,23 @@ export default function ProductsPage() {
     setFilteredProducts(filtered);
   }, [filters, sortBy]);
 
+  // Pagination calculations
+  const indexOfLastProduct = currentPage * PRODUCTS_PER_PAGE;
+  const indexOfFirstProduct = indexOfLastProduct - PRODUCTS_PER_PAGE;
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <CategoryIcons />
-
       {/* Banner Carousel */}
       <div className="w-full bg-gray-100">
         <Swiper
-          modules={[Autoplay, Navigation, Pagination]}
+          modules={[Autoplay, Navigation, SwiperPagination]}
           spaceBetween={0}
           slidesPerView={1}
           navigation
@@ -135,14 +166,18 @@ export default function ProductsPage() {
       {/* Main Content */}
       <div className="flex-grow bg-gray-50">
         <div className="max-w-[1400px] mx-auto px-4 py-8">
-          <div className="flex flex-col md:flex-row gap-6">
+          <div className="flex flex-col md:flex-row gap-8">
             {/* Filters */}
-            <div className="md:w-64 flex-shrink-0">
-              <FilterSection
-                availableBrands={availableBrands}
-                onFiltersChange={handleFiltersChange}
-                onReset={handleReset}
-              />
+            <div className="md:w-72 flex-shrink-0">
+              <div className="sticky top-4">
+                <FilterSection
+                  availableBrands={availableBrands}
+                  availableCategories={availableCategories}
+                  onFiltersChange={handleFiltersChange}
+                  onReset={handleReset}
+                  initialFilters={filters}
+                />
+              </div>
             </div>
 
             {/* Products Section */}
@@ -165,26 +200,44 @@ export default function ProductsPage() {
               </div>
 
               {/* Products Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredProducts.map((product) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
+                {currentProducts.map((product) => (
                   <div key={product.id} className="bg-white rounded-lg shadow">
-                    <ProductCard product={product} />
+                    <ProductCard 
+                      product={product}
+                      section={product.category.toLowerCase()}
+                    />
                   </div>
                 ))}
               </div>
+
+              {/* Pagination */}
+              {filteredProducts.length > 0 && (
+                <div className="mt-8 mb-4">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                  />
+                </div>
+              )}
 
               {/* Empty State */}
               {filteredProducts.length === 0 && (
                 <div className="text-center py-12">
                   <p className="text-gray-500">No products found matching your criteria.</p>
+                  <button
+                    onClick={handleReset}
+                    className="mt-4 text-brown-600 hover:text-brown-700 font-medium"
+                  >
+                    Reset Filters
+                  </button>
                 </div>
               )}
             </div>
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

@@ -1,8 +1,9 @@
+// components/products/ProductTabs.tsx
 "use client";
 
-import React from 'react';
-import { Tab } from '@headlessui/react';
+import { useState } from 'react';
 import ReviewsTab from './ReviewsTab';
+import { Star } from 'lucide-react';
 
 interface Review {
   author: string;
@@ -13,63 +14,88 @@ interface Review {
 
 interface ProductTabsProps {
   description: string;
-  ingredients: string[];
+  ingredients?: string[];
   reviews: Review[];
+  rating: number;
+  totalReviews: number;
 }
 
-const ProductTabs: React.FC<ProductTabsProps> = ({ description, ingredients, reviews }) => {
-  return (
-    <Tab.Group>
-      <Tab.List className="flex space-x-1 border-b border-gray-200">
-        <Tab
-          className={({ selected }) =>
-            `px-4 py-3 text-sm font-medium leading-5 text-gray-600 focus:outline-none ${
-              selected ? 'border-b-2 border-black' : 'hover:text-gray-800'
-            }`
-          }
-        >
-          DESCRIPTION
-        </Tab>
-        <Tab
-          className={({ selected }) =>
-            `px-4 py-3 text-sm font-medium leading-5 text-gray-600 focus:outline-none ${
-              selected ? 'border-b-2 border-black' : 'hover:text-gray-800'
-            }`
-          }
-        >
-          INGREDIENTS
-        </Tab>
-        <Tab
-          className={({ selected }) =>
-            `px-4 py-3 text-sm font-medium leading-5 text-gray-600 focus:outline-none ${
-              selected ? 'border-b-2 border-black' : 'hover:text-gray-800'
-            }`
-          }
-        >
-          REVIEWS ({reviews.length})
-        </Tab>
-      </Tab.List>
-      <Tab.Panels className="mt-6">
-        <Tab.Panel>
-          <p className="text-gray-600">{description}</p>
-        </Tab.Panel>
-        <Tab.Panel>
-          <ul className="list-disc pl-4 text-gray-600">
-            {ingredients.map((ingredient, idx) => (
-              <li key={idx}>{ingredient}</li>
-            ))}
-          </ul>
-        </Tab.Panel>
-        <Tab.Panel>
-          <ReviewsTab
-            reviews={reviews}
-            totalReviews={reviews.length}
-            averageRating={reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length}
-          />
-        </Tab.Panel>
-      </Tab.Panels>
-    </Tab.Group>
-  );
-};
+export default function ProductTabs({
+  description,
+  ingredients = [],
+  reviews,
+  rating,
+  totalReviews
+}: ProductTabsProps) {
+  const [activeTab, setActiveTab] = useState('description');
 
-export default ProductTabs;
+  return (
+    <div>
+      <div className="border-b">
+        <div className="flex space-x-8">
+          <button
+            onClick={() => setActiveTab('description')}
+            className={`pb-4 text-sm font-medium ${
+              activeTab === 'description'
+                ? 'border-b-2 border-brown-600 text-brown-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Description
+          </button>
+          <button
+            onClick={() => setActiveTab('ingredients')}
+            className={`pb-4 text-sm font-medium ${
+              activeTab === 'ingredients'
+                ? 'border-b-2 border-brown-600 text-brown-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Ingredients
+          </button>
+          <button
+            onClick={() => setActiveTab('reviews')}
+            className={`pb-4 text-sm font-medium ${
+              activeTab === 'reviews'
+                ? 'border-b-2 border-brown-600 text-brown-600'
+                : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            Reviews ({totalReviews})
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-8">
+        {activeTab === 'description' && (
+          <div className="prose max-w-none">
+            <p>{description}</p>
+          </div>
+        )}
+
+        {activeTab === 'ingredients' && (
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-gray-900">Product Ingredients</h3>
+            {ingredients.length > 0 ? (
+              <ul className="list-disc pl-5 space-y-2">
+                {ingredients.map((ingredient, index) => (
+                  <li key={index} className="text-gray-600">{ingredient}</li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-500">No ingredients information available.</p>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'reviews' && (
+          <ReviewsTab 
+            reviews={reviews}
+            totalReviews={totalReviews}
+            averageRating={rating}
+          />
+        )}
+      </div>
+    </div>
+  );
+}

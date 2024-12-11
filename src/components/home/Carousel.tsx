@@ -1,5 +1,7 @@
+// components/ui/Carousel.tsx
 "use client";
-import { useState, useEffect, ReactNode } from 'react';
+
+import { useState, useEffect, ReactNode, cloneElement, isValidElement, ReactElement } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface CarouselProps {
@@ -9,6 +11,10 @@ interface CarouselProps {
   className?: string;
   showDots?: boolean;
   showArrows?: boolean;
+}
+
+interface CarouselItemProps {
+  carouselIndex?: number;
 }
 
 export function Carousel({
@@ -47,11 +53,21 @@ export function Carousel({
     setCurrentIndex((prev) => prev === 0 ? maxIndex : prev - 1);
   };
 
-  // Calculate item width including the gap
-  const gapInPixels = 32; // 2rem = 32px
-  const containerPadding = 64; // 4rem = 64px
+  const gapInPixels = 32;
+  const containerPadding = 64;
   const itemWidth = `calc((100% - ${containerPadding}px - (${gapInPixels}px * ${itemsPerView - 1})) / ${itemsPerView})`;
   
+  // Clone children with additional props
+  const clonedChildren = children.map((child, index) => {
+    if (isValidElement(child)) {
+      return cloneElement(child as ReactElement<CarouselItemProps>, {
+        key: `carousel-item-${index}`,
+        carouselIndex: index,
+      });
+    }
+    return child;
+  });
+
   return (
     <div className={`relative w-full ${className}`}>
       <div className="overflow-hidden px-8">
@@ -62,13 +78,11 @@ export function Carousel({
             transform: `translateX(calc(-${currentIndex} * (${itemWidth} + ${gapInPixels}px)))`,
           }}
         >
-          {children.map((child, index) => (
+          {clonedChildren.map((child, index) => (
             <div 
-              key={index}
+              key={`carousel-wrapper-${index}`}
               className="shrink-0"
-              style={{
-                width: itemWidth,
-              }}
+              style={{ width: itemWidth }}
             >
               {child}
             </div>
@@ -102,7 +116,7 @@ export function Carousel({
         <div className="flex justify-center gap-2 mt-6">
           {Array.from({ length: maxIndex + 1 }).map((_, index) => (
             <button
-              key={index}
+              key={`carousel-dot-${index}`}
               className={`h-2 rounded-full transition-colors ${
                 index === currentIndex 
                   ? 'bg-brown-500 w-4' 

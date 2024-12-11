@@ -1,17 +1,33 @@
 // types/products.ts
 export interface Product {
-    id: string;
-    name: string;
-    brand: string;
-    price: number;
-    rating: number;
-    image: string;
-    category: string;
-    inStock: boolean;
-  }
-  
-  export interface FilterState {
-    brands: string[];
-    priceRange: [number, number];
-    inStock: boolean;
-  }
+  id: string;
+  brand: string;
+  name: string;
+  rating: number;
+  reviews: number;
+  price: number;
+  image: string;
+  category: string;
+  inStock: boolean;
+  description?: string;
+}
+
+export interface Review {
+  author: string;
+  date: string;
+  rating: number;
+  text: string;
+}
+
+export interface FilterState {
+  brands: string[];
+  priceRange: [number, number];
+  inStock: boolean;
+}
+
+export interface WishlistContextType {
+  wishlistItems: Product[];
+  addToWishlist: (product: Product) => void;
+  removeFromWishlist: (productId: string) => void;
+  isInWishlist: (productId: string) => boolean;
+}

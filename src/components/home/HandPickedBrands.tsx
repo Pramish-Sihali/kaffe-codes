@@ -1,93 +1,11 @@
+// components/home/HandPickedBrands.tsx
 "use client";
+
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import ProductCard from './ProductCard';
-
-const brands = [
-  {
-    id: 1,
-    brand: 'LAVAZZA',
-    name: 'Lavazza Super Crema Espresso',
-    rating: 4,
-    reviews: 23,
-    price: 999,
-    image: '/images/handpicked/image1.png'
-  },
-  {
-    id: 2,
-    brand: 'HIGH VOLTAGE',
-    name: 'High Voltage Bones Cups - 12 Count',
-    rating: 4,
-    reviews: 150,
-    price: 733,
-    image: '/images/handpicked/image2.png'
-  },
-  {
-    id: 3,
-    brand: 'NINJA TECH',
-    name: 'Ninja CFP307 Specialty Coffee System',
-    rating: 4,
-    reviews: 150,
-    price: 733,
-    image: '/images/handpicked/image6.png'
-  },
-  {
-    id: 4,
-    brand: 'DEATH WISH COFFEE',
-    name: 'Organic and Fair Trade Dark Roast Whole Bean',
-    rating: 5,
-    reviews: 150,
-    price: 733,
-    image: '/images/handpicked/image4.png'
-  },
-  {
-    id: 5,
-    brand: 'ORGANIC MATCHA',
-    name: 'Organic Matcha Fresh Tea Powder',
-    rating: 5,
-    reviews: 150,
-    price: 733,
-    image: '/images/handpicked/image5.png'
-  },
-  {
-    id: 6,
-    brand: 'COFFEE BEANS',
-    name: 'Premium Coffee Beans Selection',
-    rating: 5,
-    reviews: 150,
-    price: 733,
-    image: '/images/handpicked/image3.png'
-  },
-  {
-    id: 7,
-    brand: "DEATH WISH COFFEE",
-    name: "Organic and Fair Trade Dark Roast Whole Bean",
-    rating: 5,
-    reviews: 150,
-    price: 733,
-    image: "/images/Top-picks/image4.png"
-  },
-  {
-    id: 8,
-    brand: "ORGANIC MATCHA",
-    name: "Organic Matcha Fresh Tea Powder",
-    rating: 5,
-    reviews: 150,
-    price: 733,
-    image: "/images/Top-picks/image5.png"
-  }
-];
-
-
-const categories = [
-  { icon: '/images/icons/beans.svg', label: 'Coffee' },
-  { icon: '/images/icons/bakery.svg', label: 'Bakery' },
-  { icon: '/images/icons/tea.svg', label: 'Tea' },
-  { icon: '/images/icons/utensils.svg', label: 'Utensils' },
-  { icon: '/images/icons/machineries.svg', label: 'Machineries' },
-  { icon: '/images/icons/cake.svg', label: 'Cakes' }
-];
+import { handpickedProducts, categories } from '@/data/handpickedProducts';
 
 export default function HandPickedBrands() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -113,7 +31,7 @@ export default function HandPickedBrands() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const maxIndex = Math.max(0, brands.length - itemsPerView);
+  const maxIndex = Math.max(0, handpickedProducts.length - itemsPerView);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -159,7 +77,9 @@ export default function HandPickedBrands() {
                   className="w-6 h-6 md:w-7 md:h-7"
                 />
               </div>
-              <span className="text-xs md:text-sm text-gray-600 whitespace-nowrap">{category.label}</span>
+              <span className="text-xs md:text-sm text-gray-600 whitespace-nowrap">
+                {category.label}
+              </span>
             </div>
           ))}
         </div>
@@ -170,15 +90,18 @@ export default function HandPickedBrands() {
               className="flex transition-transform duration-500 ease-out gap-3 md:gap-4 lg:gap-6"
               style={{ transform: `translateX(-${currentIndex * (100/itemsPerView)}%)` }}
             >
-              {brands.map((product) => (
+              {handpickedProducts.map((product) => (
                 <div 
                   key={product.id} 
                   className={`min-w-[calc(100%)] sm:min-w-[calc(50%-12px)] md:min-w-[calc(33.333%-16px)] lg:min-w-[calc(25%-18px)] xl:min-w-[calc(16.666%-20px)]`}
                 >
-                  <ProductCard 
-                    product={product}
-                    backgroundColor="bg-white"
-                  />
+                  <div className="max-w-[250px] mx-auto">
+                    <ProductCard 
+                      product={product}
+                      backgroundColor="bg-white"
+                      section="handpicked"
+                    />
+                  </div>
                 </div>
               ))}
             </div>
@@ -186,27 +109,28 @@ export default function HandPickedBrands() {
 
           <button
             onClick={handlePrev}
-            className="absolute -left-2 md:-left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
+            className="absolute -left-2 md:-left-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
+            aria-label="Previous slide"
           >
             <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
           </button>
           
           <button
             onClick={handleNext}
-            className="absolute -right-2 md:-right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
+            className="absolute -right-2 md:-right-4 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
+            aria-label="Next slide"
           >
             <ChevronRight className="w-4 h-4 md:w-5 md:h-5 text-gray-600" />
           </button>
         </div>
 
-        {/* Dot indicators */}
         <div className="flex justify-center mt-4 md:mt-6 space-x-1 md:space-x-2">
           {[...Array(maxIndex + 1)].map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-colors duration-200 ${
-                currentIndex === index ? 'bg-custom-brown' : 'bg-gray-300'
+                currentIndex === index ? 'bg-brown-500' : 'bg-gray-300'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

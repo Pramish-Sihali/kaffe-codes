@@ -1,9 +1,15 @@
-
 // src/app/layout.tsx
-import { Inter } from 'next/font/google';
+import { Nunito } from 'next/font/google';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import { WishlistProvider } from '@/context/WishlistContext';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const nunito = Nunito({ 
+  subsets: ['latin'],
+  weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-nunito',
+});
 
 export const metadata = {
   title: 'Kaffe Codes',
@@ -16,8 +22,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={nunito.variable}>
+      <body className={`${nunito.className} flex flex-col min-h-screen`}>
+        <WishlistProvider>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </WishlistProvider>
+      </body>
     </html>
   );
 }
