@@ -1,5 +1,7 @@
 import React from 'react';
 import { Package2, Truck, HeadphonesIcon, RefreshCw } from 'lucide-react';
+import Link from 'next/link';
+// import Link from 'next/navigation';
 
 const features = [
   {
@@ -24,7 +26,7 @@ const features = [
   }
 ];
 
-export default function Footer() {
+const Footer: React.FC = () => {
   return (
     <footer>
       {/* Features Section with white background */}
@@ -105,9 +107,15 @@ export default function Footer() {
             <div>
               <h3 className="text-lg font-bold mb-4">Resources</h3>
               <ul className="space-y-2">
-                {['About', 'Contact', 'Blogs', 'Help Center', 'Conditions', 'Privacy Policy'].map((item) => (
-                  <li key={item}>
-                    <a href="#" className="text-gray-400 hover:text-[#DEB887] transition-colors">{item}</a>
+                {['About', 'Contact', <Link href="/blogs" legacyBehavior><a className="text-gray-400 hover:text-[#DEB887] transition-colors">Blogs</a></Link>,
+                 'Help Center', 'Conditions', <Link href="/policy" legacyBehavior>
+                  <a className="text-gray-400 hover:text-[#DEB887] transition-colors">Privacy Policy</a></Link>].map((item, index) => (
+                  <li key={index}>
+                    {typeof item === 'string' ? (
+                      <a href="#" className="text-gray-400 hover:text-[#DEB887] transition-colors">{item}</a>
+                    ) : (
+                      item
+                    )}
                   </li>
                 ))}
               </ul>
@@ -117,8 +125,8 @@ export default function Footer() {
             <div>
               <h3 className="text-lg font-bold mb-4">Categories</h3>
               <ul className="space-y-2">
-                {['Bakery', 'Coffee', 'Tea', 'Utensils', 'Machineries', 'Cakes'].map((item) => (
-                  <li key={item}>
+                {['Bakery', 'Coffee', 'Tea', 'Utensils', 'Machineries', 'Cakes'].map((item, index) => (
+                  <li key={index}>
                     <a href="#" className="text-gray-400 hover:text-[#DEB887] transition-colors">{item}</a>
                   </li>
                 ))}
@@ -144,17 +152,19 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Bottom Bar */}
+          {/* Bottom Bar
           <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400">Copyright © 2024 Digitbox.Guru. All Rights Reserved.</p>
             <div className="flex space-x-4 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-[#DEB887] transition-colors">Privacy Policy</a>
+              <Link href="/privacy-policy" legacyBehavior><a className="text-gray-400 hover:text-[#DEB887] transition-colors">Privacy Policy</a></Link>
               <span className="text-gray-400">•</span>
-              <a href="#" className="text-gray-400 hover:text-[#DEB887] transition-colors">Terms & Conditions</a>
+              <Link href="/blogs" legacyBehavior><a className="text-gray-400 hover:text-[#DEB887] transition-colors">Blogs</a></Link>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

@@ -1,12 +1,31 @@
-// src/app/(routes)/account/page.tsx
+// app/(routes)/account/page.tsx
+"use client";
+
+import { useState } from 'react';
+import AccountProfile from '@/components/account/AccountProfile';
+
+// This would typically come from your API/backend
+const mockProfile = {
+  name: "Smarika Karki",
+  gender: "Female",
+  dob: "2000-03-01",
+  mobile: "+977 98123456987",
+  email: "smarikakarki@gmail.com",
+  image: "/path/to/profile/image.jpg",
+  address: "Bishalnagar, Kathmandu",
+  zipCode: "4600"
+};
+
 export default function AccountPage() {
-    return (
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold mb-4">My Account</h1>
-        {/* Add your account page content here */}
-      </div>
-    );
-  }
-  
-  // Similar structure for other pages (wishlist, reviews, orders, returns)
-  // Copy this basic structure and modify the title and content as needed
+  const handleUpdateProfile = (type: 'profile' | 'personal' | 'address') => {
+    // Handle profile updates
+    console.log('Update', type);
+  };
+
+  return (
+    <AccountProfile
+      profile={mockProfile}
+      onUpdateProfile={handleUpdateProfile}
+    />
+  );
+}

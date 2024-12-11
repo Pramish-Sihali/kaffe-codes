@@ -30,6 +30,9 @@ const Navbar = () => {
   const { wishlistItems } = useWishlist();
   const { totalItems: cartItems } = useCart();
 
+  // This would come from your auth context
+  const userProfileImage = "/path/to/profile/image.jpg";
+
   const handleNavClick = (item: NavItem): void => {
     if (item.label === 'Brands') {
       setIsBrandsModalOpen(true);
@@ -115,6 +118,18 @@ const Navbar = () => {
                     {cartItems}
                   </span>
                 )}
+              </Link>
+
+              <Link 
+                href="/account" 
+                className="relative w-8 h-8 rounded-full overflow-hidden border border-gray-200"
+              >
+                <Image
+                  src={userProfileImage}
+                  alt="Profile"
+                  fill
+                  className="object-cover"
+                />
               </Link>
 
               <ProfileDropdown />
