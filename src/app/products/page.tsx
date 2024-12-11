@@ -14,6 +14,8 @@ import { teaProducts } from '@/data/teaProducts';
 import { cakeProducts } from '@/data/cakeProducts';
 import { machines } from '@/data/machineProduct';
 import { topPicksData } from '@/data/topPicks';
+import { handpickedProducts } from '@/data/handpickedProducts';
+import { brownieProducts } from '@/data/brownieProducts';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -23,7 +25,9 @@ const allProducts: Product[] = [
   ...teaProducts,
   ...cakeProducts,
   ...machines,
-  ...topPicksData
+  ...topPicksData,
+  ...handpickedProducts,
+  ...brownieProducts,
 ];
 
 const availableCategories = ['Coffee', 'Tea', 'Cakes', 'Machines', 'Utensils'];

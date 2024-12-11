@@ -57,5 +57,27 @@ export const cakeProducts: Product[] = [
     image: "/images/cakes/image5.png",
     category: "Cakes",
     inStock: true
+  },
+  {
+    id: "cake-6",
+    brand: "KAFFE CODES",
+    name: "Bento Brownie: A Small Bite Packed with Big Flavor",
+    price: 1150,
+    rating: 4,
+    reviews: 23,
+    image: "/images/cakes/image5.png",
+    category: "Cakes",
+    inStock: true
+  },
+  {
+    id: "cake-7",
+    brand: "KAFFE CODES",
+    name: "Bento Brownie: A Small Bite Packed with Big Flavor",
+    price: 1150,
+    rating: 4,
+    reviews: 23,
+    image: "/images/cakes/image5.png",
+    category: "Cakes",
+    inStock: true
   }
 ];

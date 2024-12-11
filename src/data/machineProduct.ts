@@ -9,7 +9,7 @@ export const machines: Product[] = [
     rating: 4.5,
     reviews: 128,
     price: 29999,
-    image: "/images/machines/machine1.png",
+    image: "/images/machinery/machine4.svg",
     category: "Machines",
     inStock: true
   },
@@ -20,7 +20,7 @@ export const machines: Product[] = [
     rating: 4.8,
     reviews: 256,
     price: 69999,
-    image: "/images/machines/machine2.png",
+    image: "/images/machinery/machine1.svg",
     category: "Machines",
     inStock: true
   },
@@ -31,7 +31,7 @@ export const machines: Product[] = [
     rating: 4.6,
     reviews: 189,
     price: 79999,
-    image: "/images/machines/machine3.png",
+    image: "/images/machinery/machine2.svg",
     category: "Machines",
     inStock: true
   },
@@ -42,7 +42,7 @@ export const machines: Product[] = [
     rating: 4.7,
     reviews: 167,
     price: 54999,
-    image: "/images/machines/machine4.png",
+    image: "/images/machinery/machine3.svg",
     category: "Machines",
     inStock: true
   },
@@ -53,7 +53,7 @@ export const machines: Product[] = [
     rating: 4.9,
     reviews: 145,
     price: 84999,
-    image: "/images/machines/machine5.png",
+    image: "/images/machinery/machine4.svg",
     category: "Machines",
     inStock: true
   }

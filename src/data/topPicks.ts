@@ -64,7 +64,7 @@ export const topPicksData: Product[] = [
     brand: "GREEN TEA",
     price: 1299,
     rating: 4.6,
-    image: "/images/Top-picks/image6.png",
+    image: "/images/Top-picks/image1.png",
     category: "Tea",
     inStock: true,
     reviews: 140
@@ -75,7 +75,7 @@ export const topPicksData: Product[] = [
     brand: "COFFEE BEANS",
     price: 1899,
     rating: 4.9,
-    image: "/images/Top-picks/image7.png",
+    image: "/images/Top-picks/image2.png",
     category: "Coffee",
     inStock: true,
     reviews: 190
