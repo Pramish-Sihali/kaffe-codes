@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import BaseButton from '@/components/home/BaseButton';
 
 interface ReviewItemProps {
   image: string;
@@ -20,9 +21,9 @@ const ReviewItem = ({
   onWrite
 }: ReviewItemProps) => {
   return (
-    <div className="px-8 py-4">
-      <div className="grid grid-cols-[auto,1fr,auto,auto] items-center gap-6">
-        <div className="relative w-16 h-16 border rounded bg-white">
+    <div className="px-8 py-6">
+      <div className="grid grid-cols-[auto,1fr,auto,1fr,auto] items-center gap-12">
+        <div className="relative w-24 h-24 border rounded bg-white">
           <Image
             src={image}
             alt={name}
@@ -32,23 +33,26 @@ const ReviewItem = ({
         </div>
 
         <div>
-          <h3 className="text-base font-medium text-gray-900">{name}</h3>
-          <p className="text-sm text-gray-600 mt-1">
+          <h3 className="text-lg font-medium text-gray-900">{name}</h3>
+          <p className="text-base text-gray-600 mt-2">
             NPR. {price}
           </p>
         </div>
 
-        <div className="text-gray-600 text-sm">
+        <div className="text-base text-gray-600">
           Quantity: {quantity}
         </div>
 
-        <button
+        <div /> {/* Spacer */}
+
+        <BaseButton
+        variant = 'default'
           onClick={onWrite}
-          className="bg-green-600 text-white text-sm px-6 py-2.5 rounded hover:bg-green-700 transition-colors flex items-center gap-2"
+          className="w-full gap-3"
         >
           Write a Review
-          <span className="text-lg leading-none">&rsaquo;</span>
-        </button>
+          <span className="text-xl leading-none">&rsaquo;</span>
+        </BaseButton>
       </div>
     </div>
   );
