@@ -1,3 +1,4 @@
+// components/Navbar.tsx
 "use client";
 
 import { useState } from 'react';
@@ -9,6 +10,7 @@ import { useWishlist } from '@/context/WishlistContext';
 import { useCart } from '@/context/CartContext';
 import { useUser } from '@/context/UserContext';
 import BrandsModal from './BrandsModal';
+import { SearchBar } from '@/components/search/SearchBar';
 
 interface NavItem {
   label: string;
@@ -62,11 +64,16 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  const handleClickOutside = () => {
+    setIsProfileDropdownOpen(false);
+  };
+
   return (
     <>
-      <nav className="bg-white border-b">
+      <nav className="bg-white border-b sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex justify-between items-center h-20">
+            {/* Logo */}
             <Link href="/" className="flex-shrink-0">
               <Image
                 src="/images/logo.svg"
@@ -78,6 +85,7 @@ const Navbar = () => {
               />
             </Link>
 
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
               {navItems.map((item) => (
                 <button
@@ -92,18 +100,14 @@ const Navbar = () => {
               ))}
             </div>
 
+            {/* Search Bar */}
             <div className="hidden md:flex items-center flex-1 max-w-xs ml-8">
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  placeholder="Search on Kaffe Codes"
-                  className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-200 text-lg"
-                />
-                <Search className="absolute left-4 top-3.5 h-6 w-6 text-gray-400" />
-              </div>
+              <SearchBar />
             </div>
 
+            {/* Right Section */}
             <div className="flex items-center space-x-6">
+              {/* Wishlist */}
               <Link 
                 href="/wishlist" 
                 className="text-gray-600 hover:text-gray-900 transition-colors duration-200 relative"
@@ -116,6 +120,7 @@ const Navbar = () => {
                 )}
               </Link>
 
+              {/* Cart */}
               <Link 
                 href="/cart" 
                 className="text-gray-600 hover:text-gray-900 transition-colors duration-200 relative"
@@ -128,6 +133,7 @@ const Navbar = () => {
                 )}
               </Link>
 
+              {/* Profile Dropdown */}
               <div className="relative">
                 <button
                   onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
@@ -162,6 +168,7 @@ const Navbar = () => {
                     <div className="border-t my-2"></div>
                     <button
                       onClick={() => {
+                        // Add logout logic here
                         setIsProfileDropdownOpen(false);
                       }}
                       className="flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-gray-100 w-full text-left text-base"
@@ -172,6 +179,7 @@ const Navbar = () => {
                 )}
               </div>
 
+              {/* Mobile Menu Button */}
               <button 
                 className="md:hidden"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -187,6 +195,7 @@ const Navbar = () => {
           </div>
         </div>
 
+        {/* Mobile Menu */}
         <div
           className={`md:hidden border-t transition-all duration-300 ${
             isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
@@ -194,12 +203,7 @@ const Navbar = () => {
         >
           <div className="px-4 py-2 space-y-1">
             <div className="mb-4 relative">
-              <input
-                type="text"
-                placeholder="Search on Kaffe Codes"
-                className="w-full pl-12 pr-4 py-3 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500 text-lg"
-              />
-              <Search className="absolute left-4 top-3.5 h-6 w-6 text-gray-400" />
+              <SearchBar />
             </div>
             {navItems.map((item) => (
               <button
@@ -216,10 +220,19 @@ const Navbar = () => {
         </div>
       </nav>
 
+      {/* Brands Modal */}
       <BrandsModal 
         isOpen={isBrandsModalOpen} 
         onClose={() => setIsBrandsModalOpen(false)} 
       />
+
+      {/* Backdrop for Profile Dropdown */}
+      {isProfileDropdownOpen && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={handleClickOutside}
+        />
+      )}
     </>
   );
 };

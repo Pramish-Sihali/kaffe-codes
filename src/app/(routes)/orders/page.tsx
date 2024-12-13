@@ -10,7 +10,7 @@ const mockOrders = [
     placedOn: '21 Jan 2024 22:08:49',
     items: [
       {
-        image: '/images/products/sumatra-coffee.png',
+        image: "/images/coffee/coffee1.png",
         name: 'Sumatra Single - Origin Coffee | 12oz',
         price: 305,
         quantity: 3,
@@ -18,7 +18,7 @@ const mockOrders = [
         deliveredDate: '21 Jan 2024 22:08:49'
       },
       {
-        image: '/images/products/lavazza-coffee.png',
+        image: "/images/coffee/coffee2.png",
         name: 'Lavazza Super Crema Espresso',
         price: 400,
         quantity: 5,
@@ -26,7 +26,7 @@ const mockOrders = [
         deliveredDate: '15Jan 2024 10:05:50'
       },
       {
-        image: '/images/products/bones-cups.png',
+        image: "/images/coffee/coffee3.png",
         name: 'High Voltage Bones Cups - 12 Count',
         price: 235,
         quantity: 1,
@@ -40,7 +40,7 @@ const mockOrders = [
     placedOn: '15 Jan 2024 23:07:50',
     items: [
       {
-        image: '/images/products/black-decker.png',
+        image: "/images/coffee/coffee1.png",
         name: 'BLACK+DECKER 12-Cup Digital Coffee Maker',
         price: 1048,
         quantity: 3,

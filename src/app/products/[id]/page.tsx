@@ -1,4 +1,4 @@
-// src/app/products/[id]/page.tsx
+// app/products/[id]/page.tsx
 import { notFound } from 'next/navigation';
 import ProductDetailClient from '@/components/products/ProductDetailClient';
 import { coffeeProducts } from '@/data/coffeeProducts';
@@ -8,8 +8,6 @@ import { machines } from '@/data/machineProduct';
 import { topPicksData } from '@/data/topPicks';
 import { handpickedProducts } from '@/data/handpickedProducts';
 import { brownieProducts } from '@/data/brownieProducts';
-
-
 
 const allProducts = [
   ...coffeeProducts,
@@ -21,16 +19,13 @@ const allProducts = [
   ...brownieProducts,
 ];
 
-export default function ProductPage({
-  params 
-}: { 
-  params: { id: string } 
-}) {
-  // Get the base ID without section prefix
-  const baseId = params.id.includes('-') ? 
-    params.id.split('-')[1] : 
-    params.id;
+interface PageProps {
+  params: { id: string };
+}
 
+export default async function ProductPage({ params }: PageProps) {
+  const baseId = params.id.split('-').pop() || params.id;
+  
   const product = allProducts.find(p => 
     p.id === params.id || p.id === baseId
   );
@@ -39,7 +34,6 @@ export default function ProductPage({
     notFound();
   }
 
-  // Get similar products from the same category
   const similarProducts = allProducts
     .filter(p => 
       p.category === product.category && 
@@ -53,4 +47,10 @@ export default function ProductPage({
       similarProducts={similarProducts}
     />
   );
+}
+
+export async function generateStaticParams() {
+  return allProducts.map((product) => ({
+    id: product.id,
+  }));
 }
