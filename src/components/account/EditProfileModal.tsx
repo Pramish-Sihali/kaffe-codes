@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
 import Image from 'next/image';
+import BaseButton from '../home/BaseButton';
 
 interface EditProfileModalProps {
   isOpen: boolean;
@@ -122,12 +123,12 @@ export default function EditProfileModal({
               >
                 Cancel
               </button>
-              <button
+              <BaseButton
                 type="submit"
                 className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
               >
                 Save Changes
-              </button>
+              </BaseButton>
             </div>
           </form>
         </div>

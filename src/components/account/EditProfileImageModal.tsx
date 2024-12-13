@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import { useUser } from '@/context/UserContext';
+import BaseButton from '../home/BaseButton';
+
 
 interface EditProfileImageModalProps {
   isOpen: boolean;
@@ -72,13 +74,13 @@ export default function EditProfileImageModal({ isOpen, onClose }: EditProfileIm
             >
               Cancel
             </button>
-            <button
+            <BaseButton
               onClick={handleSave}
               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
               disabled={!selectedImage}
             >
               Save Changes
-            </button>
+            </BaseButton>
           </div>
         </div>
       </div>
