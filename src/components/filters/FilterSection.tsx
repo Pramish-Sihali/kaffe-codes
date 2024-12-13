@@ -53,7 +53,7 @@ export default function FilterSection({
 
   return (
     <div className="bg-white rounded shadow w-72">
-      <div className="flex justify-between items-center bg-brown-600 text-white px-4 py-3 rounded-t">
+      <div className="flex justify-between items-center bg-custom-brown text-white px-4 py-3 rounded-t">
         <h3 className="text-base font-medium">Filter by</h3>
         <button 
           onClick={onReset}
@@ -169,8 +169,7 @@ export default function FilterSection({
                     onChange={(e) => {
                       const value = parseInt(e.target.value.replace(/\D/g, ''));
                       updateFilters({
-                        priceRange: [value || 0, filters.priceRange[1]]
-                      });
+                       });
                     }}
                     className="w-full px-3 py-1.5 border rounded text-sm focus:ring-1 focus:ring-brown-500 focus:border-brown-500"
                   />
