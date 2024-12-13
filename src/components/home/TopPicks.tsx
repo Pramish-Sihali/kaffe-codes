@@ -93,14 +93,14 @@ export default function TopPicks() {
           </div>
 
           <button
-            onClick={handlePrev}
+            onClick={handleNext}
             className="absolute -left-2 md:-left-5 top-1/2 -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"
           >
             <ChevronLeft className="w-4 h-4 md:w-6 md:h-6 text-gray-600" />
           </button>
 
           <button
-            onClick={handleNext}
+            onClick={handlePrev}
             className="absolute -right-2 md:-right-5 top-1/2 -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50"
           >
             <ChevronRight className="w-4 h-4 md:w-6 md:h-6 text-gray-600" />

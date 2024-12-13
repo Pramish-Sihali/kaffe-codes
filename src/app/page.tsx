@@ -41,11 +41,6 @@ export default function Home() {
         <TeaSelections/>
       </section>
 
-      {/* Buying Guidelines Section */}
-      <section id="guidelines-section">
-        <BuyingGuidelines />
-        <UnfilteredReviews />
-      </section>
 
       {/* Gifts Section */}
       <section id="gifts-section">
@@ -53,6 +48,13 @@ export default function Home() {
         <CoffeeShopBanner />
         <WhatsNew />
       </section>
+
+      {/* Buying Guidelines Section */}
+      <section id="guidelines-section">
+        <BuyingGuidelines />
+        <UnfilteredReviews />
+      </section>
+
 
       <BrandsSection />
   
