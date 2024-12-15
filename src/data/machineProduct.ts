@@ -55,5 +55,27 @@ export const machines: Product[] = [
     image: "/images/machinery/machine4.svg",
     category: "Machineries", // Updated category
     inStock: true
+  },
+  {
+    id: "machine-6",
+    brand: "RANCILIO",
+    name: "Rancilio Silvia Espresso Machine",
+    rating: 4.9,
+    reviews: 145,
+    price: 84999,
+    image: "/images/machinery/machine4.svg",
+    category: "Utensils", // Updated category
+    inStock: true
+  },
+  {
+    id: "machine-7",
+    brand: "RANCILIO",
+    name: "Rancilio Silvia Espresso Machine",
+    rating: 4.9,
+    reviews: 145,
+    price: 84999,
+    image: "/images/machinery/machine4.svg",
+    category: "Utensils", // Updated category
+    inStock: true
   }
 ];
