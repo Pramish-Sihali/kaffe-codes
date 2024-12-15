@@ -31,3 +31,9 @@ export interface WishlistContextType {
   removeFromWishlist: (productId: string) => void;
   isInWishlist: (productId: string) => boolean;
 }
+
+export interface Category {
+  id: string;
+  label: string;
+  icon: string;
+}

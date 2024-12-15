@@ -1,5 +1,43 @@
 // data/handpickedProducts.ts
-import { Product } from '@/types/products';
+import { Product, Category } from '@/types/products';
+
+export const categories: Category[] = [
+  {
+    id: 'all',
+    label: 'All Products',
+    icon: '/images/icons/all.svg'
+  },
+  {
+    id: 'coffee',
+    label: 'Coffee',
+    icon: '/images/icons/beans.svg'
+  },
+  {
+    id: 'bakery',
+    label: 'Bakery',
+    icon: '/images/icons/bakery.svg'
+  },
+  {
+    id: 'tea',
+    label: 'Tea',
+    icon: '/images/icons/tea.svg'
+  },
+  {
+    id: 'utensils',
+    label: 'Utensils',
+    icon: '/images/icons/utensils.svg'
+  },
+  {
+    id: 'machines',
+    label: 'Machineries',
+    icon: '/images/icons/machineries.svg'
+  },
+  {
+    id: 'cakes',
+    label: 'Cakes',
+    icon: '/images/icons/cake.svg'
+  }
+];
 
 export const handpickedProducts: Product[] = [
   {
@@ -90,15 +128,4 @@ export const handpickedProducts: Product[] = [
     inStock: true,
     reviews: 190
   }
-  
 ];
-
-// Categories data
-export const categories = [
-    { icon: '/images/icons/beans.svg', label: 'Coffee' },
-    { icon: '/images/icons/bakery.svg', label: 'Bakery' },
-    { icon: '/images/icons/tea.svg', label: 'Tea' },
-    { icon: '/images/icons/utensils.svg', label: 'Utensils' },
-    { icon: '/images/icons/machineries.svg', label: 'Machineries' },
-    { icon: '/images/icons/cake.svg', label: 'Cakes' }
-  ] as const;

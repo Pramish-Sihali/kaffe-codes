@@ -56,7 +56,7 @@ const ProductCard = memo(({
   return (
     <>
       <Link href={`/products/${product.id}`} className="group block w-full">
-      <div className={`${backgroundColor} h-[404px] w-[231px] flex flex-col rounded-lg transition-all duration-300`}>
+      <div className={`${backgroundColor} h-[410px] w-[231px] flex flex-col rounded-lg transition-all duration-300`}>
           <div className="relative aspect-square w-full h-[300px]">
             <div className="relative w-full h-full p-6">
               <Image

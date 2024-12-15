@@ -16,7 +16,6 @@ export default function TopPicks() {
         <Carousel
           itemsPerView={5}
           autoPlayInterval={5000}
-          showDots={false}
           className="max-w-[1400px] mx-auto"
         >
           {topPicksData.map((product) => (

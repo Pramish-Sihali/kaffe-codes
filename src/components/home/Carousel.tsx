@@ -9,22 +9,19 @@ interface CarouselProps {
   itemsPerView?: number;
   autoPlayInterval?: number;
   className?: string;
-  showDots?: boolean;
   showArrows?: boolean;
 }
 
 export function Carousel({
   children,
   itemsPerView = 5,
-  autoPlayInterval = 5000,
+  autoPlayInterval = 0,
   className = "",
-  showDots = true,
   showArrows = true,
 }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentItemsPerView, setCurrentItemsPerView] = useState(itemsPerView);
   const totalItems = children.length;
-  const maxIndex = Math.max(0, Math.ceil(totalItems - currentItemsPerView));
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,28 +43,50 @@ export function Carousel({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => {
-    if (autoPlayInterval > 0) {
-      const interval = setInterval(handleNext, autoPlayInterval);
-      return () => clearInterval(interval);
-    }
-  }, [currentIndex, currentItemsPerView]);
+  const showNavigation = totalItems > currentItemsPerView;
+  const maxIndex = Math.max(0, totalItems - currentItemsPerView);
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % (maxIndex + 1));
+    setCurrentIndex(prev => {
+      const next = prev + currentItemsPerView;
+      return next >= totalItems ? 0 : next;
+    });
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? maxIndex : prev - 1));
+    setCurrentIndex(prev => {
+      const next = prev - currentItemsPerView;
+      return next < 0 ? maxIndex : next;
+    });
   };
+
+  if (totalItems === 0) {
+    return (
+      <div className="flex justify-center items-center h-[404px] bg-gray-50 rounded-lg">
+        <p className="text-gray-500 text-lg">Currently no products available</p>
+      </div>
+    );
+  }
+
+  if (totalItems <= currentItemsPerView) {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+        {children.map((child, index) => (
+          <div key={index} className="flex justify-center">
+            {child}
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className={`relative w-full ${className}`}>
-      <div className="overflow-hidden px-6">
+      <div className="overflow-hidden px-12">
         <div
           className="flex transition-transform duration-500 ease-out"
           style={{
-            transform: `translateX(-${(currentIndex * 100) / currentItemsPerView}%)`
+            transform: `translateX(-${(currentIndex * 100) / totalItems}%)`
           }}
         >
           {children.map((child, index) => (
@@ -76,7 +95,7 @@ export function Carousel({
               className="px-6 flex justify-center"
               style={{
                 width: `${100 / currentItemsPerView}%`,
-                minWidth: `${100 / currentItemsPerView}%`,
+                flexShrink: 0,
               }}
             >
               {child}
@@ -85,32 +104,32 @@ export function Carousel({
         </div>
       </div>
 
-      {showArrows && totalItems > currentItemsPerView && (
+      {showNavigation && showArrows && (
         <>
           <button
             onClick={handlePrev}
-            className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
+            className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 z-10"
           >
             <ChevronLeft className="w-6 h-6 text-gray-600" />
           </button>
 
           <button
             onClick={handleNext}
-            className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10"
+            className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 z-10"
           >
             <ChevronRight className="w-6 h-6 text-gray-600" />
           </button>
         </>
       )}
 
-      {showDots && totalItems > currentItemsPerView && (
-        <div className="flex justify-center gap-2 mt-6">
-          {Array.from({ length: maxIndex + 1 }).map((_, index) => (
+      {showNavigation && (
+        <div className="flex justify-center gap-2 mt-8">
+          {[...Array(Math.ceil(totalItems / currentItemsPerView))].slice(0, 5).map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
+              onClick={() => setCurrentIndex(index * currentItemsPerView)}
               className={`h-2 rounded-full transition-colors ${
-                index === currentIndex
+                Math.floor(currentIndex / currentItemsPerView) === index
                   ? 'bg-brown-500 w-6'
                   : 'bg-gray-200 hover:bg-gray-300 w-2'
               }`}
