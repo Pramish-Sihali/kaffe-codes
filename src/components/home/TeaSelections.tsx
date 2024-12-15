@@ -1,132 +1,156 @@
+// components/home/TeaSelections.tsx
 "use client";
 
-import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState } from 'react';
 import Image from 'next/image';
-import ProductCard from './ProductCard';
+import { Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 import { teaProducts } from '@/data/teaProducts';
 
 export default function TeaSelections() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [itemsPerGroup, setItemsPerGroup] = useState(6);
+  const productsPerPage = 6;
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) {
-        setItemsPerGroup(1);
-      } else if (window.innerWidth < 768) {
-        setItemsPerGroup(2);
-      } else if (window.innerWidth < 1024) {
-        setItemsPerGroup(4);
-      } else {
-        setItemsPerGroup(6);
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const totalGroups = Math.ceil(teaProducts.length / itemsPerGroup);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % totalGroups);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [totalGroups]);
+  const totalPages = Math.ceil(teaProducts.length / productsPerPage);
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % totalGroups);
+    setCurrentIndex((prev) => (prev + 1) % totalPages);
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + totalGroups) % totalGroups);
+    setCurrentIndex((prev) => (prev - 1 + totalPages) % totalPages);
   };
 
   const getCurrentProducts = () => {
-    const startIndex = currentIndex * itemsPerGroup;
-    return teaProducts.slice(startIndex, startIndex + itemsPerGroup);
+    const start = currentIndex * productsPerPage;
+    return teaProducts.slice(start, start + productsPerPage);
   };
 
   return (
-    <div className="w-full bg-white relative">
-      <div className="relative max-w-[1400px] mx-auto">
-        <div className="text-center pt-8 mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold mb-2">Tea Selections</h2>
-          <p className="text-gray-600">From Garden to Cup</p>
+    <section className="max-w-[1400px] mx-auto relative py-16">
+      <div className="px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl font-medium mb-1">Tea Selections</h2>
+          <p className="text-gray-600 text-sm">Every Sip Tells a Journey</p>
         </div>
 
-        <div className="relative min-h-[550px] flex">
-          {/* Left Side - Products Container */}
-          <div className="relative w-full lg:w-[600px] pl-12">
-            <div className="flex items-center">
-              <button
+        <div className="flex">
+          {/* Products Grid */}
+          <div className="w-[60%] relative">
+            <div className="relative">
+              <button 
                 onClick={handlePrev}
-                className="w-8 h-8 md:w-10 md:h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10 mr-4"
+                className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10 hover:bg-gray-50"
               >
-                <ChevronLeft className="w-5 h-5 text-gray-600" />
+                <ChevronLeft className="w-4 h-4 text-gray-600" />
               </button>
 
-              <div className="flex-1">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {getCurrentProducts().map((product) => (
-                    <div key={product.id} className="w-full">
-                      <div className="max-w-[180px] mx-auto">
-                        <ProductCard
-                          product={product}
-                          backgroundColor="bg-white"
-                          section="tea"
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+                {getCurrentProducts().map((product) => (
+                  <div key={product.id} className="relative group">
+                    <button className="absolute right-2 top-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Heart className="w-5 h-5 text-gray-400 hover:text-gray-600" />
+                    </button>
+                    <div className="bg-white p-4 rounded-lg">
+                      <div className="aspect-square relative mb-3">
+                        <Image
+                          src={product.image}
+                          alt={product.name}
+                          fill
+                          className="object-contain p-2"
                         />
                       </div>
+                      <div className="space-y-1">
+                        <p className="text-xs text-gray-500 uppercase">{product.brand}</p>
+                        <h3 className="text-sm text-gray-900 line-clamp-2">{product.name}</h3>
+                        <div className="flex items-center">
+                          <div className="flex">
+                            {[...Array(5)].map((_, i) => (
+                              <span 
+                                key={i} 
+                                className={`text-sm ${i < product.rating ? 'text-yellow-400' : 'text-gray-200'}`}
+                              >
+                                ★
+                              </span>
+                            ))}
+                          </div>
+                          <span className="text-xs text-gray-500 ml-1">({product.reviews})</span>
+                        </div>
+                        <p className="text-sm font-medium">
+                          NPR. {product.price.toLocaleString()}
+                        </p>
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
 
-              <button
+              <button 
                 onClick={handleNext}
-                className="w-8 h-8 md:w-10 md:h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10 ml-4"
+                className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10 hover:bg-gray-50"
               >
-                <ChevronRight className="w-5 h-5 text-gray-600" />
+                <ChevronRight className="w-4 h-4 text-gray-600" />
               </button>
             </div>
 
-            <div className="flex justify-center gap-2 mt-6">
-              {[...Array(totalGroups)].map((_, index) => (
+            <div className="flex justify-center gap-2 mt-8">
+              {[...Array(totalPages)].map((_, index) => (
                 <button
                   key={index}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    index === currentIndex
-                      ? 'bg-brown-500 w-4'
-                      : 'bg-gray-300 hover:bg-brown-300'
-                  }`}
                   onClick={() => setCurrentIndex(index)}
+                  className={`h-2 rounded-full transition-colors duration-200 ${
+                    index === currentIndex
+                      ? 'bg-brown-500 w-6'
+                      : 'bg-gray-200 w-2 hover:bg-gray-300'
+                  }`}
                 />
               ))}
             </div>
           </div>
 
-          {/* Right Side - Image Container */}
-          <div className="hidden lg:block absolute top-0 right-0 w-[calc(100%-500px)] h-full">
-            <div className="absolute inset-0">
-              <div className="relative h-full">
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[650px] h-[650px] translate-x-64">
+          {/* Background Image */}
+          <div className="relative flex-1">
+            <div 
+              className="absolute left-0 top-1/2 -translate-y-1/2 w-[1100px] h-[1100px]"
+            >
+              <div className="relative w-full h-full">
+                <div 
+                  className="absolute inset-0 overflow-hidden"
+                  style={{
+                    maskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)',
+                    WebkitMaskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)',
+                  }}
+                >
                   <Image
                     src="/images/tea/beans.png"
-                    alt="Tea Leaves"
+                    alt="Tea Beans"
                     fill
-                    className="object-contain"
-                    priority
+                    className="object-cover scale-125"
+                    style={{
+                      filter: 'blur(2px)',
+                    }}
                   />
                 </div>
+
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'radial-gradient(circle at center, transparent 20%, white 70%)',
+                    filter: 'blur(30px)',
+                  }}
+                />
+
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'radial-gradient(circle at center, transparent 40%, rgba(255,255,255,0.8) 60%, white 80%)',
+                    mixBlendMode: 'overlay',
+                  }}
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

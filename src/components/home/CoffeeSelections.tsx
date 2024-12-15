@@ -1,4 +1,3 @@
-// components/home/CoffeeSelections.tsx
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -51,90 +50,115 @@ export default function CoffeeSelections() {
   };
 
   return (
-    <section className="py-8 md:py-12 bg-white relative overflow-hidden">
-      <div className="max-w-[1600px] mx-auto px-4">
-        <div className="text-center mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold mb-2">Coffee Selections</h2>
-          <p className="text-gray-600">From Harvest to Happiness</p>
+    <section className="max-w-[1400px] mx-auto relative py-16">
+      <div className="px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl font-medium mb-1">Coffee Selections</h2>
+          <p className="text-gray-600 text-sm">From Harvest to Happiness</p>
         </div>
 
-        <div className="flex flex-col lg:flex-row min-h-[400px] md:min-h-[500px]">
-          {/* Left side with coffee beans and frame */}
-          <div className="hidden lg:block w-full lg:w-1/2 relative -ml-12">
-            <div className="relative w-full h-full">
-              <div className="absolute inset-0 flex items-center justify-start">
-                <div className="relative w-[600px] h-[600px]">
+        <div className="flex">
+          {/* Background Image */}
+          <div className="relative flex-1">
+            <div 
+              className="absolute right-0 top-1/2 -translate-y-1/2 w-[1100px] h-[1100px]"
+            >
+              <div className="relative w-full h-full">
+                <div 
+                  className="absolute inset-0 overflow-hidden"
+                  style={{
+                    maskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)',
+                    WebkitMaskImage: 'radial-gradient(circle at center, black 30%, transparent 70%)',
+                  }}
+                >
                   <Image
                     src="/images/coffee/beans.svg"
                     alt="Coffee Beans"
                     fill
-                    className="object-contain"
-                    priority
+                    className="object-cover scale-125"
+                    style={{
+                      filter: 'blur(2px)',
+                    }}
                   />
                 </div>
-              </div>
-              <div className="absolute inset-0 flex items-center justify-start">
-                <div className="relative w-[600px] h-[600px]">
-                  <Image
-                    src="/images/coffee/frame.svg"
-                    alt="Coffee Frame"
-                    fill
-                    className="object-contain opacity-100"
-                    priority
-                  />
-                </div>
+
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'radial-gradient(circle at center, transparent 20%, white 70%)',
+                    filter: 'blur(30px)',
+                  }}
+                />
+
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    background: 'radial-gradient(circle at center, transparent 40%, rgba(255,255,255,0.8) 60%, white 80%)',
+                    mixBlendMode: 'overlay',
+                  }}
+                />
               </div>
             </div>
           </div>
 
-          {/* Right side with products grid */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center lg:pr-8">
+          {/* Products Grid */}
+          <div className="w-[60%] relative">
             <div className="relative">
-              <div className="flex items-center">
-                <button
-                  onClick={handlePrev}
-                  className="w-8 h-8 md:w-10 md:h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10 mr-4"
-                >
-                  <ChevronLeft className="w-5 h-5 text-gray-600" />
-                </button>
+              <button 
+                onClick={handlePrev}
+                className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10 hover:bg-gray-50"
+              >
+                <ChevronLeft className="w-4 h-4 text-gray-600" />
+              </button>
 
-                <div className="flex-1">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 min-h-[400px]">
-                    {getCurrentProducts().map((product) => (
-                      <div key={product.id} className="w-full">
-                        <div className="max-w-[250px] mx-auto">
-                          <ProductCard
-                            product={product}
-                            backgroundColor="bg-white"
-                            section="coffee"
-                          />
+              <div className="grid grid-cols-2 sm:grid-cols-2 gap-6 min-h-[400px]">
+                {getCurrentProducts().map((product) => (
+                  <div key={product.id} className="w-full">
+                    <div className="max-w-[250px] mx-auto h-full">
+                      <div className="h-full flex items-center justify-center">
+                        <ProductCard
+                          product={product}
+                          backgroundColor="bg-white"
+                          section="coffee"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                {/* Placeholder items to maintain grid structure */}
+                {getCurrentProducts().length < 2 && 
+                  Array.from({ length: 2 - getCurrentProducts().length }).map((_, index) => (
+                    <div key={`placeholder-${index}`} className="w-full opacity-0">
+                      <div className="max-w-[250px] mx-auto h-full">
+                        <div className="h-full flex items-center justify-center">
+                          <div className="w-full h-full" />
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
+                    </div>
+                  ))
+                }
+              </div>
 
+              <button 
+                onClick={handleNext}
+                className="absolute -right-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10 hover:bg-gray-50"
+              >
+                <ChevronRight className="w-4 h-4 text-gray-600" />
+              </button>
+            </div>
+
+            <div className="flex justify-center gap-2 mt-8">
+              {[...Array(totalGroups)].map((_, index) => (
                 <button
-                  onClick={handleNext}
-                  className="w-8 h-8 md:w-10 md:h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 z-10 ml-4"
-                >
-                  <ChevronRight className="w-5 h-5 text-gray-600" />
-                </button>
-              </div>
-
-              <div className="flex justify-center gap-2 mt-6">
-                {[...Array(totalGroups)].map((_, index) => (
-                  <button
-                    key={index}
-                    className={`w-2 h-2 rounded-full transition-colors ${
-                      index === currentIndex
-                        ? 'bg-brown-500 w-4'
-                        : 'bg-gray-300 hover:bg-brown-300'
-                    }`}
-                    onClick={() => setCurrentIndex(index)}
-                  />
-                ))}
-              </div>
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`h-2 rounded-full transition-colors duration-200 ${
+                    index === currentIndex
+                      ? 'bg-brown-500 w-6'
+                      : 'bg-gray-200 w-2 hover:bg-gray-300'
+                  }`}
+                />
+              ))}
             </div>
           </div>
         </div>
