@@ -25,7 +25,7 @@ export default function HotCakes() {
 
   return (
     <section className="py-6 md:py-8 lg:py-12 bg-white">
-      <div className="max-w-[1400px] mx-auto px-4">
+      <div className="max-w-[1800px] mx-auto px-4">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 md:mb-8 lg:mb-12">
           Hot Cakes
         </h2>

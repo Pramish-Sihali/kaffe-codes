@@ -45,7 +45,7 @@ export default function BestMachinery() {
 
   return (
     <section className="py-8 md:py-12 bg-gray-50">
-      <div className="max-w-[1400px] mx-auto px-4">
+      <div className="max-w-[1600px] mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8">
           Best Purchase on Machinery
         </h2>
