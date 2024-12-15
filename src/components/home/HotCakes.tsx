@@ -1,89 +1,61 @@
-// components/home/ExclusiveCakes.tsx
 "use client";
-
 import Image from 'next/image';
 import { useState } from 'react';
 import ProductCard from './ProductCard';
 import { Carousel } from '@/components/home/Carousel';
 import { cakeProducts } from '@/data/cakeProducts';
+import { Tabs } from '@/components/ui/Tabs';
 
 const categories = [
-  {
-    id: 'bento-cake',
-    icon: '/images/icons/bento-cake.svg',
-    label: 'Bento Cake',
-  },
-  {
-    id: 'royal-cake',
-    icon: '/images/icons/royal-cake.svg',
-    label: 'Royal Cake',
-  },
-  {
-    id: 'brownies',
-    icon: '/images/icons/brownies.svg',
-    label: 'Brownies',
-  },
+  { id: 'bento cake', icon: '/images/icons/bento-cake.svg', label: 'Bento Cake' },
+  { id: 'royal cake', icon: '/images/icons/royal-cake.svg', label: 'Royal Cake' },
+  { id: 'brownies', icon: '/images/icons/brownies.svg', label: 'Brownies' },
 ];
 
-export default function ExclusiveCakes() {
-  const [activeCategory, setActiveCategory] = useState('bento-cake');
+export default function HotCakes() {
+  const [activeTab, setActiveTab] = useState<string | null>(null);
+
+  const filteredCakes = activeTab
+    ? cakeProducts.filter((cake) => cake.category.toLowerCase() === activeTab.toLowerCase())
+    : cakeProducts;
+
+  const handleTabChange = (tabId: string | null) => {
+    setActiveTab(tabId);
+  };
 
   return (
-    <section className="py-8 md:py-12 bg-white">
+    <section className="py-6 md:py-8 lg:py-12 bg-white">
       <div className="max-w-[1400px] mx-auto px-4">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6">Hot Cakes</h2>
-          <div className="flex justify-center items-center gap-8">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className="flex flex-col items-center group"
-              >
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-2 transition-colors ${
-                  activeCategory === category.id
-                    ? 'bg-brown-600'
-                    : 'bg-gray-100 group-hover:bg-brown-100'
-                }`}>
-                  <Image
-                    src={category.icon}
-                    alt={category.label}
-                    width={24}
-                    height={24}
-                    className={`w-6 h-6 transition-colors ${
-                      activeCategory === category.id ? 'text-white' : 'text-gray-600'
-                    }`}
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 md:mb-8 lg:mb-12">
+          Hot Cakes
+        </h2>
+
+        <Tabs
+          items={categories}
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
+        />
+
+        <div className="px-4">
+          <Carousel
+            itemsPerView={5}
+            autoPlayInterval={5000}
+            showArrows={true}
+            className="max-w-full"
+          >
+            {filteredCakes.map((cake) => (
+              <div key={cake.id} className="flex justify-center">
+                <div className="w-[231px]">
+                  <ProductCard
+                    product={cake}
+                    backgroundColor="bg-white"
+                    section="cakes"
                   />
                 </div>
-                <span className={`text-sm ${
-                  activeCategory === category.id
-                    ? 'text-brown-600 font-medium'
-                    : 'text-gray-600'
-                }`}>
-                  {category.label}
-                </span>
-              </button>
+              </div>
             ))}
-          </div>
+          </Carousel>
         </div>
-
-        <Carousel
-          itemsPerView={5}
-          autoPlayInterval={5000}
-          showDots={true}
-          showArrows={true}
-          className="px-4"
-        >
-          {cakeProducts.map((cake) => (
-            <div key={cake.id} className="max-w-[250px] mx-auto">
-              <ProductCard
-                product={cake}
-                backgroundColor="bg-white"
-                section="cakes"
-              />
-            </div>
-          ))}
-        </Carousel>
       </div>
     </section>
   );

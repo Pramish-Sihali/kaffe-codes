@@ -1,4 +1,3 @@
-// data/cakeProducts.ts
 import { Product } from '@/types/products';
 
 export const cakeProducts: Product[] = [
@@ -10,7 +9,7 @@ export const cakeProducts: Product[] = [
     rating: 4,
     reviews: 23,
     image: "/images/cakes/image1.png",
-    category: "Cakes",
+    category: "Bento Cake", // Updated category
     inStock: true,
     description: 'Since opening our first shop in 2017 AD, Kaffe Codes goal has been straightforward.'
   },
@@ -22,62 +21,62 @@ export const cakeProducts: Product[] = [
     rating: 4,
     reviews: 23,
     image: "/images/cakes/image2.png",
-    category: "Cakes",
+    category: "Brownies", // Updated category
     inStock: true
   },
   {
-    id: "cake-3",
+    id: "cake-3", 
     brand: "KAFFE CODES",
     name: "White Forest cake: A Small Bite Packed with Big Flavor",
     price: 900,
     rating: 4,
     reviews: 23,
     image: "/images/cakes/image3.png",
-    category: "Cakes",
+    category: "Royal Cake", // Updated category  
     inStock: true
   },
   {
     id: "cake-4",
-    brand: "KAFFE CODES",
+    brand: "KAFFE CODES", 
     name: "White Forest cake: A Small Bite Packed with Big Flavor",
     price: 799,
-    rating: 4,
+    rating: 4, 
     reviews: 23,
     image: "/images/cakes/image4.png",
-    category: "Cakes",
+    category: "Royal Cake", // Updated category
     inStock: true
   },
   {
-    id: "cake-5",
+    id: "cake-5",  
     brand: "KAFFE CODES",
-    name: "Bento Brownie: A Small Bite Packed with Big Flavor",
+    name: "Bento Brownie: A Small Bite Packed with Big Flavor",    
     price: 1150,
     rating: 4,
     reviews: 23,
     image: "/images/cakes/image5.png",
-    category: "Cakes",
+    category: "Brownies", // Updated category
     inStock: true
   },
-  {
+  {  
     id: "cake-6",
     brand: "KAFFE CODES",
     name: "Bento Brownie: A Small Bite Packed with Big Flavor",
-    price: 1150,
+    price: 1150, 
     rating: 4,
     reviews: 23,
-    image: "/images/cakes/image5.png",
-    category: "Cakes",
+    image: "/images/cakes/image5.png",  
+    category: "Brownies", // Updated category
     inStock: true
   },
   {
     id: "cake-7",
-    brand: "KAFFE CODES",
+    brand: "KAFFE CODES",  
     name: "Bento Brownie: A Small Bite Packed with Big Flavor",
     price: 1150,
     rating: 4,
-    reviews: 23,
+    reviews: 23, 
     image: "/images/cakes/image5.png",
-    category: "Cakes",
+    category: "Brownies", // Updated category 
     inStock: true
   }
 ];

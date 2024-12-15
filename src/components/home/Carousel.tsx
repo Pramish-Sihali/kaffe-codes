@@ -1,4 +1,3 @@
-// components/home/Carousel.tsx
 "use client";
 
 import { useState, useEffect, ReactNode } from 'react';
@@ -48,15 +47,15 @@ export function Carousel({
 
   const handleNext = () => {
     setCurrentIndex(prev => {
-      const next = prev + currentItemsPerView;
-      return next >= totalItems ? 0 : next;
+      const next = prev + 1;
+      return next > maxIndex ? maxIndex : next;
     });
   };
 
   const handlePrev = () => {
     setCurrentIndex(prev => {
-      const next = prev - currentItemsPerView;
-      return next < 0 ? maxIndex : next;
+      const next = prev - 1;
+      return next < 0 ? 0 : next;
     });
   };
 
@@ -86,7 +85,7 @@ export function Carousel({
         <div
           className="flex transition-transform duration-500 ease-out"
           style={{
-            transform: `translateX(-${(currentIndex * 100) / totalItems}%)`
+            transform: `translateX(-${(currentIndex * 100) / currentItemsPerView}%)`
           }}
         >
           {children.map((child, index) => (
@@ -108,14 +107,16 @@ export function Carousel({
         <>
           <button
             onClick={handlePrev}
-            className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 z-10"
+            disabled={currentIndex === 0}
+            className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 z-10 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronLeft className="w-6 h-6 text-gray-600" />
           </button>
 
           <button
             onClick={handleNext}
-            className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 z-10"
+            disabled={currentIndex >= maxIndex}
+            className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-gray-50 z-10 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronRight className="w-6 h-6 text-gray-600" />
           </button>
@@ -127,12 +128,13 @@ export function Carousel({
           {[...Array(Math.ceil(totalItems / currentItemsPerView))].slice(0, 5).map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index * currentItemsPerView)}
+              onClick={() => setCurrentIndex(index)}
+              disabled={index >= Math.ceil(maxIndex / currentItemsPerView)}
               className={`h-2 rounded-full transition-colors ${
-                Math.floor(currentIndex / currentItemsPerView) === index
+                currentIndex === index
                   ? 'bg-brown-500 w-6'
                   : 'bg-gray-200 hover:bg-gray-300 w-2'
-              }`}
+              } disabled:opacity-50 disabled:cursor-not-allowed`}
             />
           ))}
         </div>

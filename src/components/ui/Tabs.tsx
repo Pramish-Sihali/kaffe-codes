@@ -1,4 +1,3 @@
-// components/ui/Tabs.tsx
 "use client";
 import { useState } from 'react';
 import Image from 'next/image';
@@ -31,7 +30,7 @@ export function Tabs({ items, activeTab, onTabChange }: TabsProps) {
           <div
             className={`relative w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mb-2 transition-colors ${
               activeTab === item.id
-                ? 'bg-custom-brown' // Changed to a slightly brown background color
+                ? 'bg-custom-brown'
                 : 'bg-gray-100 hover:bg-gray-200'
             }`}
           >
@@ -41,14 +40,14 @@ export function Tabs({ items, activeTab, onTabChange }: TabsProps) {
               width={24}
               height={24}
               className={`w-6 h-6 md:w-7 md:h-7 transition-colors ${
-                activeTab === item.id ? 'filter brightness-0 invert' : '' // Changed to white color when selected
+                activeTab === item.id ? 'filter brightness-0 invert' : ''
               }`}
             />
           </div>
           <span
             className={`text-xs md:text-sm whitespace-nowrap ${
               activeTab === item.id
-                ? 'text-custom-brown font-medium' // Changed to a slightly brown text color
+                ? 'text-custom-brown font-medium'
                 : 'text-gray-600'
             }`}
           >

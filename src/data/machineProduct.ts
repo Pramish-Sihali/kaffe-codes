@@ -1,4 +1,3 @@
-// data/machineProducts.ts
 import { Product } from '@/types/products';
 
 export const machines: Product[] = [
@@ -10,7 +9,7 @@ export const machines: Product[] = [
     reviews: 128,
     price: 29999,
     image: "/images/machinery/machine4.svg",
-    category: "Machines",
+    category: "Machineries", // Updated category
     inStock: true
   },
   {
@@ -21,7 +20,7 @@ export const machines: Product[] = [
     reviews: 256,
     price: 69999,
     image: "/images/machinery/machine1.svg",
-    category: "Machines",
+    category: "Machineries", // Updated category 
     inStock: true
   },
   {
@@ -32,7 +31,7 @@ export const machines: Product[] = [
     reviews: 189,
     price: 79999,
     image: "/images/machinery/machine2.svg",
-    category: "Machines",
+    category: "Machineries", // Updated category
     inStock: true
   },
   {
@@ -43,7 +42,7 @@ export const machines: Product[] = [
     reviews: 167,
     price: 54999,
     image: "/images/machinery/machine3.svg",
-    category: "Machines",
+    category: "Machineries", // Updated category
     inStock: true
   },
   {
@@ -54,7 +53,7 @@ export const machines: Product[] = [
     reviews: 145,
     price: 84999,
     image: "/images/machinery/machine4.svg",
-    category: "Machines",
+    category: "Machineries", // Updated category
     inStock: true
   }
 ];

@@ -16,10 +16,10 @@ export default function TopPicks() {
         <Carousel
           itemsPerView={5}
           autoPlayInterval={5000}
-          className="max-w-[1400px] mx-auto"
+          className="max-w-[1400px] "
         >
           {topPicksData.map((product) => (
-            <div key={product.id} className="max-w-[250px] mx-auto px-2">
+            <div key={product.id} className="max-w-[250px]  px-2">
               <ProductCard
                 product={product}
                 backgroundColor="bg-gray-100"
