@@ -9,46 +9,49 @@ import { useWishlist } from '@/context/WishlistContext';
 import { useCart } from '@/context/CartContext';
 import { Carousel } from '@/components/home/Carousel';
 import ProductCard from '@/components/home/ProductCard';
-import ProductTabs from './ProductTabs';
+import ReviewsTab from './ReviewsTab';
 
 interface Review {
   author: string;
   date: string;
   rating: number;
   text: string;
+  verified?: boolean;
+  authorImage?: string;
 }
 
 interface ProductDetailClientProps {
   product: Product;
   similarProducts: Product[];
+  initialReviews: Review[];
+  initialTotalReviews: number;
+  initialAverageRating: number;
 }
-
-const mockReviews: Review[] = [
-  {
-    author: "John Doe",
-    date: "May 10, 2024",
-    rating: 5,
-    text: "Excellent product, would definitely buy again!",
-  },
-  {
-    author: "Jane Smith",
-    date: "May 9, 2024",
-    rating: 4,
-    text: "Good quality product, fast delivery.",
-  },
-];
 
 export default function ProductDetailClient({ 
   product, 
-  similarProducts 
+  similarProducts,
+  initialReviews,
+  initialTotalReviews,
+  initialAverageRating
 }: ProductDetailClientProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [reviews, setReviews] = useState<Review[]>(initialReviews);
+  const [totalReviews, setTotalReviews] = useState(initialTotalReviews);
+  const [averageRating, setAverageRating] = useState(initialAverageRating);
+
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const { addToCart } = useCart();
   const isFavorite = isInWishlist(product.id);
 
   const productImages = Array(5).fill(product.image);
+
+  const dummyUserInfo = {
+    name: "Guest User",
+    email: "guest@example.com",
+    image: "/default-avatar.png"
+  };
 
   const handleQuantityChange = (type: 'increase' | 'decrease') => {
     if (type === 'increase') {
@@ -69,6 +72,37 @@ export default function ProductDetailClient({
   const handleAddToBag = () => {
     if (product.inStock) {
       addToCart(product, quantity);
+    }
+  };
+
+  const handleReviewSubmit = async (data: { rating: number; review: string }) => {
+    try {
+      const newReview: Review = {
+        author: dummyUserInfo.name,
+        date: new Date().toLocaleDateString(),
+        rating: data.rating,
+        text: data.review,
+        verified: true,
+        authorImage: dummyUserInfo.image
+      };
+
+      // Update reviews array
+      const updatedReviews = [newReview, ...reviews];
+      setReviews(updatedReviews);
+      
+      // Update total reviews
+      const newTotalReviews = totalReviews + 1;
+      setTotalReviews(newTotalReviews);
+      
+      // Calculate new average rating
+      const totalRating = updatedReviews.reduce((sum, review) => sum + review.rating, 0);
+      const newAverage = totalRating / newTotalReviews;
+      setAverageRating(newAverage);
+
+      return Promise.resolve();
+    } catch (error) {
+      console.error('Error submitting review:', error);
+      return Promise.reject(error);
     }
   };
 
@@ -129,11 +163,11 @@ export default function ProductDetailClient({
                 <div className="flex items-center mb-6">
                   <div className="flex text-yellow-400">
                     {[...Array(5)].map((_, i) => (
-                      <span key={i}>{i < product.rating ? "★" : "☆"}</span>
+                      <span key={i}>{i < Math.round(averageRating) ? "★" : "☆"}</span>
                     ))}
                   </div>
                   <span className="ml-2 text-sm text-gray-600">
-                    ({product.reviews} reviews)
+                    ({totalReviews} reviews)
                   </span>
                 </div>
 
@@ -185,11 +219,13 @@ export default function ProductDetailClient({
           </div>
 
           <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-            <ProductTabs
-              description={product.description || "No description available."}
-              reviews={mockReviews}
-              rating={product.rating}
-              totalReviews={product.reviews}
+            <ReviewsTab
+              reviews={reviews}
+              totalReviews={totalReviews}
+              averageRating={averageRating}
+              userInfo={dummyUserInfo}
+              isAuthenticated={true}
+              onSubmit={handleReviewSubmit}
             />
           </div>
 
@@ -199,7 +235,6 @@ export default function ProductDetailClient({
               <Carousel 
                 itemsPerView={5}
                 autoPlayInterval={0}
-           
                 showArrows={true}
                 className="px-2"
               >

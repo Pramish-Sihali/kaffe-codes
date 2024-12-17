@@ -1,3 +1,6 @@
+// components/reviews/ReviewFormModal.tsx
+"use client";
+
 import { useState } from 'react';
 import Image from 'next/image';
 import { Star, X } from 'lucide-react';
@@ -19,19 +22,25 @@ interface ReviewFormModalProps {
   };
 }
 
-const ReviewFormModal = ({
+export default function ReviewFormModal({
   isOpen,
   onClose,
   onSubmit,
   initialData,
   isEditing = false,
   productInfo
-}: ReviewFormModalProps) => {
+}: ReviewFormModalProps) {
   const [rating, setRating] = useState(initialData?.rating || 0);
   const [review, setReview] = useState(initialData?.review || '');
   const [hover, setHover] = useState(0);
 
   if (!isOpen) return null;
+
+  const handleSubmit = () => {
+    onSubmit({ rating, review });
+    setRating(0);
+    setReview('');
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
@@ -49,7 +58,6 @@ const ReviewFormModal = ({
         </div>
 
         <div className="p-6">
-          {/* Product Info */}
           <div className="flex gap-6 mb-8 pb-6 border-b">
             <div className="relative w-20 h-20 border rounded bg-white">
               <Image
@@ -65,7 +73,6 @@ const ReviewFormModal = ({
             </div>
           </div>
 
-          {/* Rating */}
           <div className="mb-8">
             <p className="text-base text-gray-600 mb-3">Rating</p>
             <div className="flex gap-2">
@@ -89,7 +96,6 @@ const ReviewFormModal = ({
             </div>
           </div>
 
-          {/* Review Text */}
           <div className="mb-8">
             <p className="text-base text-gray-600 mb-3">Review</p>
             <textarea
@@ -100,7 +106,6 @@ const ReviewFormModal = ({
             />
           </div>
 
-          {/* Actions */}
           <div className="flex justify-end items-center gap-4">
             <button
               onClick={onClose}
@@ -110,7 +115,7 @@ const ReviewFormModal = ({
             </button>
             <BaseButton
               variant="text"
-              onClick={() => onSubmit({ rating, review })}
+              onClick={handleSubmit}
               disabled={!rating || !review.trim()}
               className="px-8"
             >
@@ -121,6 +126,4 @@ const ReviewFormModal = ({
       </div>
     </div>
   );
-};
-
-export default ReviewFormModal;
+}
