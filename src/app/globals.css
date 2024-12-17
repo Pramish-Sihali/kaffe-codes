@@ -2,10 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply overflow-x-hidden max-w-full;
-}
-
-html {
-  @apply overflow-x-hidden max-w-full;
-}

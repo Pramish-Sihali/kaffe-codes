@@ -1,45 +1,29 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const carouselSlides = [
-  {
-    id: 1,
-    image: "/images/ad-banner.svg"
-  },
-  {
-    id: 2,
-    image: "/images/ad-banner.svg"
-  },
-  {
-    id: 3,
-    image: "/images/ad-banner.svg"
-  }
-];
+interface CarouselSlide {
+  id: number;
+  image: string;
+}
 
-export default function ProductCarousel() {
-  const [isClient, setIsClient] = useState(false);
+interface ProductCarouselProps {
+  slides: CarouselSlide[];
+}
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null;
-  }
-
+export default function ProductCarousel({ slides }: ProductCarouselProps) {
   return (
-    <div className="w-full bg-[#2C1810] relative">
+    <div className="w-full bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="relative h-[300px]">
           <Swiper
-            modules={[Autoplay, Navigation, Pagination]}
+            modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={0}
             slidesPerView={1}
             navigation={{
@@ -58,9 +42,9 @@ export default function ProductCarousel() {
               disableOnInteraction: false,
             }}
             loop={true}
-            className="h-full w-full"
+            className="h-full rounded-lg overflow-hidden"
           >
-            {carouselSlides.map((slide) => (
+            {slides.map((slide) => (
               <SwiperSlide key={slide.id}>
                 <img
                   src={slide.image}

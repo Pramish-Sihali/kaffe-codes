@@ -9,13 +9,19 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-nunito)'],
+        'great-vibes': ['Great Vibes', 'cursive'],
       },
       colors: {
-        
-        // Adding your custom colors
+        // Existing custom colors
         'custom-green': '#007500',
         'custom-brown': '#87512F',
         'custom-white': '#FFFFFF',
+        
+        // New carousel colors
+        'coffee': {
+          DEFAULT: '#2A1810',
+          'gold': '#D4AF37',
+        }
       },
       maxWidth: {
         '7xl': '80rem',
@@ -31,6 +37,18 @@ module.exports = {
         '4xl': '2.5rem',     // 40px
         '5xl': '3rem',       // 48px
         '6xl': '4.75rem',    // 60px
+      },
+      animation: {
+        'float': 'float 6s ease-in-out infinite',
+        'float-delay-1': 'float 6s ease-in-out 1s infinite',
+        'float-delay-2': 'float 6s ease-in-out 2s infinite',
+        'float-delay-3': 'float 6s ease-in-out 3s infinite',
+      },
+      keyframes: {
+        float: {
+          '0%, 100%': { transform: 'translateY(0) rotate(var(--rotate, 0deg))' },
+          '50%': { transform: 'translateY(-20px) rotate(var(--rotate, 0deg))' },
+        }
       },
     },
   },

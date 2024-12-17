@@ -1,23 +1,20 @@
-// components/filters/FilterSection.tsx
 "use client";
 
 import { useState } from 'react';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
+import type { FilterState } from '@/types/products';
 
-interface FilterState {
-  brands: string[];
-  priceRange: [number, number];
+interface ExtendedFilterState extends FilterState {
   category: string[];
   discount: string[];
-  inStock: boolean;
 }
 
 interface FilterSectionProps {
   availableBrands: string[];
   availableCategories: string[];
-  onFiltersChange: (filters: FilterState) => void;
+  onFiltersChange: (filters: ExtendedFilterState) => void;
   onReset: () => void;
-  initialFilters: FilterState;
+  initialFilters: ExtendedFilterState;
 }
 
 export default function FilterSection({
@@ -27,7 +24,7 @@ export default function FilterSection({
   onReset,
   initialFilters
 }: FilterSectionProps) {
-  const [filters, setFilters] = useState<FilterState>(initialFilters);
+  const [filters, setFilters] = useState<ExtendedFilterState>(initialFilters);
   const [expanded, setExpanded] = useState({
     category: true,
     brands: true,
@@ -41,7 +38,7 @@ export default function FilterSection({
     setExpanded(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  const updateFilters = (newFilters: Partial<FilterState>) => {
+  const updateFilters = (newFilters: Partial<ExtendedFilterState>) => {
     const updatedFilters = { ...filters, ...newFilters };
     setFilters(updatedFilters);
     onFiltersChange(updatedFilters);
@@ -169,7 +166,8 @@ export default function FilterSection({
                     onChange={(e) => {
                       const value = parseInt(e.target.value.replace(/\D/g, ''));
                       updateFilters({
-                       });
+                        priceRange: [value || 0, filters.priceRange[1]]
+                      });
                     }}
                     className="w-full px-3 py-1.5 border rounded text-sm focus:ring-1 focus:ring-brown-500 focus:border-brown-500"
                   />
