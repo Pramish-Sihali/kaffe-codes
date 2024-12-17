@@ -20,8 +20,8 @@ interface ProductCarouselProps {
 export default function ProductCarousel({ slides }: ProductCarouselProps) {
   return (
     <div className="w-full bg-white">
-      <div className="max-w-7xl mx-auto">
-        <div className="relative h-[300px]">
+      <div className="max-w-7xl mx-auto relative">
+        <div className="h-[300px]">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
             spaceBetween={0}
@@ -56,18 +56,18 @@ export default function ProductCarousel({ slides }: ProductCarouselProps) {
           </Swiper>
 
           <button 
-            className="custom-prev absolute left-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-all"
+            className="custom-prev absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/90 rounded-full hover:bg-white shadow-md transition-all -translate-x-1/2"
             type="button"
             aria-label="Previous slide"
           >
-            <ChevronLeft className="w-5 h-5 text-white" />
+            <ChevronLeft className="w-6 h-6 text-gray-800" />
           </button>
           <button 
-            className="custom-next absolute right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center bg-white/10 rounded-full hover:bg-white/20 transition-all"
+            className="custom-next absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-white/90 rounded-full hover:bg-white shadow-md transition-all translate-x-1/2"
             type="button"
             aria-label="Next slide"
           >
-            <ChevronRight className="w-5 h-5 text-white" />
+            <ChevronRight className="w-6 h-6 text-gray-800" />
           </button>
 
           <div className="custom-pagination absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2" />

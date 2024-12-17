@@ -3,7 +3,7 @@
 
 import { createContext, useContext, useState, ReactNode } from 'react';
 
-interface ProfileData {
+export interface ProfileData {
   name: string;
   gender: string;
   dob: string;
@@ -20,14 +20,14 @@ interface UserContextType {
 }
 
 const defaultProfile: ProfileData = {
-  name: '',
-  gender: '',
-  dob: '',
-  mobile: '',
-  email: '',
-  image: '/images/default-avatar.png',
-  address: '',
-  zipCode: '',
+  name: 'Smarika Karki',
+  gender: 'Female',
+  dob: '2000-03-01',
+  mobile: '+977 9812345987',
+  email: 'smarikakarki@gmail.com',
+  image: '/images/birajDai.jpg',
+  address: 'Bishalnagar, Kathmandu',
+  zipCode: '4600'
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);

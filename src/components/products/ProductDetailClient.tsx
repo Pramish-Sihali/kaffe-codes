@@ -199,7 +199,7 @@ export default function ProductDetailClient({
               <Carousel 
                 itemsPerView={5}
                 autoPlayInterval={0}
-                showDots={true}
+           
                 showArrows={true}
                 className="px-2"
               >

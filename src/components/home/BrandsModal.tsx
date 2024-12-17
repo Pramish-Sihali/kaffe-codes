@@ -174,7 +174,8 @@ const BrandsModal: React.FC<BrandsModalProps> = ({ isOpen, onClose }) => {
                 {filteredBrands.map((brand) => (
                   <Link
                     key={brand.name}
-                    href={`/brands/${brand.name.toLowerCase().replace(/\s+/g, '-')}`}
+                    href={`/products?brand=${encodeURIComponent(brand.name)}`}
+                    onClick={() => onClose()}
                     className="group"
                   >
                     <div 

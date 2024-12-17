@@ -1,17 +1,5 @@
-// components/account/AccountProfile.tsx
 import Image from 'next/image';
-import { useState } from 'react';
-
-interface ProfileData {
-  name: string;
-  gender: string;
-  dob: string;
-  mobile: string;
-  email: string;
-  image: string;
-  address: string;
-  zipCode: string;
-}
+import type { ProfileData } from '@/context/UserContext';
 
 interface AccountProfileProps {
   profile: ProfileData;
@@ -21,16 +9,16 @@ interface AccountProfileProps {
 export default function AccountProfile({ profile, onUpdateProfile }: AccountProfileProps) {
   return (
     <div className="max-w-5xl mx-auto px-4 py-6">
-      <h1 className="text-2xl font-medium mb-8">My Account</h1>
+      <h1 className="text-xl font-medium mb-8">My Account</h1>
 
       <div className="grid md:grid-cols-12 gap-8">
         {/* Profile Image Section */}
         <div className="md:col-span-3">
-          <div className="bg-gray-200 p-6 rounded-lg">
+          <div className="bg-gray-50 p-6 rounded-lg">
             <div className="flex flex-col items-center">
-              <div className="relative w-40 h-40 rounded-full overflow-hidden mb-4">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4">
                 <Image
-                  src={profile.image || "/images/default-avatar.png"}
+                  src={profile.image || "/images/birajDai.jpg"}
                   alt="Profile"
                   fill
                   className="object-cover"
@@ -38,7 +26,7 @@ export default function AccountProfile({ profile, onUpdateProfile }: AccountProf
               </div>
               <button
                 onClick={() => onUpdateProfile('profile')}
-                className="text-sm text-gray-700 hover:text-gray-900 font-medium"
+                className="text-sm text-gray-700 hover:text-gray-900"
               >
                 Change Profile
               </button>
@@ -47,12 +35,12 @@ export default function AccountProfile({ profile, onUpdateProfile }: AccountProf
         </div>
 
         {/* Personal Details Section */}
-        <div className="md:col-span-5 bg-gray-200 rounded-lg p-6">
+        <div className="md:col-span-5 bg-gray-50 rounded-lg p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-medium">Personal Details</h2>
+            <h2 className="text-lg font-medium">Personal Details</h2>
             <button
               onClick={() => onUpdateProfile('personal')}
-              className="px-4 py-1 border border-gray-300 rounded bg-white text-gray-700 text-sm hover:border-gray-400"
+              className="text-sm text-gray-600 hover:text-gray-800"
             >
               Edit
             </button>
@@ -82,12 +70,12 @@ export default function AccountProfile({ profile, onUpdateProfile }: AccountProf
         </div>
 
         {/* Billing/Shipping Address Section */}
-        <div className="md:col-span-4 bg-gray-200 rounded-lg p-6">
+        <div className="md:col-span-4 bg-gray-50 rounded-lg p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-medium">Billing/ Shipping Address</h2>
+            <h2 className="text-lg font-medium">Billing/Shipping Address</h2>
             <button
               onClick={() => onUpdateProfile('address')}
-              className="px-4 py-1 border border-gray-300 rounded bg-white text-gray-700 text-sm hover:border-gray-400"
+              className="text-sm text-gray-600 hover:text-gray-800"
             >
               Edit
             </button>

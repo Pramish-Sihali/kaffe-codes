@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp, Search } from 'lucide-react';
 import type { FilterState } from '@/types/products';
 
@@ -34,12 +34,43 @@ export default function FilterSection({
   });
   const [brandSearch, setBrandSearch] = useState('');
 
+  // Update local filters when initialFilters change
+  useEffect(() => {
+    setFilters(initialFilters);
+  }, [initialFilters]);
+
   const toggleSection = (section: keyof typeof expanded) => {
     setExpanded(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
   const updateFilters = (newFilters: Partial<ExtendedFilterState>) => {
     const updatedFilters = { ...filters, ...newFilters };
+    setFilters(updatedFilters);
+    onFiltersChange(updatedFilters);
+  };
+
+  const handleReset = () => {
+    const resetFilters: ExtendedFilterState = {
+      brands: [],
+      priceRange: [0, 2500],
+      inStock: false,
+      category: [],
+      discount: []
+    };
+    setFilters(resetFilters);
+    onFiltersChange(resetFilters);
+    onReset();
+  };
+
+  const handleCategoryChange = (category: string) => {
+    const newCategories = filters.category.includes(category)
+      ? filters.category.filter(c => c !== category)
+      : [...filters.category, category];
+    
+    const updatedFilters = {
+      ...filters,
+      category: newCategories
+    };
     setFilters(updatedFilters);
     onFiltersChange(updatedFilters);
   };
@@ -53,7 +84,7 @@ export default function FilterSection({
       <div className="flex justify-between items-center bg-custom-brown text-white px-4 py-3 rounded-t">
         <h3 className="text-base font-medium">Filter by</h3>
         <button 
-          onClick={onReset}
+          onClick={handleReset}
           className="text-sm hover:underline"
         >
           Reset
@@ -77,12 +108,7 @@ export default function FilterSection({
                   <input
                     type="checkbox"
                     checked={filters.category.includes(category)}
-                    onChange={() => {
-                      const newCategories = filters.category.includes(category)
-                        ? filters.category.filter(c => c !== category)
-                        : [...filters.category, category];
-                      updateFilters({ category: newCategories });
-                    }}
+                    onChange={() => handleCategoryChange(category)}
                     className="w-4 h-4 border-gray-300 rounded text-brown-600 focus:ring-brown-500"
                   />
                   <span className="ml-2 text-gray-700">{category}</span>
