@@ -1,22 +1,19 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import Image from 'next/image';
-import ProductCard from './ProductCard';
 import { coffeeProducts } from '@/data/coffeeProducts';
 
 export default function CoffeeSelections() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const itemsPerGroup = 4;
-
   const totalGroups = Math.ceil(coffeeProducts.length / itemsPerGroup);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % totalGroups);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [totalGroups]);
 
@@ -30,42 +27,23 @@ export default function CoffeeSelections() {
 
   const getCurrentProducts = () => {
     const startIndex = currentIndex * itemsPerGroup;
-    return coffeeProducts.slice(startIndex, startIndex + itemsPerGroup);
+    const products = coffeeProducts.slice(startIndex, startIndex + itemsPerGroup);
+    while (products.length < itemsPerGroup) {
+      products.push(null);
+    }
+    return products;
   };
 
   return (
-    <section className="max-w-[1400px] mx-auto relative py-16">
-      {/* Header */}
+    <section className="relative py-16">
       <div className="text-center mb-12">
         <h2 className="text-2xl font-medium mb-1">Coffee Selections</h2>
         <p className="text-gray-600 text-sm">From Harvest to Happiness</p>
       </div>
 
-      {/* Main Content Container */}
-      <div className="relative flex items-center">
-        {/* Background Image Section */}
-        <div className="absolute left-0 w-[759px] h-[800px]">
-          <div className="relative w-full h-full overflow-hidden">
-            <Image
-              src="/images/coffee/beans.svg"
-              alt="Coffee Beans"
-              fill
-              className="object-cover"
-              style={{
-                filter: 'blur(2px)',
-                opacity: 0.7,
-                maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 60%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 60%, transparent 100%)',
-              }}
-              priority
-            />
-          </div>
-        </div>
-
-        {/* Products Grid Section - Positioned to overlap slightly with the faded image */}
-        <div className="ml-auto w-[750px] relative">
+      <div className="relative flex flex-row-reverse items-center">
+        <div className="w-[750px] relative z-10 pr-4 ml-auto">
           <div className="relative">
-            {/* Navigation Buttons */}
             <button 
               onClick={handlePrev}
               className="absolute -left-4 top-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center z-10 hover:bg-gray-50"
@@ -73,15 +51,47 @@ export default function CoffeeSelections() {
               <ChevronLeft className="w-4 h-4 text-gray-600" />
             </button>
 
-            {/* 2x2 Product Grid */}
-            <div className="grid grid-cols-2 gap-x-6 gap-y-8">
-              {getCurrentProducts().map((product) => (
-                <div key={product.id}>
-                  <ProductCard
-                    product={product}
-                    backgroundColor="bg-white"
-                    section="coffee"
-                  />
+            <div className="grid grid-cols-2 gap-6">
+              {getCurrentProducts().map((product, index) => (
+                <div 
+                  key={product?.id || `empty-${index}`} 
+                  className="h-[380px]"
+                >
+                  {product && (
+                    <div className="bg-white rounded-lg p-4 relative group h-full">
+                      <button className="absolute right-2 top-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Heart className="w-5 h-5 text-gray-400 hover:text-gray-600" />
+                      </button>
+                      <div className="relative h-[240px] mb-4">
+                        <Image
+                          src={product.image}
+                          alt={product.name}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <p className="text-xs text-gray-500 uppercase">{product.brand}</p>
+                        <h3 className="text-sm font-medium text-gray-900 line-clamp-2">{product.name}</h3>
+                        <div className="flex items-center gap-1">
+                          <div className="flex">
+                            {[...Array(5)].map((_, i) => (
+                              <span 
+                                key={i} 
+                                className={`text-sm ${i < product.rating ? 'text-yellow-400' : 'text-gray-200'}`}
+                              >
+                                ★
+                              </span>
+                            ))}
+                          </div>
+                          <span className="text-xs text-gray-500">({product.reviews})</span>
+                        </div>
+                        <p className="text-sm font-medium">
+                          NPR. {product.price.toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -94,7 +104,6 @@ export default function CoffeeSelections() {
             </button>
           </div>
 
-          {/* Pagination Dots */}
           <div className="flex justify-center gap-2 mt-8">
             {[...Array(totalGroups)].map((_, index) => (
               <button
@@ -108,6 +117,46 @@ export default function CoffeeSelections() {
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
+          </div>
+        </div>
+
+        <div className="w-[900px] h-[900px] absolute -left-32 top-1/2 -translate-y-1/2">
+          <div className="relative w-full h-full">
+            <div 
+              className="absolute inset-0 overflow-hidden"
+              style={{
+                maskImage: 'radial-gradient(circle at 40% 50%, black 30%, transparent 65%)',
+                WebkitMaskImage: 'radial-gradient(circle at 40% 50%, black 30%, transparent 65%)',
+              }}
+            >
+              <Image
+                src="/images/coffee/beans.svg"
+                alt="Coffee Beans"
+                fill
+                className="object-cover scale-150"
+                style={{
+                  filter: 'blur(1px)',
+                  opacity: 0.85,
+                }}
+                priority
+              />
+            </div>
+
+            <div 
+              className="absolute inset-0"
+              style={{
+                background: 'radial-gradient(circle at 40% 50%, transparent 20%, white 70%)',
+                filter: 'blur(20px)',
+              }}
+            />
+
+            <div 
+              className="absolute inset-0"
+              style={{
+                background: 'radial-gradient(circle at 40% 50%, transparent 40%, rgba(255,255,255,0.8) 60%, white 70%)',
+                mixBlendMode: 'overlay',
+              }}
+            />
           </div>
         </div>
       </div>
