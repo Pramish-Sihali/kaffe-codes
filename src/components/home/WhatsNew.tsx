@@ -53,7 +53,7 @@ export default function WhatsNew() {
             <div className="relative flex items-center gap-4">
               <button
                 onClick={handlePrevious}
-                className="p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors z-10"
+                className="p-2 bg-#F3EEEA rounded-full shadow-lg hover:bg-gray-100 transition-colors z-10"
                 aria-label="Previous slide"
               >
                 <ChevronLeft className="h-6 w-6" />

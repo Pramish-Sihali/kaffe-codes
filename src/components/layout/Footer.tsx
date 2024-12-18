@@ -1,26 +1,25 @@
 import React from 'react';
-import { Package2, Truck, HeadphonesIcon, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
-// import Link from 'next/navigation';
+import { CheckCircle, Truck, HelpCircle, RefreshCcw } from "lucide-react";
 
 const features = [
   {
-    icon: <Package2 className="w-6 h-6" />,
+    icon: <CheckCircle className="w-6 h-6" />,
     title: '100% authentic',
     description: 'Find a curated selection of 100% authentic products, ensuring trust and quality with every purchase'
   },
   {
     icon: <Truck className="w-6 h-6" />,
     title: 'Free Shipping',
-    description: 'On all orders above Rs 5000'
+    description: 'On all orders above Rs. 5000'
   },
   {
-    icon: <HeadphonesIcon className="w-6 h-6" />,
+    icon: <HelpCircle className="w-6 h-6" />,
     title: 'Experts Tips & Advice',
-    description: 'All products are quality free'
+    description: 'All products are cruelty free'
   },
   {
-    icon: <RefreshCw className="w-6 h-6" />,
+    icon: <RefreshCcw className="w-6 h-6" />,
     title: 'Easy returns',
     description: 'Enjoy effortless pickups and hassle-free refunds with our service'
   }
@@ -30,43 +29,19 @@ const Footer: React.FC = () => {
   return (
     <footer>
       {/* Features Section with white background */}
-      <div className="bg-brown">
-        <div className="max-w-7xl mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div 
-                key={index} 
-                className="
-                  text-center group p-6 rounded-xl transition-all duration-300
-                  hover:bg-[#F5EDE6]
-                "
-              >
-                <div className="
-                  inline-flex items-center justify-center w-12 h-12 rounded-xl
-                  bg-[#F5EDE6] text-gray mb-4 
-                  group-hover:scale-110 group-hover:bg-[#DEB887]
-                  group-hover:text-[#8B4513]
-                  transition-all duration-300
-                ">
-                  {feature.icon}
-                </div>
-                <h3 className="
-                  font-medium text-lg mb-2 text-gray
-                  group-hover:text-[#663300]
-                  transition-colors
-                ">
-                  {feature.title}
-                </h3>
-                <p className="
-                  text-sm text-gray
-                  group-hover:text-[#8B4513]
-                  transition-colors
-                ">
-                  {feature.description}
-                </p>
+      <div className="bg-white">
+        <div className="flex flex-wrap justify-between px-10 md:px-20 py-5 rounded-lg max-w-7xl mx-auto">
+          {features.map((feature, index) => (
+            <div key={index} className="flex flex-col gap-3 p-4 w-full sm:w-1/2 lg:w-1/4">
+              <div className="text-gray-700">
+                {feature.icon}
               </div>
-            ))}
-          </div>
+              <h3 className="font-medium text-xl mb-2 text-gray-800">{feature.title}</h3>
+              <p className="text-gray-600 lg:pr-12 font-normal text-base">
+                {feature.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -151,16 +126,6 @@ const Footer: React.FC = () => {
               </div>
             </div>
           </div>
-
-          {/* Bottom Bar
-          <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400">Copyright © 2024 Digitbox.Guru. All Rights Reserved.</p>
-            <div className="flex space-x-4 mt-4 md:mt-0">
-              <Link href="/privacy-policy" legacyBehavior><a className="text-gray-400 hover:text-[#DEB887] transition-colors">Privacy Policy</a></Link>
-              <span className="text-gray-400">•</span>
-              <Link href="/blogs" legacyBehavior><a className="text-gray-400 hover:text-[#DEB887] transition-colors">Blogs</a></Link>
-            </div>
-          </div> */}
         </div>
       </div>
     </footer>
