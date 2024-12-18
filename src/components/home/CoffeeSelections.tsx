@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { coffeeProducts } from '@/data/coffeeProducts';
+import ProductCard from '@/components/home/ProductCard';
 
 export default function CoffeeSelections() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -55,42 +56,14 @@ export default function CoffeeSelections() {
               {getCurrentProducts().map((product, index) => (
                 <div 
                   key={product?.id || `empty-${index}`} 
-                  className="h-[380px]"
+                  className="h-[410px]"
                 >
                   {product && (
-                    <div className="bg-white rounded-lg p-4 relative group h-full">
-                      <button className="absolute right-2 top-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Heart className="w-5 h-5 text-gray-400 hover:text-gray-600" />
-                      </button>
-                      <div className="relative h-[240px] mb-4">
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          fill
-                          className="object-contain"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <p className="text-xs text-gray-500 uppercase">{product.brand}</p>
-                        <h3 className="text-sm font-medium text-gray-900 line-clamp-2">{product.name}</h3>
-                        <div className="flex items-center gap-1">
-                          <div className="flex">
-                            {[...Array(5)].map((_, i) => (
-                              <span 
-                                key={i} 
-                                className={`text-sm ${i < product.rating ? 'text-yellow-400' : 'text-gray-200'}`}
-                              >
-                                ★
-                              </span>
-                            ))}
-                          </div>
-                          <span className="text-xs text-gray-500">({product.reviews})</span>
-                        </div>
-                        <p className="text-sm font-medium">
-                          NPR. {product.price.toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
+                    <ProductCard 
+                      product={product}
+                      section="coffee"
+                      backgroundColor="bg-white"
+                    />
                   )}
                 </div>
               ))}

@@ -1,15 +1,14 @@
-// components/home/TeaSelections.tsx
 "use client";
 
 import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-import { Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 import { teaProducts } from '@/data/teaProducts';
+import ProductCard from '@/components/home/ProductCard';
 
 export default function TeaSelections() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const productsPerPage = 6;
-
   const totalPages = Math.ceil(teaProducts.length / productsPerPage);
 
   const handleNext = () => {
@@ -46,40 +45,12 @@ export default function TeaSelections() {
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
                 {getCurrentProducts().map((product) => (
-                  <div key={product.id} className="relative group">
-                    <button className="absolute right-2 top-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Heart className="w-5 h-5 text-gray-400 hover:text-gray-600" />
-                    </button>
-                    <div className="bg-white p-4 rounded-lg">
-                      <div className="aspect-square relative mb-3">
-                        <Image
-                          src={product.image}
-                          alt={product.name}
-                          fill
-                          className="object-contain p-2"
-                        />
-                      </div>
-                      <div className="space-y-1">
-                        <p className="text-xs text-gray-500 uppercase">{product.brand}</p>
-                        <h3 className="text-sm text-gray-900 line-clamp-2">{product.name}</h3>
-                        <div className="flex items-center">
-                          <div className="flex">
-                            {[...Array(5)].map((_, i) => (
-                              <span 
-                                key={i} 
-                                className={`text-sm ${i < product.rating ? 'text-yellow-400' : 'text-gray-200'}`}
-                              >
-                                ★
-                              </span>
-                            ))}
-                          </div>
-                          <span className="text-xs text-gray-500 ml-1">({product.reviews})</span>
-                        </div>
-                        <p className="text-sm font-medium">
-                          NPR. {product.price.toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
+                  <div key={product.id} className="h-[410px]">
+                    <ProductCard 
+                      product={product}
+                      section="tea"
+                      backgroundColor="bg-white"
+                    />
                   </div>
                 ))}
               </div>
@@ -102,6 +73,7 @@ export default function TeaSelections() {
                       ? 'bg-brown-500 w-6'
                       : 'bg-gray-200 w-2 hover:bg-gray-300'
                   }`}
+                  aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
             </div>

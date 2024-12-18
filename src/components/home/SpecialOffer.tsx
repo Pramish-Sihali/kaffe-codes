@@ -17,7 +17,7 @@ export default function SpecialOffer() {
           </span>
           <div className="hidden md:block relative w-[200px] h-[160px]">
             <Image
-              src="/images/creamcake.png"
+              src="/images/creamcake.svg"
               alt="Special Offer"
               fill
               style={{ objectFit: 'contain' }}
