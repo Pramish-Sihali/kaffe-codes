@@ -47,7 +47,7 @@ export default function BlogsPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Hero Section */}
-      <div className="relative bg-brown-600 text-white py-16">
+      <div className="relative bg-custom-brown text-white py-16">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Our Blogs</h1>
           <p className="text-brown-100">Platform to run successful online business in Nepal</p>

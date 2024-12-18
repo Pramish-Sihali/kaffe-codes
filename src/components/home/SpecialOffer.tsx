@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function SpecialOffer() {
   return (
-    <div className="relative bg-neutral-900 text-white">
+    <div className="relative bg-custom-brown text-white">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <div>
           <h2 className="text-2xl md:text-3xl font-bold">

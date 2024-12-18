@@ -55,7 +55,7 @@ export default function ExclusiveBrownie() {
                   {brownieProducts.map((brownie) => (
                     <div 
                       key={brownie.id} 
-                      className="min-w-[calc(50%-12px)]"
+                      className="min-w-[calc(50%-14px)]"
                     >
                       <ProductCard 
                         product={brownie}
